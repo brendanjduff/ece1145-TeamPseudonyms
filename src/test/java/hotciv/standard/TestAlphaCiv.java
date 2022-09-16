@@ -59,6 +59,14 @@ public class TestAlphaCiv {
     assertThat(game.getPlayerInTurn(), is(Player.BLUE));
   }
 
+  @Test
+  public void shouldBeRedOnTurnThree() {
+    assertThat(game, is(notNullValue()));
+    game.endOfTurn();
+    game.endOfTurn();
+    assertThat(game.getPlayerInTurn(), is(Player.RED));
+  }
+
 
   /*@Test
   public void shouldDefinetelyBeRemoved() {
