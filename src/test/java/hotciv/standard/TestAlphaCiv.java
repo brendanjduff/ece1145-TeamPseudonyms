@@ -92,6 +92,12 @@ public class TestAlphaCiv {
     assertThat(game.getWinner(),is(Player.RED));
   }
 
+  @Test
+  public void shouldReturnTerrainAsPlains() {
+    TileImpl tile = new TileImpl(GameConstants.PLAINS);
+    assertThat(tile.getTypeString(), is(GameConstants.PLAINS));
+  }
+
   /*@Test
   public void shouldDefinetelyBeRemoved() {
     // Matching null and not null values
