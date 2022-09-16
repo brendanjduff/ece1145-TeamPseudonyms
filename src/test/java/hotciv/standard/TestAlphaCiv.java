@@ -124,7 +124,13 @@ public class TestAlphaCiv {
 
   @Test
   public void cityPopulationIsOne() {
-    City city = new CityImpl();
+    City city = new CityImpl(Player.RED);
     assertThat(city.getSize(),is(1));
+  }
+
+  @Test
+  public void cityIsOwnedByRed() {
+    City city = new CityImpl(Player.RED);
+    assertThat(city.getOwner(),is(Player.RED));
   }
 }
