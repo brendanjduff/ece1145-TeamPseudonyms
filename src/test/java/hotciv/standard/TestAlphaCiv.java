@@ -67,6 +67,12 @@ public class TestAlphaCiv {
     assertThat(game.getPlayerInTurn(), is(Player.RED));
   }
 
+  @Test
+  public void gameShouldStartAt4000BC() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getAge(), is(-4000));
+  }
+
 
   /*@Test
   public void shouldDefinetelyBeRemoved() {
