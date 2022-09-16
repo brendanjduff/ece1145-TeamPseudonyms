@@ -72,18 +72,15 @@ public class GameImpl implements Game {
 
   void createWorld() {
     tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-    for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        if(r == 0 && c == 1) {
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        if (r == 0 && c == 1) {
           tiles[r][c] = new TileImpl(GameConstants.OCEANS);
-        }
-        else if (r == 1 && c == 0) {
+        } else if (r == 1 && c == 0) {
           tiles[r][c] = new TileImpl(GameConstants.HILLS);
-        }
-        else if (r == 2 && c == 2) {
+        } else if (r == 2 && c == 2) {
           tiles[r][c] = new TileImpl(GameConstants.MOUNTAINS);
-        }
-        else {
+        } else {
           tiles[r][c] = new TileImpl(GameConstants.PLAINS);
         }
       }

@@ -121,4 +121,10 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     assertThat(game.getTileAt(new Position(13,12)).getTypeString(), is(GameConstants.PLAINS));
   }
+
+  @Test
+  public void cityPopulationIsOne() {
+    City city = new CityImpl();
+    assertThat(city.getSize(),is(1));
+  }
 }
