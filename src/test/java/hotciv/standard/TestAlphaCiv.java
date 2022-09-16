@@ -68,11 +68,19 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void gameShouldStartAt4000BC() {
+  public void shouldStartAt4000BC() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getAge(), is(-4000));
   }
 
+  @Test
+  public void shouldAge100YearsEachRound() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getAge(), is(-4000));
+    game.endOfTurn();
+    game.endOfTurn();
+    assertThat(game.getAge(), is(-4000+100));
+  }
 
   /*@Test
   public void shouldDefinetelyBeRemoved() {

@@ -35,17 +35,19 @@ public class GameImpl implements Game {
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
-    age = -4000;
+    age = STARTING_YEAR;
   }
 
-  Player[] players = new Player[2];
+  public final int STARTING_YEAR = -4000;
+  public final int NUM_PLAYERS = 2;
+  Player[] players = new Player[NUM_PLAYERS];
   int playerIndex;
   int age;
 
   public Tile getTileAt( Position p ) { return null; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
-  public Player getPlayerInTurn() { return players[playerIndex%2]; }
+  public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() { return null; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
@@ -53,6 +55,10 @@ public class GameImpl implements Game {
   }
   public void endOfTurn() {
     playerIndex++;
+    if(playerIndex % NUM_PLAYERS == 0) {
+      age += 100;
+      playerIndex = 0;
+    }
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
