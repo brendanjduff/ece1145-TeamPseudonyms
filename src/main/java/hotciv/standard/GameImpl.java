@@ -36,15 +36,17 @@ public class GameImpl implements Game {
     players[0] = Player.RED;
     players[1] = Player.BLUE;
     age = STARTING_YEAR;
+    createWorld();
   }
 
-  public final int STARTING_YEAR = -4000;
-  public final int NUM_PLAYERS = 2;
+  public static final int STARTING_YEAR = -4000;
+  public static final int NUM_PLAYERS = 2;
   Player[] players = new Player[NUM_PLAYERS];
   int playerIndex;
   int age;
+  Tile[][] tiles;
 
-  public Tile getTileAt( Position p ) { return null; }
+  public Tile getTileAt( Position p ) { return tiles[p.getColumn()][p.getRow()]; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return players[playerIndex]; }
@@ -69,4 +71,24 @@ public class GameImpl implements Game {
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
+
+  void createWorld() {
+    tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+    for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        if(r == 0 && c == 1) {
+          tiles[r][c] = new TileImpl(GameConstants.OCEANS);
+        }
+        else if (r == 1 && c == 0) {
+          tiles[r][c] = new TileImpl(GameConstants.HILLS);
+        }
+        else if (r == 2 && c == 2) {
+          tiles[r][c] = new TileImpl(GameConstants.MOUNTAINS);
+        }
+        else {
+          tiles[r][c] = new TileImpl(GameConstants.PLAINS);
+        }
+      }
+    }
+  }
 }

@@ -98,6 +98,30 @@ public class TestAlphaCiv {
     assertThat(tile.getTypeString(), is(GameConstants.PLAINS));
   }
 
+  @Test
+  public void positionR1C0ShouldReturnOcean() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(GameConstants.OCEANS));
+  }
+
+  @Test
+  public void positionR0C1ShouldReturnHills() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getTileAt(new Position(0,1)).getTypeString(), is(GameConstants.HILLS));
+  }
+
+  @Test
+  public void positionR2C2ShouldReturnMountains() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getTileAt(new Position(2,2)).getTypeString(), is(GameConstants.MOUNTAINS));
+  }
+
+  @Test
+  public void positionR13C12ShouldReturnPlains() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getTileAt(new Position(13,12)).getTypeString(), is(GameConstants.PLAINS));
+  }
+
   /*@Test
   public void shouldDefinetelyBeRemoved() {
     // Matching null and not null values
