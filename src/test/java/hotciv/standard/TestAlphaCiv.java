@@ -133,4 +133,14 @@ public class TestAlphaCiv {
     City city = new CityImpl(Player.RED);
     assertThat(city.getOwner(),is(Player.RED));
   }
+  @Test
+  public void cityAtR1C1BelongsToRed() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getCityAt(new Position(1,1)).getOwner(),is(Player.RED));
+  }
+  @Test
+  public void cityAtR4C1BelongsToRed() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
+  }
 }

@@ -2,6 +2,11 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.Map;
+import java.util.Set;
+
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 
@@ -37,16 +42,20 @@ public class GameImpl implements Game {
     players[1] = Player.BLUE;
     age = GameConstants.STARTING_YEAR;
     createWorld();
+    cities = new java.util.HashMap<Position, City>();
+    cities.put(new Position(1,1),new CityImpl(Player.RED));
+    cities.put(new Position(4,1),new CityImpl(Player.BLUE));
   }
 
   Player[] players = new Player[GameConstants.NUM_PLAYERS];
   int playerIndex;
   int age;
   Tile[][] tiles;
+  java.util.Map<Position, City> cities;
 
   public Tile getTileAt( Position p ) { return tiles[p.getColumn()][p.getRow()]; }
   public Unit getUnitAt( Position p ) { return null; }
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
     if(age == GameConstants.LAST_YEAR){
