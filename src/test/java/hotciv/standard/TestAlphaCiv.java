@@ -82,6 +82,16 @@ public class TestAlphaCiv {
     assertThat(game.getAge(), is(-4000+100));
   }
 
+  @Test
+  public void redShouldWinIn3000BC() {
+    assertThat(game, is(notNullValue()));
+    for(int i = 0; i<20; i++){
+      game.endOfTurn();
+    }
+    assertThat(game.getAge(), is(-3000));
+    assertThat(game.getWinner(),is(Player.RED));
+  }
+
   /*@Test
   public void shouldDefinetelyBeRemoved() {
     // Matching null and not null values
