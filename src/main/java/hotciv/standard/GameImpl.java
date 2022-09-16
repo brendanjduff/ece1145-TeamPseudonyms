@@ -35,13 +35,11 @@ public class GameImpl implements Game {
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
-    age = STARTING_YEAR;
+    age = GameConstants.STARTING_YEAR;
     createWorld();
   }
 
-  public static final int STARTING_YEAR = -4000;
-  public static final int NUM_PLAYERS = 2;
-  Player[] players = new Player[NUM_PLAYERS];
+  Player[] players = new Player[GameConstants.NUM_PLAYERS];
   int playerIndex;
   int age;
   Tile[][] tiles;
@@ -51,7 +49,7 @@ public class GameImpl implements Game {
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
-    if(age == -3000){
+    if(age == GameConstants.LAST_YEAR){
       return Player.RED;
     }else{
       return null;
@@ -63,7 +61,7 @@ public class GameImpl implements Game {
   }
   public void endOfTurn() {
     playerIndex++;
-    if(playerIndex % NUM_PLAYERS == 0) {
+    if(playerIndex % GameConstants.NUM_PLAYERS == 0) {
       age += 100;
       playerIndex = 0;
     }

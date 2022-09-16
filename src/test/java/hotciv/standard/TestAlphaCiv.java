@@ -70,25 +70,25 @@ public class TestAlphaCiv {
   @Test
   public void shouldStartAt4000BC() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(-4000));
+    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR));
   }
 
   @Test
   public void shouldAge100YearsEachRound() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(-4000));
+    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR));
     game.endOfTurn();
     game.endOfTurn();
-    assertThat(game.getAge(), is(-4000+100));
+    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR+100));
   }
 
   @Test
   public void redShouldWinIn3000BC() {
     assertThat(game, is(notNullValue()));
-    for(int i = 0; i<20; i++){
+    for(int i = 0; i < GameConstants.NUM_PLAYERS * 10; i++){
       game.endOfTurn();
     }
-    assertThat(game.getAge(), is(-3000));
+    assertThat(game.getAge(), is(GameConstants.LAST_YEAR));
     assertThat(game.getWinner(),is(Player.RED));
   }
 
@@ -121,28 +121,4 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     assertThat(game.getTileAt(new Position(13,12)).getTypeString(), is(GameConstants.PLAINS));
   }
-
-  /*@Test
-  public void shouldDefinetelyBeRemoved() {
-    // Matching null and not null values
-    // 'is' require an exact match
-    String s = null;
-    assertThat(s, is(nullValue()));
-    s = "Ok";
-    assertThat(s, is(notNullValue()));
-    assertThat(s, is("Ok"));
-
-    // If you only validate substrings, use containsString
-    assertThat("This is a dummy test", containsString("dummy"));
-
-    // Match contents of Lists
-    List<String> l = new ArrayList<String>();
-    l.add("Bimse");
-    l.add("Bumse");
-    // Note - ordering is ignored when matching using hasItems
-    assertThat(l, hasItems(new String[] {"Bumse","Bimse"}));
-
-    // Matchers may be combined, like is-not
-    assertThat(l.get(0), is(not("Bumse")));
-  }*/
 }
