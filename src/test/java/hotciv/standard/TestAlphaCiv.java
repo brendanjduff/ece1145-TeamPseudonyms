@@ -139,7 +139,7 @@ public class TestAlphaCiv {
     assertThat(game.getCityAt(new Position(1,1)).getOwner(),is(Player.RED));
   }
   @Test
-  public void cityAtR4C1BelongsToRed() {
+  public void cityAtR4C1BelongsToBlue() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
   }
