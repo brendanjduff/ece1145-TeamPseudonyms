@@ -111,9 +111,15 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void positionR13C12ShouldReturnPlains() {
+  public void allOtherPositionsShouldReturnPlains() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getTileAt(new Position(13,12)).getTypeString(), is(GameConstants.PLAINS));
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        if (!(r == 1 && c == 0) && !(r == 0 && c == 1) && !(r == 2 && c == 2)) {
+          assertThat(game.getTileAt(new Position(r,c)).getTypeString(), is(GameConstants.PLAINS));
+        }
+      }
+    }
   }
 
   @Test

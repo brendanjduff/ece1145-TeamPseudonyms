@@ -53,7 +53,7 @@ public class GameImpl implements Game {
   Tile[][] tiles;
   java.util.Map<Position, City> cities;
 
-  public Tile getTileAt( Position p ) { return tiles[p.getColumn()][p.getRow()]; }
+  public Tile getTileAt( Position p ) { return tiles[p.getRow()][p.getColumn()]; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
@@ -83,9 +83,9 @@ public class GameImpl implements Game {
     tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
     for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
       for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        if (r == 0 && c == 1) {
+        if (r == 1 && c == 0) {
           tiles[r][c] = new TileImpl(GameConstants.OCEANS);
-        } else if (r == 1 && c == 0) {
+        } else if (r == 0 && c == 1) {
           tiles[r][c] = new TileImpl(GameConstants.HILLS);
         } else if (r == 2 && c == 2) {
           tiles[r][c] = new TileImpl(GameConstants.MOUNTAINS);
