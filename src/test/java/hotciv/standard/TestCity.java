@@ -12,14 +12,20 @@ public class TestCity {
     private City city;
 
     @Test
-    public void cityPopulationIsOne() {
-        city = new CityImpl(Player.RED);
-        assertThat(city.getSize(),is(1));
-    }
-
-    @Test
     public void cityIsOwnedByRed() {
         city = new CityImpl(Player.RED);
         assertThat(city.getOwner(),is(Player.RED));
+    }
+
+    @Test
+    public void cityIsOwnedByBlue() {
+        city = new CityImpl(Player.BLUE);
+        assertThat(city.getOwner(),is(Player.BLUE));
+    }
+
+    @Test
+    public void cityPopulationIsOne() {
+        city = new CityImpl(Player.RED);
+        assertThat(city.getSize(),is(1));
     }
 }
