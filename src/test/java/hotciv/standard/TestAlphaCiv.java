@@ -93,12 +93,6 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldReturnTerrainAsPlains() {
-    TileImpl tile = new TileImpl(GameConstants.PLAINS);
-    assertThat(tile.getTypeString(), is(GameConstants.PLAINS));
-  }
-
-  @Test
   public void positionR1C0ShouldReturnOcean() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(GameConstants.OCEANS));
@@ -123,42 +117,14 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void cityPopulationIsOne() {
-    City city = new CityImpl(Player.RED);
-    assertThat(city.getSize(),is(1));
-  }
-
-  @Test
-  public void cityIsOwnedByRed() {
-    City city = new CityImpl(Player.RED);
-    assertThat(city.getOwner(),is(Player.RED));
-  }
-  @Test
   public void cityAtR1C1BelongsToRed() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getCityAt(new Position(1,1)).getOwner(),is(Player.RED));
   }
+
   @Test
   public void cityAtR4C1BelongsToBlue() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
-  }
-
-  @Test
-  public void unitTypeShouldBeArcher() {
-    Unit unit = new UnitImpl(GameConstants.ARCHER);
-    assertThat(unit.getTypeString(), is(GameConstants.ARCHER));
-  }
-
-  @Test
-  public void unitTypeShouldBeLegion() {
-    Unit unit = new UnitImpl(GameConstants.LEGION);
-    assertThat(unit.getTypeString(), is(GameConstants.LEGION));
-  }
-
-  @Test
-  public void unitTypeShouldBeSettler() {
-    Unit unit = new UnitImpl(GameConstants.SETTLER);
-    assertThat(unit.getTypeString(), is(GameConstants.SETTLER));
   }
 }
