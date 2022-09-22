@@ -143,4 +143,22 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
   }
+
+  @Test
+  public void unitTypeShouldBeArcher() {
+    Unit unit = new UnitImpl(GameConstants.ARCHER);
+    assertThat(unit.getTypeString(), is(GameConstants.ARCHER));
+  }
+
+  @Test
+  public void unitTypeShouldBeLegion() {
+    Unit unit = new UnitImpl(GameConstants.LEGION);
+    assertThat(unit.getTypeString(), is(GameConstants.LEGION));
+  }
+
+  @Test
+  public void unitTypeShouldBeSettler() {
+    Unit unit = new UnitImpl(GameConstants.SETTLER);
+    assertThat(unit.getTypeString(), is(GameConstants.SETTLER));
+  }
 }
