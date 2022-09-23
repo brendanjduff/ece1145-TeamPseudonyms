@@ -62,11 +62,10 @@ public interface City {
    */
   public String getWorkforceFocus();
 
-  /** called at the start of each turn
-   *  will add production to the treasury on the owners turn
-   * @param player the player whose turn it is
+  /** called at the end of each turn
+   *  handles production of units
    */
-  public boolean endOfTurn(Player player);
+  public boolean endOfTurn();
 
   public void setProduction(String unitType);
 
