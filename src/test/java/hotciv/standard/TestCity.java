@@ -28,4 +28,20 @@ public class TestCity {
         city = new CityImpl(Player.RED);
         assertThat(city.getSize(),is(1));
     }
+
+    @Test
+    public void cityProductionIsSixEachTurn() {
+        city = new CityImpl(Player.RED);
+        assertThat(city.getTreasury(), is(0));
+        city.startOfTurn(Player.RED);
+        assertThat(city.getTreasury(), is(6));
+    }
+
+    @Test
+    public void cityProductionDoesNotIncreaseOnOpponentsTurn() {
+        city = new CityImpl(Player.RED);
+        assertThat(city.getTreasury(), is(0));
+        city.startOfTurn(Player.BLUE);
+        assertThat(city.getTreasury(), is(0));
+    }
 }

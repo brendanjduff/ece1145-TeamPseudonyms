@@ -42,6 +42,7 @@ public class GameImpl implements Game {
     players[1] = Player.BLUE;
     age = GameConstants.STARTING_YEAR;
     createWorld();
+
     cities = new java.util.HashMap<Position, City>();
     cities.put(new Position(1,1),new CityImpl(Player.RED));
     cities.put(new Position(4,1),new CityImpl(Player.BLUE));
@@ -50,7 +51,6 @@ public class GameImpl implements Game {
     units.put(new Position(2, 0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     units.put(new Position(3, 2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
     units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
-
   }
 
   Player[] players = new Player[GameConstants.NUM_PLAYERS];

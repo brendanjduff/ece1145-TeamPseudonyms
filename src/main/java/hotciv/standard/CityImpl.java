@@ -6,8 +6,11 @@ public class CityImpl implements City {
 
     public CityImpl(Player owner) {
         this.owner = owner;
+        treasury = 0;
     }
     Player owner;
+    int treasury;
+
     @Override
     public Player getOwner() {
         return owner;
@@ -20,7 +23,7 @@ public class CityImpl implements City {
 
     @Override
     public int getTreasury() {
-        return 0;
+        return treasury;
     }
 
     @Override
@@ -31,5 +34,12 @@ public class CityImpl implements City {
     @Override
     public String getWorkforceFocus() {
         return null;
+    }
+
+    @Override
+    public void startOfTurn(Player player) {
+        if(player == owner) {
+            treasury += 6;
+        }
     }
 }
