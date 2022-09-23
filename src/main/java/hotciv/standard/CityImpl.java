@@ -38,14 +38,34 @@ public class CityImpl implements City {
     }
 
     @Override
-    public void startOfTurn(Player player) {
+    public boolean startOfTurn(Player player) {
         if(player == owner) {
             treasury += 6;
         }
+        return produceUnitIfAble();
     }
 
     @Override
     public void setProduction(String unitType) {
         production = unitType;
+    }
+
+    @Override
+    public boolean produceUnitIfAble() {
+        if (production == GameConstants.ARCHER && treasury >= 10) {
+            treasury -= 10;
+            return true;
+        }
+        else if (production == GameConstants.LEGION && treasury >= 15) {
+            treasury -= 15;
+            return true;
+        }
+        else if(production == GameConstants.SETTLER && treasury >= 30) {
+            treasury -= 30;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

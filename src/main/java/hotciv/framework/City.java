@@ -66,7 +66,9 @@ public interface City {
    *  will add production to the treasury on the owners turn
    * @param player the player whose turn it is
    */
-  public void startOfTurn(Player player);
+  public boolean startOfTurn(Player player);
 
   public void setProduction(String unitType);
+
+  public boolean produceUnitIfAble();
 }

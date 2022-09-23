@@ -65,4 +65,35 @@ public class TestCity {
         city.setProduction(GameConstants.SETTLER);
         assertThat(city.getProduction(), is(GameConstants.SETTLER));
     }
+
+    @Test
+    public void cityShouldProduceArcherAt10Production() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.ARCHER);
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.getTreasury(), is(2));
+    }
+
+    @Test
+    public void cityShouldProduceLegionAt15Production() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.LEGION);
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.getTreasury(), is(3));
+    }
+
+    @Test
+    public void cityShouldProduceSettlerAt30Production() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.SETTLER);
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(false));
+        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.getTreasury(), is(0));
+    }
 }
