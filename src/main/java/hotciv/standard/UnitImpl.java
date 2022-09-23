@@ -3,11 +3,13 @@ import hotciv.framework.*;
 
 public class UnitImpl implements Unit {
 
-    public UnitImpl(String type) {
+    public UnitImpl(String type, Player player) {
         unitType = type;
+        this.player = player;
     }
 
     String unitType;
+    Player player;
 
     @Override
     public String getTypeString() {
@@ -16,7 +18,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public Player getOwner() {
-        return null;
+        return player;
     }
 
     @Override
