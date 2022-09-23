@@ -67,4 +67,6 @@ public interface City {
    * @param player the player whose turn it is
    */
   public void startOfTurn(Player player);
+
+  public void setProduction(String unitType);
 }

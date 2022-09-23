@@ -44,4 +44,25 @@ public class TestCity {
         city.startOfTurn(Player.BLUE);
         assertThat(city.getTreasury(), is(0));
     }
+
+    @Test
+    public void shouldSetProductionTypeToArcher() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.ARCHER);
+        assertThat(city.getProduction(), is(GameConstants.ARCHER));
+    }
+
+    @Test
+    public void shouldSetProductionTypeToLegion() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.LEGION);
+        assertThat(city.getProduction(), is(GameConstants.LEGION));
+    }
+
+    @Test
+    public void shouldSetProductionTypeToSettler() {
+        city = new CityImpl(Player.RED);
+        city.setProduction(GameConstants.SETTLER);
+        assertThat(city.getProduction(), is(GameConstants.SETTLER));
+    }
 }

@@ -10,6 +10,7 @@ public class CityImpl implements City {
     }
     Player owner;
     int treasury;
+    String production;
 
     @Override
     public Player getOwner() {
@@ -28,7 +29,7 @@ public class CityImpl implements City {
 
     @Override
     public String getProduction() {
-        return null;
+        return production;
     }
 
     @Override
@@ -41,5 +42,10 @@ public class CityImpl implements City {
         if(player == owner) {
             treasury += 6;
         }
+    }
+
+    @Override
+    public void setProduction(String unitType) {
+        production = unitType;
     }
 }
