@@ -149,7 +149,7 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void unitAtR4C3IsArcherBelongsToRed() {
+  public void unitAtR4C3IsSettlerBelongsToRed() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getUnitAt(new Position(4,3)).getOwner(),is(Player.RED));
     assertThat(game.getUnitAt(new Position(4,3)).getTypeString(),is(GameConstants.SETTLER));
