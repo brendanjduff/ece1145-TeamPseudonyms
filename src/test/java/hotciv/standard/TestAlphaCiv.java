@@ -155,5 +155,10 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(new Position(4,3)).getTypeString(),is(GameConstants.SETTLER));
   }
 
-
+  @Test
+  public void productionAtCityR1C1IsArcher() {
+    assertThat(game, is(notNullValue()));
+    game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
+    assertThat(game.getCityAt(new Position(1,1)).getProduction(), is(GameConstants.ARCHER));
+  }
 }
