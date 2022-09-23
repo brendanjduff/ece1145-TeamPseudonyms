@@ -133,4 +133,27 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
   }
+
+  @Test
+  public void unitAtR2C0IsArcherBelongsToRed() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getUnitAt(new Position(2,0)).getOwner(),is(Player.RED));
+    assertThat(game.getUnitAt(new Position(2,0)).getTypeString(),is(GameConstants.ARCHER));
+  }
+
+  @Test
+  public void unitAtR3C2IsLegionBelongsToBlue() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getUnitAt(new Position(3,2)).getOwner(),is(Player.BLUE));
+    assertThat(game.getUnitAt(new Position(3,2)).getTypeString(),is(GameConstants.LEGION));
+  }
+
+  @Test
+  public void unitAtR4C3IsArcherBelongsToRed() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.getUnitAt(new Position(4,3)).getOwner(),is(Player.RED));
+    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(),is(GameConstants.SETTLER));
+  }
+
+
 }

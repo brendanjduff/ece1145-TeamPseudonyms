@@ -45,6 +45,12 @@ public class GameImpl implements Game {
     cities = new java.util.HashMap<Position, City>();
     cities.put(new Position(1,1),new CityImpl(Player.RED));
     cities.put(new Position(4,1),new CityImpl(Player.BLUE));
+
+    units = new java.util.HashMap<Position, Unit>();
+    units.put(new Position(2, 0), new UnitImpl(GameConstants.ARCHER, Player.RED));
+    units.put(new Position(3, 2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+    units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+
   }
 
   Player[] players = new Player[GameConstants.NUM_PLAYERS];
@@ -53,8 +59,10 @@ public class GameImpl implements Game {
   Tile[][] tiles;
   java.util.Map<Position, City> cities;
 
+  java.util.Map<Position, Unit> units;
+
   public Tile getTileAt( Position p ) { return tiles[p.getRow()][p.getColumn()]; }
-  public Unit getUnitAt( Position p ) { return null; }
+  public Unit getUnitAt( Position p ) { return units.get(p); }
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
