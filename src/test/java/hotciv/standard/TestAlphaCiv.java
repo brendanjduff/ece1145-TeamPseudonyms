@@ -161,4 +161,13 @@ public class TestAlphaCiv {
     game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
     assertThat(game.getCityAt(new Position(1,1)).getProduction(), is(GameConstants.ARCHER));
   }
+
+  @Test
+  public void attackingUnitAlwaysWins() {
+    assertThat(game, is(notNullValue()));
+    Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    Unit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
+
+    assertThat(game.battle(attacker,defender),is(true));
+  }
 }

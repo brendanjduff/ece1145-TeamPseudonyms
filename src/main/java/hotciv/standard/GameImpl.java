@@ -88,6 +88,7 @@ public class GameImpl implements Game {
     cities.get(p).setProduction((unitType));
   }
   public void performUnitActionAt( Position p ) {}
+  public boolean battle(Unit attacker, Unit defender) { return true;}
 
   void createWorld() {
     tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
