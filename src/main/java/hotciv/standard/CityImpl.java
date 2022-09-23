@@ -38,7 +38,7 @@ public class CityImpl implements City {
     }
 
     @Override
-    public boolean startOfTurn(Player player) {
+    public boolean endOfTurn(Player player) {
         if(player == owner) {
             treasury += 6;
         }

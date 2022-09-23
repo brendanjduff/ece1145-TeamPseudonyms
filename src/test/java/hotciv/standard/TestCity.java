@@ -6,8 +6,6 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.util.*;
-
 public class TestCity {
     private City city;
 
@@ -33,7 +31,7 @@ public class TestCity {
     public void cityProductionIsSixEachTurn() {
         city = new CityImpl(Player.RED);
         assertThat(city.getTreasury(), is(0));
-        city.startOfTurn(Player.RED);
+        city.endOfTurn(Player.RED);
         assertThat(city.getTreasury(), is(6));
     }
 
@@ -41,7 +39,7 @@ public class TestCity {
     public void cityProductionDoesNotIncreaseOnOpponentsTurn() {
         city = new CityImpl(Player.RED);
         assertThat(city.getTreasury(), is(0));
-        city.startOfTurn(Player.BLUE);
+        city.endOfTurn(Player.BLUE);
         assertThat(city.getTreasury(), is(0));
     }
 
@@ -70,8 +68,8 @@ public class TestCity {
     public void cityShouldProduceArcherAt10Production() {
         city = new CityImpl(Player.RED);
         city.setProduction(GameConstants.ARCHER);
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(true));
         assertThat(city.getTreasury(), is(2));
     }
 
@@ -79,9 +77,9 @@ public class TestCity {
     public void cityShouldProduceLegionAt15Production() {
         city = new CityImpl(Player.RED);
         city.setProduction(GameConstants.LEGION);
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(true));
         assertThat(city.getTreasury(), is(3));
     }
 
@@ -89,11 +87,11 @@ public class TestCity {
     public void cityShouldProduceSettlerAt30Production() {
         city = new CityImpl(Player.RED);
         city.setProduction(GameConstants.SETTLER);
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(false));
-        assertThat(city.startOfTurn(Player.RED), is(true));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(false));
+        assertThat(city.endOfTurn(Player.RED), is(true));
         assertThat(city.getTreasury(), is(0));
     }
 }

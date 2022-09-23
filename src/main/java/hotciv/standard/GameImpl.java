@@ -82,6 +82,7 @@ public class GameImpl implements Game {
       age += 100;
       playerIndex = 0;
     }
+
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {
