@@ -7,6 +7,8 @@ import java.util.Dictionary;
 import java.util.Map;
 import java.util.Set;
 
+import static hotciv.framework.GameConstants.WORLDSIZE;
+
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 
@@ -73,6 +75,7 @@ public class GameImpl implements Game {
     }
   }
   public int getAge() { return age; }
+
   public boolean moveUnit( Position from, Position to) {
     Unit unit = getUnitAt(from);
     if (unit.getOwner() == players[playerIndex]) {
@@ -128,9 +131,9 @@ public class GameImpl implements Game {
   public boolean battle(Unit attacker, Unit defender) { return true;}
 
   void createWorld() {
-    tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+    tiles = new Tile[WORLDSIZE][WORLDSIZE];
+    for (int r = 0; r < WORLDSIZE; r++) {
+      for (int c = 0; c < WORLDSIZE; c++) {
         if (r == 1 && c == 0) {
           tiles[r][c] = new TileImpl(GameConstants.OCEANS);
         } else if (r == 0 && c == 1) {
