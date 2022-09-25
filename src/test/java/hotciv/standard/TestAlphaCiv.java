@@ -6,8 +6,6 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.util.*;
-
 /** Skeleton class for AlphaCiv test cases
 
     Updated Oct 2015 for using Hamcrest matchers
@@ -70,25 +68,25 @@ public class TestAlphaCiv {
   @Test
   public void shouldStartAt4000BC() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR));
+    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR));
   }
 
   @Test
   public void shouldAge100YearsEachRound() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR));
+    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR));
     game.endOfTurn();
     game.endOfTurn();
-    assertThat(game.getAge(), is(GameConstants.STARTING_YEAR+100));
+    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR +100));
   }
 
   @Test
   public void redShouldWinIn3000BC() {
     assertThat(game, is(notNullValue()));
-    for(int i = 0; i < GameConstants.NUM_PLAYERS * 10; i++){
+    for(int i = 0; i < GameConstants.ALPHA_NUM_PLAYERS * 10; i++){
       game.endOfTurn();
     }
-    assertThat(game.getAge(), is(GameConstants.LAST_YEAR));
+    assertThat(game.getAge(), is(GameConstants.ALPHA_LAST_YEAR));
     assertThat(game.getWinner(),is(Player.RED));
   }
 

@@ -36,7 +36,7 @@ public class GameImpl implements Game {
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
-    age = GameConstants.STARTING_YEAR;
+    age = GameConstants.ALPHA_STARTING_YEAR;
     createWorld();
 
     cities = new java.util.HashMap<>();
@@ -49,7 +49,7 @@ public class GameImpl implements Game {
     units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
   }
 
-  Player[] players = new Player[GameConstants.NUM_PLAYERS];
+  Player[] players = new Player[GameConstants.ALPHA_NUM_PLAYERS];
   int playerIndex;
   int age;
   Tile[][] tiles;
@@ -62,7 +62,7 @@ public class GameImpl implements Game {
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
-    if(age == GameConstants.LAST_YEAR){
+    if(age == GameConstants.ALPHA_LAST_YEAR){
       return Player.RED;
     }else{
       return null;
@@ -95,7 +95,7 @@ public class GameImpl implements Game {
 
     // Change active player and age world if end of round
     playerIndex++;
-    if(playerIndex % GameConstants.NUM_PLAYERS == 0) {
+    if(playerIndex % GameConstants.ALPHA_NUM_PLAYERS == 0) {
       age += 100;
       playerIndex = 0;
     }
