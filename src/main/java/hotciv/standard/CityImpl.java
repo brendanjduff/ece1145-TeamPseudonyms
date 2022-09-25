@@ -38,18 +38,8 @@ public class CityImpl implements City {
     }
 
     @Override
-    public boolean endOfTurn() {
+    public boolean endOfTurnProduction() {
         treasury += 6;
-        return produceUnitIfAble();
-    }
-
-    @Override
-    public void setProduction(String unitType) {
-        production = unitType;
-    }
-
-    @Override
-    public boolean produceUnitIfAble() {
         if (production == GameConstants.ARCHER && treasury >= 10) {
             treasury -= 10;
             return true;
@@ -65,5 +55,10 @@ public class CityImpl implements City {
         else {
             return false;
         }
+    }
+
+    @Override
+    public void setProduction(String unitType) {
+        production = unitType;
     }
 }

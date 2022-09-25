@@ -65,9 +65,7 @@ public interface City {
   /** called at the end of each turn
    *  handles production of units
    */
-  public boolean endOfTurn();
+  public boolean endOfTurnProduction();
 
   public void setProduction(String unitType);
-
-  public boolean produceUnitIfAble();
 }

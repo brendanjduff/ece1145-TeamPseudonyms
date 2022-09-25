@@ -76,7 +76,7 @@ public class GameImpl implements Game {
     // City production for active player
     cities.forEach((position, city) -> {
       if(city.getOwner() == players[playerIndex]) {
-        if(city.endOfTurn()) {
+        if(city.endOfTurnProduction()) {
           if (!units.containsKey(position)) {
             units.put(position, new UnitImpl(city.getProduction(), players[playerIndex]));
           } else {
