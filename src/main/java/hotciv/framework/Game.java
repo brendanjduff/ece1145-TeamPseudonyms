@@ -91,7 +91,7 @@ public interface Game {
    * position and its "move" is intact (it can be moved to another
    * position.)
    */
-  public boolean moveUnit( Position from, Position to, Unit unit);
+  public boolean moveUnit( Position from, Position to );
   
   /** Tell the game that the current player has
    * finished his/her turn. The next player is then 

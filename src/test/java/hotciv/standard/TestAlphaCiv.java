@@ -198,7 +198,9 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(new Position(4,0)).getTypeString(), is(GameConstants.LEGION));
     for(int i = 0; i < 4; i++) { game.endOfTurn(); }
     assertThat(game.getUnitAt(new Position(3,0)).getTypeString(), is(GameConstants.LEGION));
+  }
 
+  @Test
   public void attackingUnitAlwaysWins() {
     assertThat(game, is(notNullValue()));
     Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
