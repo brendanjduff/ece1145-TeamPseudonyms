@@ -215,6 +215,7 @@ public class TestAlphaCiv {
     assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(false));
   }
 
+
   @Test
   public void unitCannotMoveFurtherThanMoveCount() {
     assertThat(game, is(notNullValue()));
@@ -227,7 +228,55 @@ public class TestAlphaCiv {
   @Test
   public void unitCannotMoveMoreThanOneAtOnce() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.moveUnit(new Position(2,0), new Position(4,0)), is(false));
+    assertThat(game.moveUnit(new Position(2, 0), new Position(4, 0)), is(false));
+  }
+
+  @Test
+  public void cannotMoveIntoAllyUnit() {
+    assertThat(game, is(notNullValue()));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(true));
+    assertThat(game.moveUnit(new Position(4,3), new Position(3,3)), is(true));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.moveUnit(new Position(2,1), new Position(1,1)), is(true));
+    assertThat(game.moveUnit(new Position(3,3), new Position(2,3)), is(true));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.moveUnit(new Position(1,1), new Position(1,2)), is(true));
+    assertThat(game.moveUnit(new Position(2,3), new Position(1,3)), is(true));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.moveUnit(new Position(1,2), new Position(1,3)), is(false));
+    assertThat(game.moveUnit(new Position(1,3), new Position(1,2)), is(false));
+  }
+
+  @Test
+  public void attackerMovesOnBattleWin() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(true));
+    game.endOfTurn();
+    assertThat(game.moveUnit(new Position(3,2), new Position(2,1)), is(true));
+    assertThat(game.getUnitAt(new Position(2,1)).getOwner(), is(Player.BLUE));
+  }
+
+  @Test
+  public void takeOverOpponentsCityByMovingIntoIt() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(3,1)), is(true));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.BLUE));
+    assertThat(game.moveUnit(new Position(3,1), new Position(4,1)), is(true));
+    assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.RED));
+  }
+
+  @Test
+  public void moveIntoOwnCity() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(1,1)), is(true));
+  }
+
+  @Test
+  public void cannotMoveOpponentsUnit() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(3,2), new Position(3,1)), is(false));
   }
 
   @Test
