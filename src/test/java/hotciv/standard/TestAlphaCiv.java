@@ -211,6 +211,22 @@ public class TestAlphaCiv {
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
+    game.getUnitAt(new Position(2,0)).setMoveCount(0);
     assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(false));
+  }
+
+  @Test
+  public void unitCannotMoveFurtherThanMoveCount() {
+    assertThat(game, is(notNullValue()));
+    game.moveUnit(new Position(2,0), new Position(2,1));
+    assertThat(game.getUnitAt(new Position(2,1)).getTypeString(), is(GameConstants.ARCHER));
+    assertThat(game.getUnitAt(new Position(2,1)).getMoveCount(), is(0));
+    assertThat(game.moveUnit(new Position(2,1), new Position(3,1)),is(false));
+  }
+
+  @Test
+  public void unitCannotMoveMoreThanOneAtOnce() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(4,0)), is(false));
   }
 }

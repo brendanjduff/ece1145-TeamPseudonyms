@@ -72,7 +72,7 @@ public class GameImpl implements Game {
 
   public boolean moveUnit( Position from, Position to) {
     Unit unit = getUnitAt(from);
-    if (unit.getOwner() == players[playerIndex]) {
+    if (unit.getOwner() != players[playerIndex]) {
       return false;
     } else if (to.getColumn() < 0 || to.getColumn() > GameConstants.WORLDSIZE
             || to.getRow() < 0 || to.getRow() > GameConstants.WORLDSIZE) {
@@ -98,10 +98,11 @@ public class GameImpl implements Game {
       } else {
         return false;
       }
+    } else {
+      units.put(to, unit);
+      units.remove(from);
     }
-
-    units.put(to, unit);
-    units.remove(from);
+    unit.setMoveCount(0);
 
     if (cities.containsKey(to)) {
       if(cities.get(to).getOwner() != players[playerIndex]) {
@@ -128,6 +129,12 @@ public class GameImpl implements Game {
             }
           }
         }
+      }
+    });
+
+    units.forEach((position, unit) -> {
+      if(unit.getOwner() == players[playerIndex]) {
+        unit.setMoveCount(1);
       }
     });
 

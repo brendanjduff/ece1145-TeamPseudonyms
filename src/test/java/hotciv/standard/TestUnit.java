@@ -40,4 +40,12 @@ public class TestUnit {
         unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
         assertThat(unit.getOwner(), is(Player.BLUE));
     }
+
+    @Test
+    public void unitCanHaveMovementChanged() {
+        unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
+        assertThat(unit.getMoveCount(), is(1));
+        unit.setMoveCount(0);
+        assertThat(unit.getMoveCount(), is(0));
+    }
 }

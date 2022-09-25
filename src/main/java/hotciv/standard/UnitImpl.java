@@ -6,10 +6,13 @@ public class UnitImpl implements Unit {
     public UnitImpl(String type, Player player) {
         unitType = type;
         this.player = player;
+        movement = 1;
     }
 
     String unitType;
     Player player;
+
+    int movement;
 
     @Override
     public String getTypeString() {
@@ -23,7 +26,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getMoveCount() {
-        return 0;
+        return movement;
     }
 
     @Override
@@ -35,4 +38,7 @@ public class UnitImpl implements Unit {
     public int getAttackingStrength() {
         return 0;
     }
+
+    @Override
+    public void setMoveCount(int count) { movement = count;}
 }
