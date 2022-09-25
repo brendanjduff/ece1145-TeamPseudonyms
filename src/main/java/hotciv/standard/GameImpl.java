@@ -3,6 +3,8 @@ package hotciv.standard;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 
+import static hotciv.framework.GameConstants.WORLDSIZE;
+
 /** Skeleton implementation of HotCiv.
 
    This source code is from the book
@@ -69,8 +71,46 @@ public class GameImpl implements Game {
     }
   }
   public int getAge() { return age; }
-  public boolean moveUnit( Position from, Position to ) {
-    return false;
+
+  public boolean moveUnit( Position from, Position to) {
+    Unit unit = getUnitAt(from);
+    if (unit.getOwner() == players[playerIndex]) {
+      return false;
+    } else if (to.getColumn() < 0 || to.getColumn() > GameConstants.WORLDSIZE
+            || to.getRow() < 0 || to.getRow() > GameConstants.WORLDSIZE) {
+      return false;
+    } else if (tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.MOUNTAINS ||
+            tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.OCEANS) {
+      return false;
+    } else if (Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount() ||
+            Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
+      return false;
+    }
+
+    if (units.containsKey(to)) {
+      if(units.get(to).getOwner() != players[playerIndex]) {
+        if(battle(unit, units.get(to))) {
+          units.remove(to);
+          units.put(to, unit);
+          units.remove(from);
+        } else {
+          units.remove(from);
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+
+    units.put(to, unit);
+    units.remove(from);
+
+    if (cities.containsKey(to)) {
+      if(cities.get(to).getOwner() != players[playerIndex]) {
+        cities.get(to).setOwner(players[playerIndex]);
+      }
+    }
+    return true;
   }
   public void endOfTurn() {
     // City production for active player
@@ -105,11 +145,12 @@ public class GameImpl implements Game {
     cities.get(p).setProduction((unitType));
   }
   public void performUnitActionAt( Position p ) {}
+  public boolean battle(Unit attacker, Unit defender) { return true;}
 
   void createWorld() {
-    tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+    tiles = new Tile[WORLDSIZE][WORLDSIZE];
+    for (int r = 0; r < WORLDSIZE; r++) {
+      for (int c = 0; c < WORLDSIZE; c++) {
         if (r == 1 && c == 0) {
           tiles[r][c] = new TileImpl(GameConstants.OCEANS);
         } else if (r == 0 && c == 1) {

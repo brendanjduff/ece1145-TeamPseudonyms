@@ -91,7 +91,7 @@ public interface Game {
    * position and its "move" is intact (it can be moved to another
    * position.)
    */
-  public boolean moveUnit( Position from, Position to );
+  public boolean moveUnit( Position from, Position to, Unit unit);
   
   /** Tell the game that the current player has
    * finished his/her turn. The next player is then 
@@ -133,5 +133,6 @@ public interface Game {
    * @param p the position of a unit that must perform its action.
    * Nothing happens in case the unit has no associated action.
    */
-  public void performUnitActionAt( Position p );  
+  public void performUnitActionAt( Position p );
+  public boolean battle(Unit attacker, Unit defender);
 }

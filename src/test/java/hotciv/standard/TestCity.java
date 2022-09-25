@@ -85,5 +85,11 @@ public class TestCity {
         assertThat(city.endOfTurnProduction(), is(false));
         assertThat(city.endOfTurnProduction(), is(true));
         assertThat(city.getTreasury(), is(0));
+
+    public void shouldChangeCityOwnerFromRedToBlue() {
+        city = new CityImpl(Player.RED);
+        assertThat(city.getOwner(), is(Player.RED));
+        city.setOwner(Player.BLUE);
+        assertThat(city.getOwner(), is(Player.BLUE));
     }
 }

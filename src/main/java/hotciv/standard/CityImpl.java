@@ -61,4 +61,9 @@ public class CityImpl implements City {
     public void setProduction(String unitType) {
         production = unitType;
     }
+
+    @Override
+    public void setOwner(Player player) {
+        owner = player;
+    }
 }

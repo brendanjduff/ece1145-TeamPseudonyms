@@ -199,5 +199,16 @@ public class TestAlphaCiv {
     for(int i = 0; i < 4; i++) { game.endOfTurn(); }
     assertThat(game.getUnitAt(new Position(3,0)).getTypeString(), is(GameConstants.LEGION));
 
+  public void attackingUnitAlwaysWins() {
+    assertThat(game, is(notNullValue()));
+    Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    Unit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
+    assertThat(game.battle(attacker,defender),is(true));
+  }
+
+  @Test
+  public void unitMustHaveMovementToMove() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(false));
   }
 }

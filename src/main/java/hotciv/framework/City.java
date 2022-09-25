@@ -68,4 +68,6 @@ public interface City {
   public boolean endOfTurnProduction();
 
   public void setProduction(String unitType);
+
+  public void setOwner(Player player);
 }
