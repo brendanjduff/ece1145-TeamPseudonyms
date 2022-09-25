@@ -161,4 +161,45 @@ public class TestAlphaCiv {
     game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
     assertThat(game.getCityAt(new Position(1,1)).getProduction(), is(GameConstants.ARCHER));
   }
+
+  @Test
+  public void redCityShouldProduceUnitsOnUnoccupiedTilesInClockwiseDirection() {
+    assertThat(game, is(notNullValue()));
+    game.changeProductionInCityAt(new Position(1,1), GameConstants.ARCHER);
+    for(int i = 0; i < 3; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(1,1)).getTypeString(), is(GameConstants.ARCHER));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(0,1)).getTypeString(), is(GameConstants.ARCHER));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(0,2)).getTypeString(), is(GameConstants.ARCHER));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(1,2)).getTypeString(), is(GameConstants.ARCHER));
+    for(int i = 0; i < 2; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(2,1)).getTypeString(), is(GameConstants.ARCHER));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(0,0)).getTypeString(), is(GameConstants.ARCHER));
+  }
+
+  @Test
+  public void blueCityShouldProduceUnitsOnUnoccupiedTilesInClockwiseDirection() {
+    assertThat(game, is(notNullValue()));
+    game.changeProductionInCityAt(new Position(4,1), GameConstants.LEGION);
+    for(int i = 0; i < 6; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(4,1)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 6; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(4,2)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(5,2)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 6; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(5,1)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(5,0)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 6; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(4,0)).getTypeString(), is(GameConstants.LEGION));
+    for(int i = 0; i < 4; i++) { game.endOfTurn(); }
+    assertThat(game.getUnitAt(new Position(3,0)).getTypeString(), is(GameConstants.LEGION));
+
+  }
 }

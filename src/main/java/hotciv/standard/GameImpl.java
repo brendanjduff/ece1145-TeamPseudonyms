@@ -1,31 +1,27 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
-
-import java.util.Collection;
-import java.util.Dictionary;
-import java.util.Map;
-import java.util.Set;
+import hotciv.utility.Utility;
 
 /** Skeleton implementation of HotCiv.
- 
-   This source code is from the book 
+
+   This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
-   Author: 
-     Henrik B Christensen 
+   Author:
+     Henrik B Christensen
      Department of Computer Science
      Aarhus University
-   
+
    Please visit http://www.baerbak.com/ for further information.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
- 
+
        http://www.apache.org/licenses/LICENSE-2.0
- 
+
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,11 +39,11 @@ public class GameImpl implements Game {
     age = GameConstants.STARTING_YEAR;
     createWorld();
 
-    cities = new java.util.HashMap<Position, City>();
+    cities = new java.util.HashMap<>();
     cities.put(new Position(1,1),new CityImpl(Player.RED));
     cities.put(new Position(4,1),new CityImpl(Player.BLUE));
 
-    units = new java.util.HashMap<Position, Unit>();
+    units = new java.util.HashMap<>();
     units.put(new Position(2, 0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     units.put(new Position(3, 2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
     units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
@@ -77,12 +73,32 @@ public class GameImpl implements Game {
     return false;
   }
   public void endOfTurn() {
+    // City production for active player
+    cities.forEach((position, city) -> {
+      if(city.getOwner() == players[playerIndex]) {
+        if(city.endOfTurn()) {
+          if (!units.containsKey(position)) {
+            units.put(position, new UnitImpl(city.getProduction(), players[playerIndex]));
+          } else {
+            for (Position p : Utility.get8neighborhoodOf(position)) {
+              if (!units.containsKey(p) &&
+                      tiles[p.getRow()][p.getColumn()].getTypeString() != GameConstants.OCEANS &&
+                      tiles[p.getRow()][p.getColumn()].getTypeString() != GameConstants.MOUNTAINS) {
+                units.put(p, new UnitImpl(city.getProduction(), players[playerIndex]));
+                break;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Change active player and age world if end of round
     playerIndex++;
     if(playerIndex % GameConstants.NUM_PLAYERS == 0) {
       age += 100;
       playerIndex = 0;
     }
-
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {
