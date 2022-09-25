@@ -69,4 +69,6 @@ public interface City {
   public void startOfTurn(Player player);
 
   public void setProduction(String unitType);
+
+  public void setOwner(Player player);
 }

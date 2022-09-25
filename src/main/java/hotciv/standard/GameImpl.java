@@ -73,8 +73,45 @@ public class GameImpl implements Game {
     }
   }
   public int getAge() { return age; }
-  public boolean moveUnit( Position from, Position to ) {
-    return false;
+  public boolean moveUnit( Position from, Position to) {
+    Unit unit = getUnitAt(from);
+    if (unit.getOwner() == players[playerIndex]) {
+      return false;
+    } else if (to.getColumn() < 0 || to.getColumn() > GameConstants.WORLDSIZE
+            || to.getRow() < 0 || to.getRow() > GameConstants.WORLDSIZE) {
+      return false;
+    } else if (tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.MOUNTAINS ||
+            tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.OCEANS) {
+      return false;
+    } else if (Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount() ||
+            Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
+      return false;
+    }
+
+    if (units.containsKey(to)) {
+      if(units.get(to).getOwner() != players[playerIndex]) {
+        if(battle(unit, units.get(to))) {
+          units.remove(to);
+          units.put(to, unit);
+          units.remove(from);
+        } else {
+          units.remove(from);
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+
+    units.put(to, unit);
+    units.remove(from);
+
+    if (cities.containsKey(to)) {
+      if(cities.get(to).getOwner() != players[playerIndex]) {
+        cities.get(to).setOwner(players[playerIndex]);
+      }
+    }
+    return true;
   }
   public void endOfTurn() {
     playerIndex++;

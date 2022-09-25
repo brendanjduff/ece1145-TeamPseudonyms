@@ -65,4 +65,12 @@ public class TestCity {
         city.setProduction(GameConstants.SETTLER);
         assertThat(city.getProduction(), is(GameConstants.SETTLER));
     }
+
+    @Test
+    public void shouldChangeCityOwnerFromRedToBlue() {
+        city = new CityImpl(Player.RED);
+        assertThat(city.getOwner(), is(Player.RED));
+        city.setOwner(Player.BLUE);
+        assertThat(city.getOwner(), is(Player.BLUE));
+    }
 }
