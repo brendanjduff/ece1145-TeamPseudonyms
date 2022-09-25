@@ -229,4 +229,44 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     assertThat(game.moveUnit(new Position(2,0), new Position(4,0)), is(false));
   }
+
+  @Test
+  public void unitCannotMoveOntoOceanOrMountain() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(1,0)), is(false));
+    game.moveUnit(new Position(2,0), new Position(2,1));
+    game.endOfTurn();
+    game.endOfTurn();
+    assertThat(game.getUnitAt(new Position(2,1)).getMoveCount(), is(1));
+    assertThat(game.moveUnit(new Position(2,1), new Position(2,2)), is(false));
+  }
+
+  @Test
+  public void unitCannotGoBeyondMapBounds() {
+    assertThat(game.moveUnit(new Position(2,0), new Position(2,-1)), is(false));
+    game.moveUnit(new Position(2,0), new Position(2,1));
+    game.endOfTurn();
+    game.endOfTurn();
+    game.moveUnit(new Position(2,1), new Position(1,2));
+    game.endOfTurn();
+    game.endOfTurn();
+    game.moveUnit(new Position(1,2), new Position(0,2));
+    game.endOfTurn();
+    game.endOfTurn();
+    assertThat(game.moveUnit(new Position(0,2), new Position(-1,2)), is(false));
+    for(int i = 2; i < 15;i++){
+      game.moveUnit(new Position(0,i), new Position(0,i+1));
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+    assertThat(game.getUnitAt(new Position(0,15)).getTypeString(), is(GameConstants.ARCHER));
+    assertThat(game.moveUnit(new Position(0,15), new Position(0,16)), is(false));
+    for(int i = 0; i < 15;i++){
+      game.moveUnit(new Position(i,15), new Position(i+1,15));
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+    assertThat(game.getUnitAt(new Position(15,15)).getTypeString(), is(GameConstants.ARCHER));
+    assertThat(game.moveUnit(new Position(15,15), new Position(16,15)), is(false));
+  }
 }

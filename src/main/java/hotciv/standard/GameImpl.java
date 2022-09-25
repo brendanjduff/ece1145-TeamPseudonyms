@@ -74,8 +74,8 @@ public class GameImpl implements Game {
     Unit unit = getUnitAt(from);
     if (unit.getOwner() != players[playerIndex]) {
       return false;
-    } else if (to.getColumn() < 0 || to.getColumn() > GameConstants.WORLDSIZE
-            || to.getRow() < 0 || to.getRow() > GameConstants.WORLDSIZE) {
+    } else if (to.getColumn() < 0 || to.getColumn() >= GameConstants.WORLDSIZE
+            || to.getRow() < 0 || to.getRow() >= GameConstants.WORLDSIZE) {
       return false;
     } else if (tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.MOUNTAINS ||
             tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.OCEANS) {
