@@ -170,4 +170,11 @@ public class TestAlphaCiv {
 
     assertThat(game.battle(attacker,defender),is(true));
   }
+
+  @Test
+  public void unitMustHaveMovementToMove() {
+    assertThat(game, is(notNullValue()));
+    Unit unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+    assertThat(game.moveUnit(new Position(1,1), new Position(1,2),unit), is(false));
+  }
 }

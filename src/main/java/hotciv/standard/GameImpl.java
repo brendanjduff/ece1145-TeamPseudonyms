@@ -7,6 +7,8 @@ import java.util.Dictionary;
 import java.util.Map;
 import java.util.Set;
 
+import static hotciv.framework.GameConstants.WORLDSIZE;
+
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 
@@ -73,8 +75,18 @@ public class GameImpl implements Game {
     }
   }
   public int getAge() { return age; }
-  public boolean moveUnit( Position from, Position to ) {
-    return false;
+  public boolean moveUnit( Position from, Position to, Unit unit) {
+    if(unit.getMoveCount() == 0){
+      return false;
+    } else if (to.getColumn() > WORLDSIZE || to.getRow() > WORLDSIZE){
+      return false;
+    } else if (to.toString() == "[1,0]" || to.toString() == "[0,1]" || to.toString() == "[2,2]") {
+      return false;
+    } else if (Math.abs(from.getRow() - to.getRow()) > 1 || Math.abs(from.getColumn() - to.getColumn()) > 1){
+      return false;
+    } else {
+      return true;
+    }
   }
   public void endOfTurn() {
     playerIndex++;
@@ -91,9 +103,9 @@ public class GameImpl implements Game {
   public boolean battle(Unit attacker, Unit defender) { return true;}
 
   void createWorld() {
-    tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+    tiles = new Tile[WORLDSIZE][WORLDSIZE];
+    for (int r = 0; r < WORLDSIZE; r++) {
+      for (int c = 0; c < WORLDSIZE; c++) {
         if (r == 1 && c == 0) {
           tiles[r][c] = new TileImpl(GameConstants.OCEANS);
         } else if (r == 0 && c == 1) {
