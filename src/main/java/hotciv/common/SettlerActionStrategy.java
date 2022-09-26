@@ -4,4 +4,5 @@ package hotciv.common;
  */
 
 public interface SettlerActionStrategy {
+    // TODO: Step 1, define interface
 }

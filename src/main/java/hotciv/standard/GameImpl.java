@@ -154,6 +154,7 @@ public class GameImpl implements Game {
   public void changeProductionInCityAt( Position p, String unitType ) {
     cities.get(p).setProduction((unitType));
   }
+  // TODO: Step 3, Add behavior from archerActionStrategy and SettlerActionStrategy
   public void performUnitActionAt( Position p ) {}
   public boolean battle(Unit attacker, Unit defender) { return true;}
 
