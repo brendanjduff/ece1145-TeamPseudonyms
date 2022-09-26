@@ -51,17 +51,9 @@ public class GameImpl implements Game {
     players[1] = Player.BLUE;
     age = -4000;
 
-    // TODO: Step 3, Replace with behavior from worldLayoutStrategy
-    defineWorld();
-
-    cities = new java.util.HashMap<>();
-    cities.put(new Position(1,1),new CityImpl(Player.RED));
-    cities.put(new Position(4,1),new CityImpl(Player.BLUE));
-
-    units = new java.util.HashMap<>();
-    units.put(new Position(2, 0), new UnitImpl(GameConstants.ARCHER, Player.RED));
-    units.put(new Position(3, 2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-    units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+    tiles = worldLayoutStrategy.placeTiles();
+    cities = worldLayoutStrategy.placeCities();
+    units = worldLayoutStrategy.placeUnits();
   }
 
   Player[] players = new Player[2];
@@ -167,22 +159,4 @@ public class GameImpl implements Game {
   }
   public void performUnitActionAt( Position p ) {}
   public boolean battle(Unit attacker, Unit defender) { return true;}
-
-  // TODO: Step 3, Remove this function
-  void defineWorld() {
-    tiles = new HashMap<Position, Tile>();
-    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        if (r == 1 && c == 0) {
-          tiles.put(new Position(r,c), new TileImpl(GameConstants.OCEANS));
-        } else if (r == 0 && c == 1) {
-          tiles.put(new Position(r,c), new TileImpl(GameConstants.HILLS));
-        } else if (r == 2 && c == 2) {
-          tiles.put(new Position(r,c), new TileImpl(GameConstants.MOUNTAINS));
-        } else {
-          tiles.put(new Position(r,c), new TileImpl(GameConstants.PLAINS));
-        }
-      }
-    }
-  }
 }
