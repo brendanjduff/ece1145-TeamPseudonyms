@@ -41,12 +41,11 @@ public class TestAlphaCiv {
   /** Fixture for AlphaCiv testing. */
   @Before
   public void setUp() {
-    game = new GameImpl();
-    game.setVictoryStrategy(new RedWinsAt3000BCVictoryStrategy());
-    game.setAgingStrategy(new LinearAgingStrategy());
-    game.setArcherActionStrategy(new NoArcherActionStrategy());
-    game.setSettlerActionStrategy(new NoSettlerActionStrategy());
-    game.setWorldLayoutStrategy(new SparseWorldLayoutStrategy());
+    game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
+            new LinearAgingStrategy(),
+            new NoArcherActionStrategy(),
+            new NoSettlerActionStrategy(),
+            new SparseWorldLayoutStrategy());
   }
 
   @Test
