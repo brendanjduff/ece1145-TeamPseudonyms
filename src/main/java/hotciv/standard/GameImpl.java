@@ -41,6 +41,7 @@ public class GameImpl implements Game {
     players[1] = Player.BLUE;
     age = -4000;
 
+    // TODO: Step 3, Replace with behavior from worldLayoutStrategy
     defineWorld();
 
     cities = new java.util.HashMap<>();
@@ -182,6 +183,7 @@ public class GameImpl implements Game {
     worldLayoutStrategy = strategy;
   }
 
+  // TODO: Step 3, Remove this function
   void defineWorld() {
     tiles = new HashMap<Position, Tile>();
     for (int r = 0; r < GameConstants.WORLDSIZE; r++) {

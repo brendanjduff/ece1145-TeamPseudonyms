@@ -4,4 +4,5 @@ package hotciv.common;
  */
 
 public interface WorldLayoutStrategy {
+    // TODO: Step 1, define interface
 }
