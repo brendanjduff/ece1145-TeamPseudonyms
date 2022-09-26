@@ -136,26 +136,4 @@ public interface Game {
    * Nothing happens in case the unit has no associated action.
    */
   public void performUnitActionAt( Position p );
-
-  // === Strategy Setter Methods ==============================
-
-  /** Choose strategy that determines the winner
-   */
-  public void setVictoryStrategy(VictoryStrategy strategy);
-
-  /** Choose strategy that changes the age of the world at the end of each round
-   */
-  public void setAgingStrategy(AgingStrategy strategy);
-
-  /** Choose strategy that performs the archer action
-   */
-  public void setArcherActionStrategy(ArcherActionStrategy strategy);
-
-  /** Choose strategy that performs the settler action
-   */
-  public void setSettlerActionStrategy(SettlerActionStrategy strategy);
-
-  /** Choose strategy that creates the world from tiles
-   */
-  public void setWorldLayoutStrategy(WorldLayoutStrategy strategy);
 }
