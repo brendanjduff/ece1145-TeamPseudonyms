@@ -19,5 +19,4 @@ public class TestDeltaCiv {
                 new FullWorldLayoutStrategy());
     }
 
-    // TODO: Step 4, Implement tests for DeltaCiv behavior for World Layout
 }
