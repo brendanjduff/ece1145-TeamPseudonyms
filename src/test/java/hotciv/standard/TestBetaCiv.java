@@ -12,12 +12,11 @@ public class TestBetaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl();
-        game.setVictoryStrategy(new ConquerAllCitiesVictoryStrategy());
-        game.setAgingStrategy(new ProgressiveAgingStrategy());
-        game.setArcherActionStrategy(new NoArcherActionStrategy());
-        game.setSettlerActionStrategy(new NoSettlerActionStrategy());
-        game.setWorldLayoutStrategy(new SparseWorldLayoutStrategy());
+        game = new GameImpl(new ConquerAllCitiesVictoryStrategy(),
+                new ProgressiveAgingStrategy(),
+                new NoArcherActionStrategy(),
+                new NoSettlerActionStrategy(),
+                new SparseWorldLayoutStrategy());
     }
 
     // TODO: Step 4, Implement tests for BetaCiv behavior for Victory Strategy and Aging Strategy
