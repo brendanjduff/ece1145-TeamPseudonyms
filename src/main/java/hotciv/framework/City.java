@@ -64,6 +64,7 @@ public interface City {
 
   /** called at the end of each turn
    *  handles production of units
+   * @return true if unit has enough in the treasury to produce a unit
    */
   public boolean endOfTurnProduction();
 

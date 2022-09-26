@@ -3,6 +3,8 @@ package hotciv.standard;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 
+import java.util.HashMap;
+
 /** Skeleton implementation of HotCiv.
 
    This source code is from the book
@@ -37,7 +39,8 @@ public class GameImpl implements Game {
     players[0] = Player.RED;
     players[1] = Player.BLUE;
     age = GameConstants.ALPHA_STARTING_YEAR;
-    createWorld();
+
+    defineWorld();
 
     cities = new java.util.HashMap<>();
     cities.put(new Position(1,1),new CityImpl(Player.RED));
@@ -52,12 +55,11 @@ public class GameImpl implements Game {
   Player[] players = new Player[GameConstants.ALPHA_NUM_PLAYERS];
   int playerIndex;
   int age;
-  Tile[][] tiles;
+  java.util.Map<Position, Tile> tiles;
   java.util.Map<Position, City> cities;
-
   java.util.Map<Position, Unit> units;
 
-  public Tile getTileAt( Position p ) { return tiles[p.getRow()][p.getColumn()]; }
+  public Tile getTileAt( Position p ) { return tiles.get(p); }
   public Unit getUnitAt( Position p ) { return units.get(p); }
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
@@ -72,21 +74,20 @@ public class GameImpl implements Game {
 
   public boolean moveUnit( Position from, Position to) {
     Unit unit = getUnitAt(from);
-    if (unit.getOwner() != players[playerIndex]) {
+    // Check unit ownership, terrain type, and move distance
+    if (unit.getOwner() != getPlayerInTurn()) {
       return false;
-    } else if (to.getColumn() < 0 || to.getColumn() >= GameConstants.WORLDSIZE
-            || to.getRow() < 0 || to.getRow() >= GameConstants.WORLDSIZE) {
-      return false;
-    } else if (tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.MOUNTAINS ||
-            tiles[to.getRow()][to.getColumn()].getTypeString() == GameConstants.OCEANS) {
-      return false;
+    } else if (tiles.get(to).getTypeString() == GameConstants.MOUNTAINS ||
+              tiles.get(to).getTypeString() == GameConstants.OCEANS) {
+        return false;
     } else if (Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount() ||
             Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
       return false;
     }
 
+    // Check for battles and unit collision
     if (units.containsKey(to)) {
-      if(units.get(to).getOwner() != players[playerIndex]) {
+      if(units.get(to).getOwner() != getPlayerInTurn()) {
         if(battle(unit, units.get(to))) {
           units.remove(to);
           units.put(to, unit);
@@ -104,45 +105,41 @@ public class GameImpl implements Game {
     }
     unit.setMoveCount(0);
 
+    // Check for city takeover
     if (cities.containsKey(to)) {
-      if(cities.get(to).getOwner() != players[playerIndex]) {
-        cities.get(to).setOwner(players[playerIndex]);
+      if(cities.get(to).getOwner() != getPlayerInTurn()) {
+        cities.get(to).setOwner(getPlayerInTurn());
       }
     }
     return true;
   }
   public void endOfTurn() {
-    // City production for active player
-    cities.forEach((position, city) -> {
-      if(city.getOwner() == players[playerIndex]) {
+    playerIndex++;
+    if(playerIndex % GameConstants.ALPHA_NUM_PLAYERS == 0) {
+      playerIndex = 0;
+      // Perform end of round functions
+      // A) restore all units' move counts
+      units.forEach((position, unit) -> { unit.setMoveCount(1); });
+      // B) produce food and production in all cities
+      // C) produce units in all cities (if enough production)
+      cities.forEach((position, city) -> {
         if(city.endOfTurnProduction()) {
           if (!units.containsKey(position)) {
-            units.put(position, new UnitImpl(city.getProduction(), players[playerIndex]));
+            units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
               if (!units.containsKey(p) &&
-                      tiles[p.getRow()][p.getColumn()].getTypeString() != GameConstants.OCEANS &&
-                      tiles[p.getRow()][p.getColumn()].getTypeString() != GameConstants.MOUNTAINS) {
-                units.put(p, new UnitImpl(city.getProduction(), players[playerIndex]));
+                      tiles.get(p).getTypeString() != GameConstants.OCEANS &&
+                      tiles.get(p).getTypeString() != GameConstants.MOUNTAINS) {
+                units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
                 break;
               }
             }
           }
         }
-      }
-    });
-
-    units.forEach((position, unit) -> {
-      if(unit.getOwner() == players[playerIndex]) {
-        unit.setMoveCount(1);
-      }
-    });
-
-    // Change active player and age world if end of round
-    playerIndex++;
-    if(playerIndex % GameConstants.ALPHA_NUM_PLAYERS == 0) {
+      });
+      // E) increment the world age.
       age += 100;
-      playerIndex = 0;
     }
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
@@ -152,22 +149,20 @@ public class GameImpl implements Game {
   public void performUnitActionAt( Position p ) {}
   public boolean battle(Unit attacker, Unit defender) { return true;}
 
-  void createWorld() {
-    tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+  void defineWorld() {
+    tiles = new HashMap<Position, Tile>();
     for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
       for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
         if (r == 1 && c == 0) {
-          tiles[r][c] = new TileImpl(GameConstants.OCEANS);
+          tiles.put(new Position(r,c), new TileImpl(GameConstants.OCEANS));
         } else if (r == 0 && c == 1) {
-          tiles[r][c] = new TileImpl(GameConstants.HILLS);
+          tiles.put(new Position(r,c), new TileImpl(GameConstants.HILLS));
         } else if (r == 2 && c == 2) {
-          tiles[r][c] = new TileImpl(GameConstants.MOUNTAINS);
+          tiles.put(new Position(r,c), new TileImpl(GameConstants.MOUNTAINS));
         } else {
-          tiles[r][c] = new TileImpl(GameConstants.PLAINS);
+          tiles.put(new Position(r,c), new TileImpl(GameConstants.PLAINS));
         }
       }
     }
   }
 }
-
-// This is a hotfix for release 2.1
