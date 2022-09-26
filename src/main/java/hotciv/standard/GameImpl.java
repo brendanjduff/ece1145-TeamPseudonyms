@@ -72,6 +72,7 @@ public class GameImpl implements Game {
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
+    // TODO: Step 3, replace with behavior from victoryStrategy
     if(age == -3000){
       return Player.RED;
     }else{
@@ -147,6 +148,7 @@ public class GameImpl implements Game {
         }
       });
       // E) increment the world age.
+      // TODO: Step 3, Replace with behavior from agingStrategy
       age += 100;
     }
   }

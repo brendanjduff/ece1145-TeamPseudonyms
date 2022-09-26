@@ -4,4 +4,5 @@ package hotciv.common;
  */
 
 public interface AgingStrategy {
+    // TODO: Step 1, define interface
 }
