@@ -12,12 +12,11 @@ public class TestGammaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl();
-        game.setVictoryStrategy(new RedWinsAt3000BCVictoryStrategy());
-        game.setAgingStrategy(new LinearAgingStrategy());
-        game.setArcherActionStrategy(new FortifyArcherActionStrategy());
-        game.setSettlerActionStrategy(new BuildCitySettlerActionStrategy());
-        game.setWorldLayoutStrategy(new SparseWorldLayoutStrategy());
+        game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
+                new LinearAgingStrategy(),
+                new FortifyArcherActionStrategy(),
+                new BuildCitySettlerActionStrategy(),
+                new SparseWorldLayoutStrategy());
     }
 
     // TODO: Step 4, Implement tests for GammaCiv behavior for Archer Action Strategy and Settler Action Strategy
