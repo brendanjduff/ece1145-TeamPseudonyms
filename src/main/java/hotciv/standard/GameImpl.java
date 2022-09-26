@@ -35,7 +35,17 @@ import java.util.HashMap;
 
 public class GameImpl implements Game {
 
-  public GameImpl() {
+  public GameImpl(VictoryStrategy victory,
+                  AgingStrategy aging,
+                  ArcherActionStrategy archerAction,
+                  SettlerActionStrategy settlerAction,
+                  WorldLayoutStrategy worldLayout) {
+    victoryStrategy = victory;
+    agingStrategy = aging;
+    archerActionStrategy = archerAction;
+    settlerActionStrategy = settlerAction;
+    worldLayoutStrategy = worldLayout;
+
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
@@ -158,31 +168,6 @@ public class GameImpl implements Game {
   }
   public void performUnitActionAt( Position p ) {}
   public boolean battle(Unit attacker, Unit defender) { return true;}
-
-  @Override
-  public void setVictoryStrategy(VictoryStrategy strategy) {
-    victoryStrategy = strategy;
-  }
-
-  @Override
-  public void setAgingStrategy(AgingStrategy strategy) {
-    agingStrategy = strategy;
-  }
-
-  @Override
-  public void setArcherActionStrategy(ArcherActionStrategy strategy) {
-    archerActionStrategy = strategy;
-  }
-
-  @Override
-  public void setSettlerActionStrategy(SettlerActionStrategy strategy) {
-    settlerActionStrategy = strategy;
-  }
-
-  @Override
-  public void setWorldLayoutStrategy(WorldLayoutStrategy strategy) {
-    worldLayoutStrategy = strategy;
-  }
 
   void defineWorld() {
     tiles = new HashMap<Position, Tile>();
