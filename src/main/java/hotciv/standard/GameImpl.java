@@ -169,3 +169,5 @@ public class GameImpl implements Game {
     }
   }
 }
+
+// This is a hotfix for release 2.1
