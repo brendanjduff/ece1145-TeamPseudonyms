@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+import hotciv.common.*;
 import hotciv.utility.Utility;
 
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class GameImpl implements Game {
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
-    age = GameConstants.ALPHA_STARTING_YEAR;
+    age = -4000;
 
     defineWorld();
 
@@ -52,19 +53,26 @@ public class GameImpl implements Game {
     units.put(new Position(4, 3), new UnitImpl(GameConstants.SETTLER, Player.RED));
   }
 
-  Player[] players = new Player[GameConstants.ALPHA_NUM_PLAYERS];
+  Player[] players = new Player[2];
   int playerIndex;
   int age;
   java.util.Map<Position, Tile> tiles;
   java.util.Map<Position, City> cities;
   java.util.Map<Position, Unit> units;
 
+  // Strategies
+  VictoryStrategy victoryStrategy;
+  AgingStrategy agingStrategy;
+  ArcherActionStrategy archerActionStrategy;
+  SettlerActionStrategy settlerActionStrategy;
+  WorldLayoutStrategy worldLayoutStrategy;
+
   public Tile getTileAt( Position p ) { return tiles.get(p); }
   public Unit getUnitAt( Position p ) { return units.get(p); }
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
-    if(age == GameConstants.ALPHA_LAST_YEAR){
+    if(age == -3000){
       return Player.RED;
     }else{
       return null;
@@ -115,7 +123,7 @@ public class GameImpl implements Game {
   }
   public void endOfTurn() {
     playerIndex++;
-    if(playerIndex % GameConstants.ALPHA_NUM_PLAYERS == 0) {
+    if(playerIndex % 2 == 0) {
       playerIndex = 0;
       // Perform end of round functions
       // A) restore all units' move counts
@@ -148,6 +156,31 @@ public class GameImpl implements Game {
   }
   public void performUnitActionAt( Position p ) {}
   public boolean battle(Unit attacker, Unit defender) { return true;}
+
+  @Override
+  public void setVictoryStrategy(VictoryStrategy strategy) {
+    victoryStrategy = strategy;
+  }
+
+  @Override
+  public void setAgingStrategy(AgingStrategy strategy) {
+    agingStrategy = strategy;
+  }
+
+  @Override
+  public void setArcherActionStrategy(ArcherActionStrategy strategy) {
+    archerActionStrategy = strategy;
+  }
+
+  @Override
+  public void setSettlerActionStrategy(SettlerActionStrategy strategy) {
+    settlerActionStrategy = strategy;
+  }
+
+  @Override
+  public void setWorldLayoutStrategy(WorldLayoutStrategy strategy) {
+    worldLayoutStrategy = strategy;
+  }
 
   void defineWorld() {
     tiles = new HashMap<Position, Tile>();

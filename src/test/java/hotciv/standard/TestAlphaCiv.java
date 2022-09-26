@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variants.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -37,13 +38,17 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestAlphaCiv {
   private Game game;
 
-  /** Fixture for alphaciv testing. */
+  /** Fixture for AlphaCiv testing. */
   @Before
   public void setUp() {
     game = new GameImpl();
+    game.setVictoryStrategy(new RedWinsAt3000BCVictoryStrategy());
+    game.setAgingStrategy(new LinearAgingStrategy());
+    game.setArcherActionStrategy(new NoArcherActionStrategy());
+    game.setSettlerActionStrategy(new NoSettlerActionStrategy());
+    game.setWorldLayoutStrategy(new SparseWorldLayoutStrategy());
   }
 
-  // FRS p. 455 states that 'Red is the first player to take a turn'.
   @Test
   public void shouldBeRedAsStartingPlayer() {
     assertThat(game, is(notNullValue()));
@@ -68,27 +73,27 @@ public class TestAlphaCiv {
   @Test
   public void shouldStartAt4000BC() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR));
+    assertThat(game.getAge(), is(-4000));
   }
 
   @Test
   public void shouldAge100YearsEachRound() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR));
+    assertThat(game.getAge(), is(-4000));
     game.endOfTurn();
     game.endOfTurn();
-    assertThat(game.getAge(), is(GameConstants.ALPHA_STARTING_YEAR +100));
+    assertThat(game.getAge(), is(-4000+100));
   }
 
   @Test
   public void redShouldWinIn3000BC() {
     assertThat(game, is(notNullValue()));
-    for(int i = 0; i < (GameConstants.ALPHA_NUM_PLAYERS * 10) - 1; i++){
+    for(int i = 0; i < (2 * 10) - 1; i++){
       game.endOfTurn();
       assertThat(game.getWinner(), is(nullValue()));
     }
     game.endOfTurn();
-    assertThat(game.getAge(), is(GameConstants.ALPHA_LAST_YEAR));
+    assertThat(game.getAge(), is(-3000));
     assertThat(game.getWinner(),is(Player.RED));
   }
 
@@ -207,7 +212,7 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
     Unit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
-    assertThat(game.battle(attacker,defender),is(true));
+    assertThat(((GameImpl)game).battle(attacker,defender),is(true));
   }
 
   @Test

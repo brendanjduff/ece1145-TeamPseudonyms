@@ -45,8 +45,4 @@ public class GameConstants {
   // Valid production balance types
   public static final String productionFocus = "hammer";
   public static final String foodFocus = "apple";
-  // AlphaCiv constants
-  public static final int ALPHA_NUM_PLAYERS = 2;
-  public static final int ALPHA_STARTING_YEAR = -4000;
-  public static final int ALPHA_LAST_YEAR = -3000;
 }

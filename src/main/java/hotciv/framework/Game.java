@@ -1,5 +1,7 @@
 package hotciv.framework;
 
+import hotciv.common.*;
+
 /** Game is the central interface allowing a client to access and
  * modify the state of a HotCiv game.  
 
@@ -135,5 +137,25 @@ public interface Game {
    */
   public void performUnitActionAt( Position p );
 
-  public boolean battle(Unit attacker, Unit defender);
+  // === Strategy Setter Methods ==============================
+
+  /** Choose strategy that determines the winner
+   */
+  public void setVictoryStrategy(VictoryStrategy strategy);
+
+  /** Choose strategy that changes the age of the world at the end of each round
+   */
+  public void setAgingStrategy(AgingStrategy strategy);
+
+  /** Choose strategy that performs the archer action
+   */
+  public void setArcherActionStrategy(ArcherActionStrategy strategy);
+
+  /** Choose strategy that performs the settler action
+   */
+  public void setSettlerActionStrategy(SettlerActionStrategy strategy);
+
+  /** Choose strategy that creates the world from tiles
+   */
+  public void setWorldLayoutStrategy(WorldLayoutStrategy strategy);
 }
