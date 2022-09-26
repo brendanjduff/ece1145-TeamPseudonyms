@@ -12,12 +12,11 @@ public class TestDeltaCiv {
 
     @Before
     public void setUp() {
-        game = new GameImpl();
-        game.setVictoryStrategy(new RedWinsAt3000BCVictoryStrategy());
-        game.setAgingStrategy(new LinearAgingStrategy());
-        game.setArcherActionStrategy(new NoArcherActionStrategy());
-        game.setSettlerActionStrategy(new NoSettlerActionStrategy());
-        game.setWorldLayoutStrategy(new FullWorldLayoutStrategy());
+        game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
+                new LinearAgingStrategy(),
+                new NoArcherActionStrategy(),
+                new NoSettlerActionStrategy(),
+                new FullWorldLayoutStrategy());
     }
 
     // TODO: Step 4, Implement tests for DeltaCiv behavior for World Layout
