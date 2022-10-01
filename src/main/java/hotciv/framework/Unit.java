@@ -69,4 +69,5 @@ public interface Unit {
   public void setDefensiveStrength(int strength);
 
   public boolean fortified();
+  public void fortify(boolean b);
 }

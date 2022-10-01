@@ -50,5 +50,9 @@ public class UnitImpl implements Unit {
     @Override
     public void setMoveCount(int count) { movement = count;}
 
-    public boolean fortified(){return isFortified;}
+    public boolean fortified(){
+        return isFortified;
+    }
+
+    public void fortify(boolean fortify){isFortified=fortify;}
 }
