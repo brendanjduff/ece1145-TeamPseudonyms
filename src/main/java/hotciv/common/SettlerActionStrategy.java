@@ -9,5 +9,5 @@ import hotciv.framework.Unit;
 
 public interface SettlerActionStrategy {
     // TODO: Step 1, define interface
-    public void buildCity(java.util.Map<Position, City> city, java.util.Map<Position, Unit> units);
+    public void buildCity(java.util.Map<Position, City> city, java.util.Map<Position, Unit> units, Position p);
 }
