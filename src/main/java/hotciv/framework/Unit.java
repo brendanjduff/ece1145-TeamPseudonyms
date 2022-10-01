@@ -65,4 +65,8 @@ public interface Unit {
   public int getAttackingStrength();
 
   public void setMoveCount(int count);
+
+  public void setDefensiveStrength(int strength);
+
+  public boolean fortified();
 }
