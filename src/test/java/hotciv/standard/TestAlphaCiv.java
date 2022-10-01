@@ -295,4 +295,21 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(new Position(2,1)).getMoveCount(), is(1));
     assertThat(game.moveUnit(new Position(2,1), new Position(2,2)), is(false));
   }
+
+  @Test
+  public void performNoSettlerActionOnR4C3() {
+    assertThat(game, is(notNullValue()));
+    game.performSettlerAction(new Position(4,3));
+
+    assertThat(game.getUnitAt(new Position(4,3)).getOwner(), is(Player.RED));  //no change
+  }
+
+  @Test
+  public void performNoArcherActionOnR2C0() {
+    assertThat(game, is(notNullValue()));
+    game.performArcherAction(new Position(2,0));
+
+    assertThat(game.getUnitAt(new Position(2,0)).fortified(), is(false));  //no change
+  }
+
 }
