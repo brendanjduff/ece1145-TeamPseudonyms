@@ -4,16 +4,19 @@ import hotciv.common.AgingStrategy;
 
 public class ProgressiveAgingStrategy implements AgingStrategy {
     public int incrementAge(int age) {
-        if(age >= -4000 && age < -100) {
+        if (age >= -4000 && age < -100) {
             age += 100;
             return age;
-        } else if(age == -100) {
+        } else if (age == -100) {
             age = -1;
             return age;
-        } else if(age == -1) {
+        } else if (age == -1) {
             age = 1;
             return age;
-        } else if(age >= 1 && age < 1750) {
+        } else if (age == 1) {
+            age = 50;
+            return age;
+        } else if(age >= 50 && age < 1750) {
             age += 50;
             return age;
         } else if(age >= 1750 && age < 1900) {
