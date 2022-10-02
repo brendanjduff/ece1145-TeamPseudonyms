@@ -60,4 +60,10 @@ public class TestUnit {
         unit = new UnitImpl(GameConstants.LEGION, Player.RED);
         assertThat(unit.getDefensiveStrength(), is(2));
     }
+
+    @Test
+    public void settlerShouldHave3Defense() {
+        unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+        assertThat(unit.getDefensiveStrength(), is(3));
+    }
 }

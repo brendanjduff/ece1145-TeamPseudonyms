@@ -9,8 +9,10 @@ public class UnitImpl implements Unit {
         movement = 1;
         if(unitType.equals(GameConstants.ARCHER)) {
             defensiveStrength = 3;
-        } else {
+        } else if (unitType.equals(GameConstants.LEGION)) {
             defensiveStrength = 2;
+        } else if (unitType.equals(GameConstants.SETTLER)) {
+            defensiveStrength = 3;
         }
         isFortified = false;
     }
