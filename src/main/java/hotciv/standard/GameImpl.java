@@ -75,11 +75,7 @@ public class GameImpl implements Game {
   public City getCityAt( Position p ) { return cities.get(p); }
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
-    if(age == -3000){
-      return Player.RED;
-    }else{
-      return null;
-    }
+    return victoryStrategy.getWinner(age, cities);
   }
   public int getAge() { return age; }
 
@@ -150,7 +146,7 @@ public class GameImpl implements Game {
         }
       });
       // E) increment the world age.
-      age += 100;
+      age = agingStrategy.incrementAge(age);
     }
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
