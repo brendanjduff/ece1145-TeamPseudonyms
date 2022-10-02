@@ -6,8 +6,6 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.util.*;
-
 public class TestUnit {
     private Unit unit;
 
@@ -65,5 +63,23 @@ public class TestUnit {
     public void settlerShouldHave3Defense() {
         unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
         assertThat(unit.getDefensiveStrength(), is(3));
+    }
+
+    @Test
+    public void archerShouldHave2Attack() {
+        unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+        assertThat(unit.getAttackingStrength(), is(2));
+    }
+
+    @Test
+    public void legionShouldHave4Attack() {
+        unit = new UnitImpl(GameConstants.LEGION, Player.RED);
+        assertThat(unit.getAttackingStrength(), is(4));
+    }
+
+    @Test
+    public void settlerShouldHave0Attack() {
+        unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+        assertThat(unit.getAttackingStrength(), is(0));
     }
 }

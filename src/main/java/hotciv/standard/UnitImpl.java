@@ -8,10 +8,13 @@ public class UnitImpl implements Unit {
         this.player = player;
         movement = 1;
         if(unitType.equals(GameConstants.ARCHER)) {
+            attackingStrength = 2;
             defensiveStrength = 3;
         } else if (unitType.equals(GameConstants.LEGION)) {
+            attackingStrength = 4;
             defensiveStrength = 2;
         } else if (unitType.equals(GameConstants.SETTLER)) {
+            attackingStrength = 0;
             defensiveStrength = 3;
         }
         isFortified = false;
@@ -21,6 +24,7 @@ public class UnitImpl implements Unit {
     Player player;
 
     int movement;
+    int attackingStrength;
     int defensiveStrength;
     boolean isFortified;
 
@@ -48,7 +52,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        return attackingStrength;
     }
 
     @Override
@@ -58,5 +62,5 @@ public class UnitImpl implements Unit {
         return isFortified;
     }
 
-    public void fortify(boolean fortify) { isFortified=fortify; }
+    public void fortify(boolean fortify) { isFortified = fortify; }
 }
