@@ -12,22 +12,22 @@ public class FullWorldLayoutStrategy implements WorldLayoutStrategy {
     @Override
     public HashMap<Position, Tile> placeTiles() {
         String[] layout = new String[] {
-                "---ppMppppp-----",
-                "--phhppppfffpp--",
-                "-pppppMppp---pp-",
-                "-ppMMMpppp--pppp",
-                "---pfppphhpppp--",
-                "-pfppfppppphhpp-",
-                "---ppp----------",
-                "-ppppp-ppphppM--",
-                "-ppppp-pphpppf--",
-                "pfffpppp-pffpppp",
-                "pppppppp---ppppp",
-                "-ppMMMpppp------",
-                "--ppppppffpppp--",
-                "----ppppppppp---",
-                "--ppphhpp-------",
-                "-----ppppppppp--", };
+                "...ooMooooo.....",
+                "..ohhoooofffoo..",
+                ".oooooMooo...oo.",
+                ".ooMMMoooo..oooo",
+                "...ofooohhoooo..",
+                ".ofoofooooohhoo.",
+                "...ooo..........",
+                ".ooooo.ooohooM..",
+                ".ooooo.oohooof..",
+                "offfoooo.offoooo",
+                "oooooooo...ooooo",
+                ".ooMMMoooo......",
+                "..ooooooffoooo..",
+                "....ooooooooo...",
+                "..ooohhoo.......",
+                ".....ooooooooo..", };
         HashMap<Position,Tile> tiles = new HashMap<Position,Tile>();
         String line;
         for ( int r = 0; r < GameConstants.WORLDSIZE; r++ ) {
@@ -35,8 +35,8 @@ public class FullWorldLayoutStrategy implements WorldLayoutStrategy {
             for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
                 char tileChar = line.charAt(c);
                 String type = "error";
-                if ( tileChar == '-' ) { type = GameConstants.OCEANS; }
-                if ( tileChar == 'p' ) { type = GameConstants.PLAINS; }
+                if ( tileChar == '.' ) { type = GameConstants.OCEANS; }
+                if ( tileChar == 'o' ) { type = GameConstants.PLAINS; }
                 if ( tileChar == 'M' ) { type = GameConstants.MOUNTAINS; }
                 if ( tileChar == 'f' ) { type = GameConstants.FOREST; }
                 if ( tileChar == 'h' ) { type = GameConstants.HILLS; }
