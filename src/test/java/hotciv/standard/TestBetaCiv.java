@@ -14,7 +14,6 @@ public class TestBetaCiv {
     public void setUp() {
         game = new GameImpl(new ConquerAllCitiesVictoryStrategy(),
                 new ProgressiveAgingStrategy(),
-                new LinearAgingStrategy(),
                 new NoArcherActionStrategy(),
                 new NoSettlerActionStrategy(),
                 new SparseWorldLayoutStrategy());
