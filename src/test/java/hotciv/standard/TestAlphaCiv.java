@@ -2,8 +2,13 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.utility.Utility;
 import hotciv.variants.*;
 import org.junit.*;
+
+import java.util.HashMap;
+
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -97,66 +102,40 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void positionR1C0ShouldReturnOcean() {
+  public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(GameConstants.OCEANS));
+    HashMap<Position,Tile> tiles = new SparseWorldLayoutStrategy().placeTiles();
+    for(Position p : Utility.getWorldLayoutIterable()) {
+      assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
+    }
   }
 
   @Test
-  public void positionR0C1ShouldReturnHills() {
+  public void citiesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getTileAt(new Position(0,1)).getTypeString(), is(GameConstants.HILLS));
-  }
-
-  @Test
-  public void positionR2C2ShouldReturnMountains() {
-    assertThat(game, is(notNullValue()));
-    assertThat(game.getTileAt(new Position(2,2)).getTypeString(), is(GameConstants.MOUNTAINS));
-  }
-
-  @Test
-  public void allOtherPositionsShouldReturnPlains() {
-    assertThat(game, is(notNullValue()));
-    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        if (!(r == 1 && c == 0) && !(r == 0 && c == 1) && !(r == 2 && c == 2)) {
-          assertThat(game.getTileAt(new Position(r,c)).getTypeString(), is(GameConstants.PLAINS));
-        }
+    HashMap<Position,City> cities = new SparseWorldLayoutStrategy().placeCities();
+    for(Position p : Utility.getWorldLayoutIterable()) {
+      if(cities.containsKey(p)) {
+        assertThat(game.getCityAt(p), is(notNullValue()));
+        assertThat(game.getCityAt(p), samePropertyValuesAs(cities.get(p)));
+      } else {
+        assertThat(game.getCityAt(p), is(nullValue()));
       }
     }
   }
 
   @Test
-  public void cityAtR1C1BelongsToRed() {
+  public void unitsCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getCityAt(new Position(1,1)).getOwner(),is(Player.RED));
-  }
-
-  @Test
-  public void cityAtR4C1BelongsToBlue() {
-    assertThat(game, is(notNullValue()));
-    assertThat(game.getCityAt(new Position(4,1)).getOwner(),is(Player.BLUE));
-  }
-
-  @Test
-  public void unitAtR2C0IsArcherBelongsToRed() {
-    assertThat(game, is(notNullValue()));
-    assertThat(game.getUnitAt(new Position(2,0)).getOwner(),is(Player.RED));
-    assertThat(game.getUnitAt(new Position(2,0)).getTypeString(),is(GameConstants.ARCHER));
-  }
-
-  @Test
-  public void unitAtR3C2IsLegionBelongsToBlue() {
-    assertThat(game, is(notNullValue()));
-    assertThat(game.getUnitAt(new Position(3,2)).getOwner(),is(Player.BLUE));
-    assertThat(game.getUnitAt(new Position(3,2)).getTypeString(),is(GameConstants.LEGION));
-  }
-
-  @Test
-  public void unitAtR4C3IsSettlerBelongsToRed() {
-    assertThat(game, is(notNullValue()));
-    assertThat(game.getUnitAt(new Position(4,3)).getOwner(),is(Player.RED));
-    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(),is(GameConstants.SETTLER));
+    HashMap<Position,Unit> units = new SparseWorldLayoutStrategy().placeUnits();
+    for(Position p : Utility.getWorldLayoutIterable()) {
+      if(units.containsKey(p)) {
+        assertThat(game.getUnitAt(p), is(notNullValue()));
+        assertThat(game.getUnitAt(p), samePropertyValuesAs(units.get(p)));
+      } else {
+        assertThat(game.getUnitAt(p), is(nullValue()));
+      }
+    }
   }
 
   @Test

@@ -5,6 +5,7 @@ import hotciv.framework.*;
 import hotciv.standard.CityImpl;
 import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
+import hotciv.utility.Utility;
 
 import java.util.HashMap;
 
@@ -29,20 +30,15 @@ public class FullWorldLayoutStrategy implements WorldLayoutStrategy {
                 "..ooohhoo.......",
                 ".....ooooooooo..", };
         HashMap<Position,Tile> tiles = new HashMap<Position,Tile>();
-        String line;
-        for ( int r = 0; r < GameConstants.WORLDSIZE; r++ ) {
-            line = layout[r];
-            for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
-                char tileChar = line.charAt(c);
-                String type = "error";
-                if ( tileChar == '.' ) { type = GameConstants.OCEANS; }
-                if ( tileChar == 'o' ) { type = GameConstants.PLAINS; }
-                if ( tileChar == 'M' ) { type = GameConstants.MOUNTAINS; }
-                if ( tileChar == 'f' ) { type = GameConstants.FOREST; }
-                if ( tileChar == 'h' ) { type = GameConstants.HILLS; }
-                Position p = new Position(r,c);
-                tiles.put( p, new TileImpl(type));
-            }
+        for(Position p : Utility.getWorldLayoutIterable()) {
+            char tileChar = layout[p.getRow()].charAt(p.getColumn());
+            String type = "error";
+            if ( tileChar == '.' ) { type = GameConstants.OCEANS; }
+            if ( tileChar == 'o' ) { type = GameConstants.PLAINS; }
+            if ( tileChar == 'M' ) { type = GameConstants.MOUNTAINS; }
+            if ( tileChar == 'f' ) { type = GameConstants.FOREST; }
+            if ( tileChar == 'h' ) { type = GameConstants.HILLS; }
+            tiles.put( p, new TileImpl(type));
         }
         return tiles;
     }

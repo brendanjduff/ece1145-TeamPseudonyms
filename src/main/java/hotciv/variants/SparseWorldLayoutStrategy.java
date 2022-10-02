@@ -5,6 +5,7 @@ import hotciv.framework.*;
 import hotciv.standard.CityImpl;
 import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
+import hotciv.utility.Utility;
 
 import java.util.HashMap;
 
@@ -12,18 +13,12 @@ public class SparseWorldLayoutStrategy implements WorldLayoutStrategy {
     @Override
     public HashMap<Position, Tile> placeTiles() {
         HashMap<Position, Tile> tiles = new HashMap<Position, Tile>();
-        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if (r == 1 && c == 0) {
-                    tiles.put(new Position(r,c), new TileImpl(GameConstants.OCEANS));
-                } else if (r == 0 && c == 1) {
-                    tiles.put(new Position(r,c), new TileImpl(GameConstants.HILLS));
-                } else if (r == 2 && c == 2) {
-                    tiles.put(new Position(r,c), new TileImpl(GameConstants.MOUNTAINS));
-                } else {
-                    tiles.put(new Position(r,c), new TileImpl(GameConstants.PLAINS));
-                }
-            }
+        for(Position p : Utility.getWorldLayoutIterable()) {
+            String type = GameConstants.PLAINS;
+            if (p.equals(new Position(1,0))) { type = GameConstants.OCEANS; }
+            if (p.equals(new Position(2,2))) { type = GameConstants.MOUNTAINS; }
+            if (p.equals(new Position(0,1))) { type = GameConstants.HILLS; }
+            tiles.put(p, new TileImpl(type));
         }
         return tiles;
     }

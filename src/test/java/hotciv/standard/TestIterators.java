@@ -18,6 +18,7 @@
 
 package hotciv.standard;
 
+import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
 import hotciv.utility.Utility;
@@ -118,4 +119,13 @@ public class TestIterators {
     assertThat(list.size(), is(8));
   }
 
+  @Test
+  public void worldLayoutIteratorShouldRunColumnsThenRows() {
+    Iterator<Position> iter = Utility.getWorldLayoutIterator();
+    for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        assertThat(iter.next(), is(new Position(r,c)));
+      }
+    }
+  }
 }
