@@ -14,10 +14,14 @@ public class TestBetaCiv {
     public void setUp() {
         game = new GameImpl(new ConquerAllCitiesVictoryStrategy(),
                 new ProgressiveAgingStrategy(),
+                new LinearAgingStrategy(),
                 new NoArcherActionStrategy(),
                 new NoSettlerActionStrategy(),
                 new SparseWorldLayoutStrategy());
     }
 
-    // TODO: Step 4, Implement tests for BetaCiv behavior for Victory Strategy and Aging Strategy
+    @Test
+    public void linearAgingWorksCorrectlyInLinearAgingStrategy() {
+
+    }
 }

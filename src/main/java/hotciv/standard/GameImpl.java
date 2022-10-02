@@ -159,7 +159,7 @@ public class GameImpl implements Game {
       });
       // E) increment the world age.
       // TODO: Step 3, Replace with behavior from agingStrategy
-      age += 100;
+      age = agingStrategy.incrementAge(age);
     }
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

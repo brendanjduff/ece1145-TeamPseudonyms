@@ -4,5 +4,9 @@ package hotciv.common;
  */
 
 public interface AgingStrategy {
-    // TODO: Step 1, define interface
+    //public void setInitialAge(int age);
+
+    public int incrementAge(int age);
+
+    //public int getAge();
 }
