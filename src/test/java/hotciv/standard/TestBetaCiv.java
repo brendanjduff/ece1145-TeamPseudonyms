@@ -21,7 +21,6 @@ public class TestBetaCiv {
 
     @Test
     public void progAgingWorksCorrectlyInProgAgingStrategy() {
-        ProgressiveAgingStrategy prog;
         assertThat(game, is(notNullValue()));
         for(int i = 0;i < 2;i++){
             game.endOfTurn();
@@ -55,5 +54,12 @@ public class TestBetaCiv {
         game.endOfTurn();
         game.endOfTurn();
         assertThat(game.getAge(), is(1971));
+    }
+
+    @Test
+    public void conquerAllCitiesToWin() {
+        assertThat(game, is(notNullValue()));
+        game.getCityAt(new Position(4,1)).setOwner(Player.RED);
+        assertThat(game.getWinner(),is(Player.RED));
     }
 }

@@ -83,11 +83,7 @@ public class GameImpl implements Game {
   public Player getPlayerInTurn() { return players[playerIndex]; }
   public Player getWinner() {
     // TODO: Step 3, replace with behavior from victoryStrategy
-    if(age == -3000){
-      return Player.RED;
-    }else{
-      return null;
-    }
+    return victoryStrategy.getWinner(age, cities);
   }
   public int getAge() { return age; }
 
