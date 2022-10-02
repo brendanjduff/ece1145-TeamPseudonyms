@@ -32,7 +32,7 @@ public class TestFullWorldLayoutStrategy {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(tiles.get(new Position(r,c)).getTypeString() == GameConstants.OCEANS) {
+                if(tiles.get(new Position(r,c)).getTypeString().equals(GameConstants.OCEANS)) {
                     count++;
                 }
             }
@@ -46,7 +46,7 @@ public class TestFullWorldLayoutStrategy {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(tiles.get(new Position(r,c)).getTypeString() == GameConstants.MOUNTAINS) {
+                if(tiles.get(new Position(r,c)).getTypeString().equals(GameConstants.MOUNTAINS)) {
                     count++;
                 }
             }
@@ -60,7 +60,7 @@ public class TestFullWorldLayoutStrategy {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(tiles.get(new Position(r,c)).getTypeString() == GameConstants.HILLS) {
+                if(tiles.get(new Position(r,c)).getTypeString().equals(GameConstants.HILLS)) {
                     count++;
                 }
             }
@@ -74,7 +74,7 @@ public class TestFullWorldLayoutStrategy {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(tiles.get(new Position(r,c)).getTypeString() == GameConstants.FOREST) {
+                if(tiles.get(new Position(r,c)).getTypeString().equals(GameConstants.FOREST)) {
                     count++;
                 }
             }
@@ -88,7 +88,7 @@ public class TestFullWorldLayoutStrategy {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(tiles.get(new Position(r,c)).getTypeString() == GameConstants.PLAINS) {
+                if(tiles.get(new Position(r,c)).getTypeString().equals(GameConstants.PLAINS)) {
                     count++;
                 }
             }

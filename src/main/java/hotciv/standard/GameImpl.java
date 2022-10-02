@@ -88,8 +88,8 @@ public class GameImpl implements Game {
     // Check unit ownership, terrain type, and move distance
     if (unit.getOwner() != getPlayerInTurn()) {
       return false;
-    } else if (tiles.get(to).getTypeString() == GameConstants.MOUNTAINS ||
-              tiles.get(to).getTypeString() == GameConstants.OCEANS) {
+    } else if (tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) ||
+              tiles.get(to).getTypeString().equals(GameConstants.OCEANS)) {
         return false;
     } else if (Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount() ||
             Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
@@ -159,9 +159,9 @@ public class GameImpl implements Game {
   }
   public void performUnitActionAt( Position p ) {
     Unit unit = getUnitAt(p);
-    if(unit.getTypeString() == GameConstants.ARCHER) {
+    if(unit.getTypeString().equals(GameConstants.ARCHER)) {
       archerActionStrategy.fortify(unit);
-    }  else if (unit.getTypeString() == GameConstants.SETTLER) {
+    }  else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
       settlerActionStrategy.buildCity(cities, units, p);
     }
   }

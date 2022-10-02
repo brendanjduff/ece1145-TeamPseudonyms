@@ -25,7 +25,7 @@ public class TestDeltaCiv {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(game.getTileAt(new Position(r,c)).getTypeString() == GameConstants.OCEANS) {
+                if(game.getTileAt(new Position(r,c)).getTypeString().equals(GameConstants.OCEANS)) {
                     count++;
                 }
             }
@@ -39,7 +39,7 @@ public class TestDeltaCiv {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(game.getTileAt(new Position(r,c)).getTypeString() == GameConstants.MOUNTAINS) {
+                if(game.getTileAt(new Position(r,c)).getTypeString().equals(GameConstants.MOUNTAINS)) {
                     count++;
                 }
             }
@@ -53,7 +53,7 @@ public class TestDeltaCiv {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(game.getTileAt(new Position(r,c)).getTypeString() == GameConstants.HILLS) {
+                if(game.getTileAt(new Position(r,c)).getTypeString().equals(GameConstants.HILLS)) {
                     count++;
                 }
             }
@@ -67,7 +67,7 @@ public class TestDeltaCiv {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(game.getTileAt(new Position(r,c)).getTypeString() == GameConstants.FOREST) {
+                if(game.getTileAt(new Position(r,c)).getTypeString().equals(GameConstants.FOREST)) {
                     count++;
                 }
             }
@@ -81,7 +81,7 @@ public class TestDeltaCiv {
         int count = 0;
         for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                if(game.getTileAt(new Position(r,c)).getTypeString() == GameConstants.PLAINS) {
+                if(game.getTileAt(new Position(r,c)).getTypeString().equals(GameConstants.PLAINS)) {
                     count++;
                 }
             }

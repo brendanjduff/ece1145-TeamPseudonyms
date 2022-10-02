@@ -7,7 +7,9 @@ public class CityImpl implements City {
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0;
+        production = "";
     }
+
     Player owner;
     int treasury;
     String production;
@@ -40,15 +42,15 @@ public class CityImpl implements City {
     @Override
     public boolean endOfTurnProduction() {
         treasury += 6;
-        if (production == GameConstants.ARCHER && treasury >= 10) {
+        if (production.equals(GameConstants.ARCHER) && treasury >= 10) {
             treasury -= 10;
             return true;
         }
-        else if (production == GameConstants.LEGION && treasury >= 15) {
+        else if (production.equals(GameConstants.LEGION) && treasury >= 15) {
             treasury -= 15;
             return true;
         }
-        else if(production == GameConstants.SETTLER && treasury >= 30) {
+        else if(production.equals(GameConstants.SETTLER) && treasury >= 30) {
             treasury -= 30;
             return true;
         }
