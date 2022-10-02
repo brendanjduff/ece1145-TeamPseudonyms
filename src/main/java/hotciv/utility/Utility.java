@@ -60,14 +60,18 @@ public class Utility {
     return iterable;
   }
 
-  public static Iterable<Position> getWorldLayoutIterable() {
+  public static Iterator<Position> getWorldLayoutIterator() {
     List<Position> list = new ArrayList<>();
     for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
       for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
         list.add(new Position(r,c));
       }
     }
-    final Iterator<Position> iterator = list.iterator();
+    return list.iterator();
+  }
+
+  public static Iterable<Position> getWorldLayoutIterable() {
+    final Iterator<Position> iterator = getWorldLayoutIterator();
     Iterable<Position> iterable = new Iterable<Position>() {
       @Override
       public Iterator<Position> iterator() {
