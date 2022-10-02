@@ -7,7 +7,11 @@ public class UnitImpl implements Unit {
         unitType = type;
         this.player = player;
         movement = 1;
-        defensiveStrength = 3;
+        if(unitType.equals(GameConstants.ARCHER)) {
+            defensiveStrength = 3;
+        } else {
+            defensiveStrength = 2;
+        }
         isFortified = false;
     }
 

@@ -54,4 +54,10 @@ public class TestUnit {
         unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
         assertThat(unit.getDefensiveStrength(), is(3));
     }
+
+    @Test
+    public void legionShouldHave2Defense() {
+        unit = new UnitImpl(GameConstants.LEGION, Player.RED);
+        assertThat(unit.getDefensiveStrength(), is(2));
+    }
 }
