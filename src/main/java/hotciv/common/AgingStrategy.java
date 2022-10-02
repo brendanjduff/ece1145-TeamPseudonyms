@@ -4,9 +4,5 @@ package hotciv.common;
  */
 
 public interface AgingStrategy {
-    //public void setInitialAge(int age);
-
     public int incrementAge(int age);
-
-    //public int getAge();
 }

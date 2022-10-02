@@ -1,7 +1,6 @@
 package hotciv.common;
 
 import hotciv.framework.City;
-import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 
@@ -9,6 +8,5 @@ import hotciv.framework.Position;
  */
 
 public interface VictoryStrategy {
-    // TODO: Step 1, define interface
     public Player getWinner(int age, java.util.Map<Position, City> cities);
 }
