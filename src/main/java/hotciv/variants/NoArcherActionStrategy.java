@@ -6,9 +6,6 @@ import hotciv.framework.Unit;
 public class NoArcherActionStrategy implements ArcherActionStrategy {
     @Override
     public void fortify(Unit unit) {
-        /*
-        No action taken here
-         */
+        // No action taken
     }
-    // TODO: Step 2, Implement AlphaCiv behavior here
 }

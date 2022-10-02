@@ -7,7 +7,7 @@ public class UnitImpl implements Unit {
         unitType = type;
         this.player = player;
         movement = 1;
-        defensiveStrength=0;
+        defensiveStrength = 0;
         isFortified = false;
     }
 
@@ -40,7 +40,7 @@ public class UnitImpl implements Unit {
         return 0;
     }
 
-    public void setDefensiveStrength(int strength){ defensiveStrength = strength;}
+    public void setDefensiveStrength(int strength) { defensiveStrength = strength; }
 
     @Override
     public int getAttackingStrength() {
@@ -48,11 +48,11 @@ public class UnitImpl implements Unit {
     }
 
     @Override
-    public void setMoveCount(int count) { movement = count;}
+    public void setMoveCount(int count) { movement = count; }
 
     public boolean fortified(){
         return isFortified;
     }
 
-    public void fortify(boolean fortify){isFortified=fortify;}
+    public void fortify(boolean fortify) { isFortified=fortify; }
 }

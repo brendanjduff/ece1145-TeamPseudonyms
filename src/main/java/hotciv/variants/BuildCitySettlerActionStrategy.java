@@ -10,7 +10,6 @@ import hotciv.standard.CityImpl;
 import java.util.Map;
 
 public class BuildCitySettlerActionStrategy implements SettlerActionStrategy {
-
     @Override
     public void buildCity(Map<Position, City> city, Map<Position, Unit> units, Position p) {
         /*
@@ -21,5 +20,4 @@ public class BuildCitySettlerActionStrategy implements SettlerActionStrategy {
         city.put(p,new CityImpl(units.get(p).getOwner()));
         units.remove(p);
     }
-    // TODO: Step 5, Implement behavior for GammaCiv
 }

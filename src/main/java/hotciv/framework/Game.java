@@ -136,8 +136,4 @@ public interface Game {
    * Nothing happens in case the unit has no associated action.
    */
   public void performUnitActionAt( Position p );
-
-  public void performSettlerAction(Position p);
-
-  public void performArcherAction(Position p);
 }

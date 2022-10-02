@@ -6,10 +6,5 @@ import hotciv.framework.Unit;
  */
 
 public interface ArcherActionStrategy {
-    // TODO: Step 1, define interface
     public void fortify(Unit unit);
-    /*
-    Archer action strategy
-     */
-
 }

@@ -8,13 +8,8 @@ import hotciv.framework.Unit;
 import java.util.Map;
 
 public class NoSettlerActionStrategy implements SettlerActionStrategy {
-
     @Override
     public void buildCity(Map<Position, City> city, Map<Position, Unit> units, Position p) {
-        /*
-        No action taken for this
-         */
+        // No action taken
     }
-    // TODO: Step 2, Implement AlphaCiv behavior here
-
 }

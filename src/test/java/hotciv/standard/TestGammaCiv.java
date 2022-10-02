@@ -19,11 +19,10 @@ public class TestGammaCiv {
                 new SparseWorldLayoutStrategy());
     }
 
-    // TODO: Step 4, Implement tests for GammaCiv behavior for Archer Action Strategy and Settler Action Strategy
     @Test
     public void performBuildCitySettlerActionOnR4C3() {
         assertThat(game, is(notNullValue()));
-        game.performSettlerAction(new Position(4,3));
+        game.performUnitActionAt(new Position(4,3));
 
         assertThat(game.getCityAt(new Position(4,3)).getOwner(), is(Player.RED));  //no change
     }
@@ -31,7 +30,7 @@ public class TestGammaCiv {
     @Test
     public void performFortifyArcherActionOnR2C0() {
         assertThat(game, is(notNullValue()));
-        game.performArcherAction(new Position(2,0));
+        game.performUnitActionAt(new Position(2,0));
 
         assertThat(game.getUnitAt(new Position(2,0)).fortified(), is(true));  //no change
     }

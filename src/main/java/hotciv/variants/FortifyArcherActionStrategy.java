@@ -19,5 +19,4 @@ public class FortifyArcherActionStrategy implements ArcherActionStrategy {
         }
 
     }
-    // TODO: Step 5, Implement behavior for GammaCiv
 }
