@@ -48,4 +48,10 @@ public class TestUnit {
         unit.setMoveCount(0);
         assertThat(unit.getMoveCount(), is(0));
     }
+
+    @Test
+    public void archerShouldHave3Defense() {
+        unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+        assertThat(unit.getDefensiveStrength(), is(3));
+    }
 }

@@ -7,7 +7,7 @@ public class UnitImpl implements Unit {
         unitType = type;
         this.player = player;
         movement = 1;
-        defensiveStrength = 0;
+        defensiveStrength = 3;
         isFortified = false;
     }
 
@@ -15,9 +15,7 @@ public class UnitImpl implements Unit {
     Player player;
 
     int movement;
-
     int defensiveStrength;
-
     boolean isFortified;
 
     @Override
@@ -37,7 +35,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        return defensiveStrength;
     }
 
     public void setDefensiveStrength(int strength) { defensiveStrength = strength; }
