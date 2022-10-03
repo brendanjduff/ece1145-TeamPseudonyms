@@ -43,9 +43,14 @@ public class TestUnit {
   }
 
   @Test
-  public void unitCanHaveMovementChanged() {
+  public void moveCountShouldDefaultTo1() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     assertThat(unit.getMoveCount(), is(1));
+  }
+
+  @Test
+  public void canChangeMoveCountTo0() {
+    unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     unit.setMoveCount(0);
     assertThat(unit.getMoveCount(), is(0));
   }
