@@ -1,8 +1,8 @@
 package hotciv.common;
 
-/** This strategy changes the age of the world at the end of each round
- */
+/* This strategy changes the age of the world at the end of each round */
 
 public interface AgingStrategy {
-    public int incrementAge(int age);
+
+  public int incrementAge(int age);
 }

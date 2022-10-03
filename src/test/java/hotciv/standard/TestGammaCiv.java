@@ -1,37 +1,46 @@
 package hotciv.standard;
 
-import hotciv.framework.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
-import hotciv.variants.*;
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.variants.BuildCitySettlerActionStrategy;
+import hotciv.variants.FortifyArcherActionStrategy;
+import hotciv.variants.LinearAgingStrategy;
+import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
+import hotciv.variants.SparseWorldLayoutStrategy;
+import org.junit.Before;
+import org.junit.Test;
 
 public class TestGammaCiv {
-    private Game game;
 
-    @Before
-    public void setUp() {
-        game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
-                new LinearAgingStrategy(),
-                new FortifyArcherActionStrategy(),
-                new BuildCitySettlerActionStrategy(),
-                new SparseWorldLayoutStrategy());
-    }
+  private Game game;
 
-    @Test
-    public void performBuildCitySettlerActionOnR4C3() {
-        assertThat(game, is(notNullValue()));
-        game.performUnitActionAt(new Position(4,3));
+  @Before
+  public void setUp() {
+    game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
+        new LinearAgingStrategy(),
+        new FortifyArcherActionStrategy(),
+        new BuildCitySettlerActionStrategy(),
+        new SparseWorldLayoutStrategy());
+  }
 
-        assertThat(game.getCityAt(new Position(4,3)).getOwner(), is(Player.RED));  //no change
-    }
+  @Test
+  public void performBuildCitySettlerActionOnR4C3() {
+    assertThat(game, is(notNullValue()));
+    game.performUnitActionAt(new Position(4, 3));
 
-    @Test
-    public void performFortifyArcherActionOnR2C0() {
-        assertThat(game, is(notNullValue()));
-        game.performUnitActionAt(new Position(2,0));
+    assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));  //no change
+  }
 
-        assertThat(game.getUnitAt(new Position(2,0)).fortified(), is(true));  //no change
-    }
+  @Test
+  public void performFortifyArcherActionOnR2C0() {
+    assertThat(game, is(notNullValue()));
+    game.performUnitActionAt(new Position(2, 0));
+
+    assertThat(game.getUnitAt(new Position(2, 0)).fortified(), is(true));  //no change
+  }
 }

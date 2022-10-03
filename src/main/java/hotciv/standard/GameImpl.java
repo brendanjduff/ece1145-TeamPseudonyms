@@ -1,13 +1,20 @@
 package hotciv.standard;
 
-import hotciv.framework.*;
-import hotciv.common.*;
+import hotciv.common.AgingStrategy;
+import hotciv.common.ArcherActionStrategy;
+import hotciv.common.SettlerActionStrategy;
+import hotciv.common.VictoryStrategy;
+import hotciv.common.WorldLayoutStrategy;
+import hotciv.framework.City;
+import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Tile;
+import hotciv.framework.Unit;
 import hotciv.utility.Utility;
 
-import java.util.HashMap;
-
-/** Skeleton implementation of HotCiv.
-
+/* Skeleton implementation of HotCiv.
    This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
@@ -30,16 +37,15 @@ import java.util.HashMap;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
 */
 
 public class GameImpl implements Game {
 
   public GameImpl(VictoryStrategy victory,
-                  AgingStrategy aging,
-                  ArcherActionStrategy archerAction,
-                  SettlerActionStrategy settlerAction,
-                  WorldLayoutStrategy worldLayout) {
+      AgingStrategy aging,
+      ArcherActionStrategy archerAction,
+      SettlerActionStrategy settlerAction,
+      WorldLayoutStrategy worldLayout) {
     victoryStrategy = victory;
     agingStrategy = aging;
     archerActionStrategy = archerAction;
@@ -70,32 +76,47 @@ public class GameImpl implements Game {
   SettlerActionStrategy settlerActionStrategy;
   WorldLayoutStrategy worldLayoutStrategy;
 
-  public Tile getTileAt( Position p ) { return tiles.get(p); }
-  public Unit getUnitAt( Position p ) { return units.get(p); }
-  public City getCityAt( Position p ) { return cities.get(p); }
-  public Player getPlayerInTurn() { return players[playerIndex]; }
+  public Tile getTileAt(Position p) {
+    return tiles.get(p);
+  }
+
+  public Unit getUnitAt(Position p) {
+    return units.get(p);
+  }
+
+  public City getCityAt(Position p) {
+    return cities.get(p);
+  }
+
+  public Player getPlayerInTurn() {
+    return players[playerIndex];
+  }
+
   public Player getWinner() {
     return victoryStrategy.getWinner(age, cities);
   }
-  public int getAge() { return age; }
 
-  public boolean moveUnit( Position from, Position to) {
+  public int getAge() {
+    return age;
+  }
+
+  public boolean moveUnit(Position from, Position to) {
     Unit unit = getUnitAt(from);
     // Check unit ownership, terrain type, and move distance
     if (unit.getOwner() != getPlayerInTurn()) {
       return false;
     } else if (tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) ||
-              tiles.get(to).getTypeString().equals(GameConstants.OCEANS)) {
-        return false;
+        tiles.get(to).getTypeString().equals(GameConstants.OCEANS)) {
+      return false;
     } else if (Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount() ||
-            Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
+        Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount()) {
       return false;
     }
 
     // Check for battles and unit collision
     if (units.containsKey(to)) {
-      if(units.get(to).getOwner() != getPlayerInTurn()) {
-        if(battle(unit, units.get(to))) {
+      if (units.get(to).getOwner() != getPlayerInTurn()) {
+        if (battle(unit, units.get(to))) {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
@@ -114,30 +135,33 @@ public class GameImpl implements Game {
 
     // Check for city takeover
     if (cities.containsKey(to)) {
-      if(cities.get(to).getOwner() != getPlayerInTurn()) {
+      if (cities.get(to).getOwner() != getPlayerInTurn()) {
         cities.get(to).setOwner(getPlayerInTurn());
       }
     }
     return true;
   }
+
   public void endOfTurn() {
     playerIndex++;
-    if(playerIndex % 2 == 0) {
+    if (playerIndex % 2 == 0) {
       playerIndex = 0;
       // Perform end of round functions
       // A) restore all units' move counts
-      units.forEach((position, unit) -> { unit.setMoveCount(1); });
+      units.forEach((position, unit) -> {
+        unit.setMoveCount(1);
+      });
       // B) produce food and production in all cities
       // C) produce units in all cities (if enough production)
       cities.forEach((position, city) -> {
-        if(city.endOfTurnProduction()) {
+        if (city.endOfTurnProduction()) {
           if (!units.containsKey(position)) {
             units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
               if (!units.containsKey(p) &&
-                      tiles.get(p).getTypeString() != GameConstants.OCEANS &&
-                      tiles.get(p).getTypeString() != GameConstants.MOUNTAINS) {
+                  tiles.get(p).getTypeString() != GameConstants.OCEANS &&
+                  tiles.get(p).getTypeString() != GameConstants.MOUNTAINS) {
                 units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
                 break;
               }
@@ -149,17 +173,24 @@ public class GameImpl implements Game {
       age = agingStrategy.incrementAge(age);
     }
   }
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-  public void changeProductionInCityAt( Position p, String unitType ) {
+
+  public void changeWorkForceFocusInCityAt(Position p, String balance) {
+  }
+
+  public void changeProductionInCityAt(Position p, String unitType) {
     cities.get(p).setProduction((unitType));
   }
-  public void performUnitActionAt( Position p ) {
+
+  public void performUnitActionAt(Position p) {
     Unit unit = getUnitAt(p);
-    if(unit.getTypeString().equals(GameConstants.ARCHER)) {
+    if (unit.getTypeString().equals(GameConstants.ARCHER)) {
       archerActionStrategy.fortify(unit);
-    }  else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
+    } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
       settlerActionStrategy.buildCity(cities, units, p);
     }
   }
-  public boolean battle(Unit attacker, Unit defender) { return true;}
+
+  public boolean battle(Unit attacker, Unit defender) {
+    return true;
+  }
 }

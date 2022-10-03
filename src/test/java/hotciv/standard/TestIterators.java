@@ -18,74 +18,75 @@
 
 package hotciv.standard;
 
-import hotciv.framework.Game;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
 import hotciv.utility.Utility;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.Test;
 
 public class TestIterators {
 
   @Test
   public void shouldHave78AsFirstElement() {
-    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8,8));
+    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8, 8));
     Position p = i8.next();
-    assertThat(p, is(new Position(7,8)));
+    assertThat(p, is(new Position(7, 8)));
   }
 
   @Test
   public void shouldHave79AsSecondElement() {
-    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8,8));
+    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8, 8));
     Position p = i8.next();
     p = i8.next();
-    assertThat(p, is(new Position(7,9)));
+    assertThat(p, is(new Position(7, 9)));
   }
 
   @Test
   public void shouldHaveTheRestOK() {
-    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8,8));
+    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(8, 8));
     Position p = i8.next();
     p = i8.next();
 
     p = i8.next();
-    assertThat(p, is(new Position(8,9)));
+    assertThat(p, is(new Position(8, 9)));
 
     p = i8.next();
-    assertThat(p, is(new Position(9,9)));
+    assertThat(p, is(new Position(9, 9)));
 
     p = i8.next();
-    assertThat(p, is(new Position(9,8)));
+    assertThat(p, is(new Position(9, 8)));
 
     p = i8.next();
-    assertThat(p, is(new Position(9,7)));
+    assertThat(p, is(new Position(9, 7)));
 
     p = i8.next();
-    assertThat(p, is(new Position(8,7)));
+    assertThat(p, is(new Position(8, 7)));
 
     p = i8.next();
-    assertThat(p, is(new Position(7,7)));
+    assertThat(p, is(new Position(7, 7)));
 
     assertThat(i8.hasNext(), is(false));
   }
 
   @Test
   public void shouldOnlyHave3ElementsAround00Position() {
-    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(0,0));
+    Iterator<Position> i8 = Utility.get8neighborhoodIterator(new Position(0, 0));
     Position p = i8.next();
-    assertThat(p, is(new Position(0,1)));
+    assertThat(p, is(new Position(0, 1)));
 
     p = i8.next();
-    assertThat(p, is(new Position(1,1)));
+    assertThat(p, is(new Position(1, 1)));
 
     p = i8.next();
-    assertThat(p, is(new Position(1,0)));
+    assertThat(p, is(new Position(1, 0)));
 
     assertThat(i8.hasNext(), is(false));
   }
@@ -93,7 +94,7 @@ public class TestIterators {
   @Test
   public void shouldOnlyHave3ElementsAround15_15Position() {
     Iterator<Position> i8 = Utility.get8neighborhoodIterator(
-            new Position(GameConstants.WORLDSIZE - 1, GameConstants.WORLDSIZE - 1));
+        new Position(GameConstants.WORLDSIZE - 1, GameConstants.WORLDSIZE - 1));
 
     Position p = i8.next();
     assertThat(p, is(new Position(14, 15)));
@@ -110,21 +111,21 @@ public class TestIterators {
   @Test
   public void shouldSupportIterable() {
     List<Position> list = new ArrayList<>();
-    for (Position p : Utility.get8neighborhoodOf(new Position(3,4))) {
+    for (Position p : Utility.get8neighborhoodOf(new Position(3, 4))) {
       list.add(p);
     }
-    assertThat(list, hasItems( new Position(2,4),
-            new Position(3,3)));
-    assertThat(list, not(hasItem(new Position(3,4))));
+    assertThat(list, hasItems(new Position(2, 4),
+        new Position(3, 3)));
+    assertThat(list, not(hasItem(new Position(3, 4))));
     assertThat(list.size(), is(8));
   }
 
   @Test
   public void worldLayoutIteratorShouldRunColumnsThenRows() {
     Iterator<Position> iter = Utility.getWorldLayoutIterator();
-    for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        assertThat(iter.next(), is(new Position(r,c)));
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        assertThat(iter.next(), is(new Position(r, c)));
       }
     }
   }

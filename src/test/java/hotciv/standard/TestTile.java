@@ -1,43 +1,43 @@
 package hotciv.standard;
 
-import hotciv.framework.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import java.util.*;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Tile;
+import org.junit.Test;
 
 public class TestTile {
-    private Tile tile;
 
-    @Test
-    public void shouldReturnTerrainAsPlains() {
-        tile = new TileImpl(GameConstants.PLAINS);
-        assertThat(tile.getTypeString(), is(GameConstants.PLAINS));
-    }
+  private Tile tile;
 
-    @Test
-    public void shouldReturnTerrainAsOceans() {
-        tile = new TileImpl(GameConstants.OCEANS);
-        assertThat(tile.getTypeString(), is(GameConstants.OCEANS));
-    }
+  @Test
+  public void shouldReturnTerrainAsPlains() {
+    tile = new TileImpl(GameConstants.PLAINS);
+    assertThat(tile.getTypeString(), is(GameConstants.PLAINS));
+  }
 
-    @Test
-    public void shouldReturnTerrainAsForest() {
-        tile = new TileImpl(GameConstants.FOREST);
-        assertThat(tile.getTypeString(), is(GameConstants.FOREST));
-    }
+  @Test
+  public void shouldReturnTerrainAsOceans() {
+    tile = new TileImpl(GameConstants.OCEANS);
+    assertThat(tile.getTypeString(), is(GameConstants.OCEANS));
+  }
 
-    @Test
-    public void shouldReturnTerrainAsMountains() {
-        tile = new TileImpl(GameConstants.MOUNTAINS);
-        assertThat(tile.getTypeString(), is(GameConstants.MOUNTAINS));
-    }
+  @Test
+  public void shouldReturnTerrainAsForest() {
+    tile = new TileImpl(GameConstants.FOREST);
+    assertThat(tile.getTypeString(), is(GameConstants.FOREST));
+  }
 
-    @Test
-    public void shouldReturnTerrainAsHills() {
-        tile = new TileImpl(GameConstants.HILLS);
-        assertThat(tile.getTypeString(), is(GameConstants.HILLS));
-    }
+  @Test
+  public void shouldReturnTerrainAsMountains() {
+    tile = new TileImpl(GameConstants.MOUNTAINS);
+    assertThat(tile.getTypeString(), is(GameConstants.MOUNTAINS));
+  }
+
+  @Test
+  public void shouldReturnTerrainAsHills() {
+    tile = new TileImpl(GameConstants.HILLS);
+    assertThat(tile.getTypeString(), is(GameConstants.HILLS));
+  }
 }

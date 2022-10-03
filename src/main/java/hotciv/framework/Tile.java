@@ -1,11 +1,6 @@
 package hotciv.framework;
 
-/** Tile represents a single territory tile of a given type.
-
-    Responsibilities:
-    1) Know its type.
-
-   This source code is from the book 
+/* This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -27,15 +22,18 @@ package hotciv.framework;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
  */
 
+/**
+ * Tile represents a single territory tile of a given type. Responsibilities: 1) Know its type.
+ */
 public interface Tile {
 
-  /** return the tile type as a string. The set of
-   * valid strings are defined by the graphics
-   * engine, as they correspond to named image files.
-   * @return the type type as string
+  /**
+   * return the tile type as a string. The set of valid strings are defined by the graphics engine,
+   * as they correspond to named image files.
+   *
+   * @return the terrain type as string
    */
-  public String getTypeString(); 
+  public String getTypeString();
 }

@@ -1,11 +1,6 @@
 package hotciv.framework;
 
-/** Represents a player of the game.
-
-Responsibilities:
-  1) To represent a player, specifically his/her color.
-
-   This source code is from the book 
+/* This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -27,8 +22,12 @@ Responsibilities:
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
 */
+
+/**
+ * Represents a player of the game. Responsibilities: 1) To represent a player, specifically his/her
+ * color.
+ */
 public enum Player {
   RED, BLUE, YELLOW, GREEN
 }

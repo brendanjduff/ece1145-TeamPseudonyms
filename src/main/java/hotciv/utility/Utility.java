@@ -20,31 +20,27 @@ package hotciv.utility;
 
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * At 09 May 2018
- *
- * @author Henrik Baerbak Christensen, CS @ AU
- */
 public class Utility {
+
   public static Iterator<Position> get8neighborhoodIterator(Position center) {
     List<Position> list = new ArrayList<>();
     // Define the 'delta' to add to the row for the 8 positions
-    int[] rowDelta = new int[] {-1, -1, 0, +1, +1, +1, 0, -1};
+    int[] rowDelta = new int[]{-1, -1, 0, +1, +1, +1, 0, -1};
     // Define the 'delta' to add to the colum for the 8 positions
-    int[] columnDelta = new int[] {0, +1, +1, +1, 0, -1, -1, -1};
+    int[] columnDelta = new int[]{0, +1, +1, +1, 0, -1, -1, -1};
 
     for (int index = 0; index < rowDelta.length; index++) {
       int row = center.getRow() + rowDelta[index];
       int col = center.getColumn() + columnDelta[index];
       if (row >= 0 && col >= 0
-              && row < GameConstants.WORLDSIZE
-              && col < GameConstants.WORLDSIZE)
+          && row < GameConstants.WORLDSIZE
+          && col < GameConstants.WORLDSIZE) {
         list.add(new Position(row, col));
+      }
     }
     return list.iterator();
   }
@@ -62,9 +58,9 @@ public class Utility {
 
   public static Iterator<Position> getWorldLayoutIterator() {
     List<Position> list = new ArrayList<>();
-    for(int r = 0; r < GameConstants.WORLDSIZE; r++) {
-      for(int c = 0; c < GameConstants.WORLDSIZE; c++) {
-        list.add(new Position(r,c));
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        list.add(new Position(r, c));
       }
     }
     return list.iterator();

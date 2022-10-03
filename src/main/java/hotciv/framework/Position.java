@@ -1,11 +1,6 @@
 package hotciv.framework;
 
-/** Position on the world map.
-    
-    Responsibilities:
-    1) Know a specific location (row,column).
-
-   This source code is from the book 
+/* This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -27,44 +22,62 @@ package hotciv.framework;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+ */
 
+/**
+ * Position on the world map. Responsibilities: 1) Know a specific location (row,column).
  */
 public class Position {
 
-  /** create a position. 
+  /**
+   * create a position.
+   *
    * @param r the row
    * @param c the column
-  */
-  public Position(int r, int c) { 
-    this.r = r; this.c = c; 
+   */
+  public Position(int r, int c) {
+    this.r = r;
+    this.c = c;
   }
 
   protected int r;
   protected int c;
 
-  /** get the row represented by this position.
+  /**
+   * get the row represented by this position.
+   *
    * @return the row.
    */
-  public int getRow() { return r; }
+  public int getRow() {
+    return r;
+  }
 
-  /** get the column represented by this position.
+  /**
+   * get the column represented by this position.
+   *
    * @return the column.
    */
-  public int getColumn() { return c; }
+  public int getColumn() {
+    return c;
+  }
 
   public boolean equals(Object o) {
-    if (o == null) { return false; }
-    if (o.getClass() != Position.class) { return false; }
+    if (o == null) {
+      return false;
+    }
+    if (o.getClass() != Position.class) {
+      return false;
+    }
     Position other = (Position) o;
-    return r==other.r && c==other.c;
+    return r == other.r && c == other.c;
   }
 
   public int hashCode() {
     // works ok for positions up to columns == 479
-    return 479*r+c;
+    return 479 * r + c;
   }
-  
+
   public String toString() {
-    return "["+r+","+c+"]";
+    return "[" + r + "," + c + "]";
   }
 }

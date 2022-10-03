@@ -1,12 +1,6 @@
 package hotciv.framework;
 
-/** Represents a city in the game.
-
-Responsibilities:
-1) Knows its owner.
-2) Knows its population size.
-
-   This source code is from the book 
+/* This source code is from the book
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -28,42 +22,53 @@ Responsibilities:
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
 */
+
+/**
+ * Represents a city in the game. Responsibilities: 1) Knows its owner. 2) Knows its population
+ * size.
+ */
 public interface City {
-  /** return the owner of this city.
+
+  /**
+   * return the owner of this city.
+   *
    * @return the player that controls this city.
    */
   public Player getOwner();
-  
-  /** return the size of the population.
+
+  /**
+   * return the size of the population.
+   *
    * @return population size.
    */
   public int getSize();
 
-  /** return the treasury, i.e. the
-   * number of 'money'/production in the
-   * city's treasury which can be used to
-   * produce a unit in this city
-   * @return an integer, the amount of production
-   * in the city treasury
+  /**
+   * return the treasury, i.e. the number of 'money'/production in the city's treasury which can be
+   * used to produce a unit in this city
+   *
+   * @return an integer, the amount of production in the city treasury
    */
   public int getTreasury();
 
-  /** return the type of unit this city is currently producing.
-   * @return a string type defining the unit under production,
-   * see GameConstants for valid values.
+  /**
+   * return the type of unit this city is currently producing.
+   *
+   * @return a string type defining the unit under production, see GameConstants for valid values.
    */
   public String getProduction();
 
-  /** return the work force's focus in this city.
-   * @return a string type defining the focus, see GameConstants
-   * for valid return values.
+  /**
+   * return the work force's focus in this city.
+   *
+   * @return a string type defining the focus, see GameConstants for valid return values.
    */
   public String getWorkforceFocus();
 
-  /** called at the end of each turn
-   *  handles production of units
+  /**
+   * called at the end of each turn handles production of units
+   *
    * @return true if unit has enough in the treasury to produce a unit
    */
   public boolean endOfTurnProduction();
