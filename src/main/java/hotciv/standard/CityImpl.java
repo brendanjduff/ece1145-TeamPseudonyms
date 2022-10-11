@@ -41,27 +41,37 @@ public class CityImpl implements City {
     return null;
   }
 
-  public boolean endOfTurnProduction() {
-    treasury += 6;
-    if (production.equals(GameConstants.ARCHER) && treasury >= 10) {
-      treasury -= 10;
-      return true;
-    } else if (production.equals(GameConstants.LEGION) && treasury >= 15) {
-      treasury -= 15;
-      return true;
-    } else if (production.equals(GameConstants.SETTLER) && treasury >= 30) {
-      treasury -= 30;
-      return true;
-    } else {
-      return false;
-    }
+  public void setOwner(Player player) {
+    owner = player;
   }
 
   public void setProduction(String unitType) {
     production = unitType;
   }
 
-  public void setOwner(Player player) {
-    owner = player;
+  public void fillTreasury() {
+    treasury += 6;
+  }
+
+  public boolean unitCostMet() {
+    if (production.equals(GameConstants.ARCHER) && treasury >= 10) {
+      return true;
+    } else if (production.equals(GameConstants.LEGION) && treasury >= 15) {
+      return true;
+    } else if (production.equals(GameConstants.SETTLER) && treasury >= 30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void produceUnit() {
+    if (production.equals(GameConstants.ARCHER)) {
+      treasury -= 10;
+    } else if (production.equals(GameConstants.LEGION)) {
+      treasury -= 15;
+    } else if (production.equals(GameConstants.SETTLER)) {
+      treasury -= 30;
+    }
   }
 }

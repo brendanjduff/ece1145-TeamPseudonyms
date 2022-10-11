@@ -152,17 +152,19 @@ public class GameImpl implements Game {
       units.forEach((position, unit) -> {
         unit.setMoveCount(1);
       });
-      // B) produce food and production in all cities
-      // C) produce units in all cities (if enough production)
+      /* B) produce food and production in all cities
+         C) produce units in all cities (if enough production) */
       cities.forEach((position, city) -> {
-        if (city.endOfTurnProduction()) {
+        city.fillTreasury();
+        if (city.unitCostMet()) {
           if (!units.containsKey(position)) {
             units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
               if (!units.containsKey(p) &&
-                  tiles.get(p).getTypeString() != GameConstants.OCEANS &&
-                  tiles.get(p).getTypeString() != GameConstants.MOUNTAINS) {
+                  !tiles.get(p).getTypeString().equals(GameConstants.OCEANS) &&
+                  !tiles.get(p).getTypeString().equals(GameConstants.MOUNTAINS)) {
+                city.produceUnit();
                 units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
                 break;
               }
