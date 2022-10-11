@@ -13,6 +13,7 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility;
+import java.util.Map;
 
 /* Skeleton implementation of HotCiv.
    This source code is from the book
@@ -65,9 +66,9 @@ public class GameImpl implements Game {
   Player[] players = new Player[2];
   int playerIndex;
   int age;
-  java.util.Map<Position, Tile> tiles;
-  java.util.Map<Position, City> cities;
-  java.util.Map<Position, Unit> units;
+  java.util.Map<Position, TileImpl> tiles;
+  Map<Position, CityImpl> cities;
+  java.util.Map<Position, UnitImpl> units;
 
   // Strategies
   VictoryStrategy victoryStrategy;
@@ -101,7 +102,7 @@ public class GameImpl implements Game {
   }
 
   public boolean moveUnit(Position from, Position to) {
-    Unit unit = getUnitAt(from);
+    UnitImpl unit = units.get(from);
     // Check unit ownership, terrain type, and move distance
     if (unit.getOwner() != getPlayerInTurn()) {
       return false;
@@ -182,7 +183,7 @@ public class GameImpl implements Game {
   }
 
   public void performUnitActionAt(Position p) {
-    Unit unit = getUnitAt(p);
+    UnitImpl unit = units.get(p);
     if (unit.getTypeString().equals(GameConstants.ARCHER)) {
       archerActionStrategy.fortify(unit);
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {

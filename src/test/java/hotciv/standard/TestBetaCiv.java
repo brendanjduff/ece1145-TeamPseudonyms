@@ -68,7 +68,7 @@ public class TestBetaCiv {
   @Test
   public void conquerAllCitiesToWin() {
     assertThat(game, is(notNullValue()));
-    game.getCityAt(new Position(4, 1)).setOwner(Player.RED);
+    ((CityImpl) game.getCityAt(new Position(4, 1))).setOwner(Player.RED);
     assertThat(game.getWinner(), is(Player.RED));
   }
 }

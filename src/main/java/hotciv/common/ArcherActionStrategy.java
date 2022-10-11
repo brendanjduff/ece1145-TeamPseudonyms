@@ -1,10 +1,10 @@
 package hotciv.common;
 
-import hotciv.framework.Unit;
+import hotciv.standard.UnitImpl;
 
 /* This strategy performs the archer action */
 
 public interface ArcherActionStrategy {
 
-  public void fortify(Unit unit);
+  public void fortify(UnitImpl unit);
 }

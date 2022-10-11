@@ -5,12 +5,11 @@ import static org.junit.Assert.assertThat;
 
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
-import hotciv.framework.Unit;
 import org.junit.Test;
 
 public class TestUnit {
 
-  private Unit unit;
+  private UnitImpl unit;
 
   @Test
   public void unitTypeShouldBeArcher() {

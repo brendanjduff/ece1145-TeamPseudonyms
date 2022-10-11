@@ -1,12 +1,12 @@
 package hotciv.variants;
 
 import hotciv.common.ArcherActionStrategy;
-import hotciv.framework.Unit;
+import hotciv.standard.UnitImpl;
 
 public class NoArcherActionStrategy implements ArcherActionStrategy {
 
   @Override
-  public void fortify(Unit unit) {
+  public void fortify(UnitImpl unit) {
     // No action taken
   }
 }

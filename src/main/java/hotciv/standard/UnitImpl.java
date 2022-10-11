@@ -60,7 +60,6 @@ public class UnitImpl implements Unit {
     return attackingStrength;
   }
 
-  @Override
   public void setMoveCount(int count) {
     movement = count;
   }

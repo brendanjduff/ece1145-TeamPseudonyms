@@ -1,15 +1,16 @@
 package hotciv.variants;
 
 import hotciv.common.VictoryStrategy;
-import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.CityImpl;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ConquerAllCitiesVictoryStrategy implements VictoryStrategy {
 
   @Override
-  public Player getWinner(int age, java.util.Map<Position, City> cities) {
+  public Player getWinner(int age, Map<Position, CityImpl> cities) {
     ArrayList<Player> owners = new ArrayList<Player>();
 
     owners.add(cities.get(new Position(1, 1)).getOwner());

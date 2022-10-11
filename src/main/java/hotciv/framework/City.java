@@ -65,15 +65,4 @@ public interface City {
    * @return a string type defining the focus, see GameConstants for valid return values.
    */
   public String getWorkforceFocus();
-
-  /**
-   * called at the end of each turn handles production of units
-   *
-   * @return true if unit has enough in the treasury to produce a unit
-   */
-  public boolean endOfTurnProduction();
-
-  public void setProduction(String unitType);
-
-  public void setOwner(Player player);
 }

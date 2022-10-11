@@ -5,12 +5,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import hotciv.common.WorldLayoutStrategy;
-import hotciv.framework.City;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.Unit;
 import hotciv.variants.FullWorldLayoutStrategy;
 import java.util.HashMap;
 import org.junit.Before;
@@ -19,9 +16,9 @@ import org.junit.Test;
 public class TestFullWorldLayoutStrategy {
 
   WorldLayoutStrategy worldLayoutStrategy;
-  HashMap<Position, Tile> tiles;
-  HashMap<Position, City> cities;
-  HashMap<Position, Unit> units;
+  HashMap<Position, TileImpl> tiles;
+  HashMap<Position, CityImpl> cities;
+  HashMap<Position, UnitImpl> units;
 
   @Before
   public void setUp() {

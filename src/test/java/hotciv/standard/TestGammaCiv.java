@@ -41,6 +41,6 @@ public class TestGammaCiv {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
 
-    assertThat(game.getUnitAt(new Position(2, 0)).fortified(), is(true));  //no change
+    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).fortified(), is(true));  //no change
   }
 }

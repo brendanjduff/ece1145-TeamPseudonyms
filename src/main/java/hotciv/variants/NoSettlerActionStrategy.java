@@ -1,15 +1,15 @@
 package hotciv.variants;
 
 import hotciv.common.SettlerActionStrategy;
-import hotciv.framework.City;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
 import java.util.Map;
 
 public class NoSettlerActionStrategy implements SettlerActionStrategy {
 
   @Override
-  public void buildCity(Map<Position, City> city, Map<Position, Unit> units, Position p) {
+  public void buildCity(Map<Position, CityImpl> city, Map<Position, UnitImpl> units, Position p) {
     // No action taken
   }
 }

@@ -3,14 +3,13 @@ package hotciv.standard;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import hotciv.framework.City;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import org.junit.Test;
 
 public class TestCity {
 
-  private City city;
+  private CityImpl city;
 
   @Test
   public void cityIsOwnedByRed() {

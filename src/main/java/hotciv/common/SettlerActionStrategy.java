@@ -1,13 +1,14 @@
 package hotciv.common;
 
-import hotciv.framework.City;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
+import java.util.Map;
 
 /* This strategy performs the settler action */
 
 public interface SettlerActionStrategy {
 
-  public void buildCity(java.util.Map<Position, City> city, java.util.Map<Position, Unit> units,
+  public void buildCity(Map<Position, CityImpl> city, Map<Position, UnitImpl> units,
       Position p);
 }

@@ -67,12 +67,4 @@ public interface Unit {
    * @return attack strength
    */
   public int getAttackingStrength();
-
-  public void setMoveCount(int count);
-
-  public void setDefensiveStrength(int strength);
-
-  public boolean fortified();
-
-  public void fortify(boolean b);
 }

@@ -6,12 +6,10 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
-import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility;
 import hotciv.variants.LinearAgingStrategy;
@@ -97,7 +95,7 @@ public class TestAlphaCiv {
   @Test
   public void shouldAge100YearsEachRound() {
     assertThat(game, is(notNullValue()));
-    for(int i = -4000; i <= -3100; i += 100) {
+    for (int i = -4000; i <= -3100; i += 100) {
       assertThat(game.getAge(), is(i));
       game.endOfTurn();
       game.endOfTurn();
@@ -119,7 +117,7 @@ public class TestAlphaCiv {
   @Test
   public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, Tile> tiles = new SparseWorldLayoutStrategy().placeTiles();
+    HashMap<Position, TileImpl> tiles = new SparseWorldLayoutStrategy().placeTiles();
     for (Position p : Utility.getWorldLayoutIterable()) {
       assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
     }
@@ -128,7 +126,7 @@ public class TestAlphaCiv {
   @Test
   public void citiesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, City> cities = new SparseWorldLayoutStrategy().placeCities();
+    HashMap<Position, CityImpl> cities = new SparseWorldLayoutStrategy().placeCities();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (cities.containsKey(p)) {
         assertThat(game.getCityAt(p), is(notNullValue()));
@@ -142,7 +140,7 @@ public class TestAlphaCiv {
   @Test
   public void unitsCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, Unit> units = new SparseWorldLayoutStrategy().placeUnits();
+    HashMap<Position, UnitImpl> units = new SparseWorldLayoutStrategy().placeUnits();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (units.containsKey(p)) {
         assertThat(game.getUnitAt(p), is(notNullValue()));
@@ -239,7 +237,7 @@ public class TestAlphaCiv {
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
-    game.getUnitAt(new Position(2, 0)).setMoveCount(0);
+    ((UnitImpl) game.getUnitAt(new Position(2, 0))).setMoveCount(0);
     assertThat(game.moveUnit(new Position(2, 0), new Position(2, 1)), is(false));
   }
 
@@ -339,6 +337,6 @@ public class TestAlphaCiv {
   public void performNoArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-    assertThat(game.getUnitAt(new Position(2, 0)).fortified(), is(false));  //no change
+    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).fortified(), is(false));  //no change
   }
 }

@@ -41,7 +41,6 @@ public class CityImpl implements City {
     return null;
   }
 
-  @Override
   public boolean endOfTurnProduction() {
     treasury += 6;
     if (production.equals(GameConstants.ARCHER) && treasury >= 10) {
@@ -58,12 +57,10 @@ public class CityImpl implements City {
     }
   }
 
-  @Override
   public void setProduction(String unitType) {
     production = unitType;
   }
 
-  @Override
   public void setOwner(Player player) {
     owner = player;
   }
