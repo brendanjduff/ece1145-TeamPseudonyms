@@ -97,20 +97,21 @@ public class TestAlphaCiv {
   @Test
   public void shouldAge100YearsEachRound() {
     assertThat(game, is(notNullValue()));
-    assertThat(game.getAge(), is(-4000));
-    game.endOfTurn();
-    game.endOfTurn();
-    assertThat(game.getAge(), is(-4000 + 100));
+    for(int i = -4000; i <= -3100; i += 100) {
+      assertThat(game.getAge(), is(i));
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+    assertThat(game.getAge(), is(-3000));
   }
 
   @Test
   public void redShouldWinIn3000BC() {
     assertThat(game, is(notNullValue()));
-    for (int i = 0; i < (2 * 10) - 1; i++) {
-      game.endOfTurn();
+    for (int i = 0; i < (2 * 10); i++) {
       assertThat(game.getWinner(), is(nullValue()));
+      game.endOfTurn();
     }
-    game.endOfTurn();
     assertThat(game.getAge(), is(-3000));
     assertThat(game.getWinner(), is(Player.RED));
   }
