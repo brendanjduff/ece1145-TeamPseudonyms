@@ -157,13 +157,15 @@ public class GameImpl implements Game {
       cities.forEach((position, city) -> {
         city.fillTreasury();
         if (city.unitCostMet()) {
-          if (!units.containsKey(position)) {
+          boolean noUnitOnCity = !units.containsKey(position);
+          if (noUnitOnCity) {
             units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
-              if (!units.containsKey(p) &&
+              boolean canPlaceUnitHere = !units.containsKey(p) &&
                   !tiles.get(p).getTypeString().equals(GameConstants.OCEANS) &&
-                  !tiles.get(p).getTypeString().equals(GameConstants.MOUNTAINS)) {
+                  !tiles.get(p).getTypeString().equals(GameConstants.MOUNTAINS);
+              if (canPlaceUnitHere) {
                 city.produceUnit();
                 units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
                 break;
