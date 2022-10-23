@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import hotciv.framework.Game;
@@ -68,6 +69,7 @@ public class TestBetaCiv {
   @Test
   public void conquerAllCitiesToWin() {
     assertThat(game, is(notNullValue()));
+    assertThat(game.getWinner(), is(nullValue()));
     ((CityImpl) game.getCityAt(new Position(4, 1))).setOwner(Player.RED);
     assertThat(game.getWinner(), is(Player.RED));
   }
