@@ -159,6 +159,7 @@ public class GameImpl implements Game {
         if (city.unitCostMet()) {
           boolean noUnitOnCity = !units.containsKey(position);
           if (noUnitOnCity) {
+            city.produceUnit();
             units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
