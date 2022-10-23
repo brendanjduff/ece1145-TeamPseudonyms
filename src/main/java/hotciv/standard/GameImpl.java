@@ -197,9 +197,9 @@ public class GameImpl implements Game {
   public void performUnitActionAt(Position p) {
     UnitImpl unit = units.get(p);
     if (unit.getTypeString().equals(GameConstants.ARCHER)) {
-      archerActionStrategy.fortify(unit);
+      archerActionStrategy.performAction(unit);
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
-      settlerActionStrategy.buildCity(cities, units, p);
+      settlerActionStrategy.performAction(cities, units, p);
     }
   }
 

@@ -9,7 +9,7 @@ import java.util.Map;
 public class NoSettlerActionStrategy implements SettlerActionStrategy {
 
   @Override
-  public void buildCity(Map<Position, CityImpl> city, Map<Position, UnitImpl> units, Position p) {
+  public void performAction(Map<Position, CityImpl> city, Map<Position, UnitImpl> units, Position p) {
     // No action taken
   }
 }

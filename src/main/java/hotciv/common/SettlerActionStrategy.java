@@ -9,6 +9,6 @@ import java.util.Map;
 
 public interface SettlerActionStrategy {
 
-  public void buildCity(Map<Position, CityImpl> city, Map<Position, UnitImpl> units,
+  public void performAction(Map<Position, CityImpl> city, Map<Position, UnitImpl> units,
       Position p);
 }

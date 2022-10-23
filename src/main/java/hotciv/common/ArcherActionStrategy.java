@@ -6,5 +6,5 @@ import hotciv.standard.UnitImpl;
 
 public interface ArcherActionStrategy {
 
-  public void fortify(UnitImpl unit);
+  public void performAction(UnitImpl unit);
 }
