@@ -6,7 +6,6 @@ public class LinearAgingStrategy implements AgingStrategy {
 
   @Override
   public int incrementAge(int age) {
-    age += 100;
-    return age;
+    return age + 100;
   }
 }
