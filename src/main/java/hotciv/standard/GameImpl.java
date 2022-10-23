@@ -104,17 +104,20 @@ public class GameImpl implements Game {
   public boolean moveUnit(Position from, Position to) {
     UnitImpl unit = units.get(from);
 
-    boolean isOwnerPlayerInTurn = unit.getOwner() == getPlayerInTurn();
-    boolean isTileMountains = tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS);
-    boolean isTileOceans = tiles.get(to).getTypeString().equals(GameConstants.OCEANS);
-    boolean isRowMoveCountLargerThanAllowed = Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount();
-    boolean isColumnMoveCountLargerThanAllowed = Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount();
     // Check unit ownership, terrain type, and move distance
-    if (!isOwnerPlayerInTurn) {
+    boolean unitBelongsToOtherPlayer = unit.getOwner() != getPlayerInTurn();
+    if (unitBelongsToOtherPlayer) {
       return false;
-    } else if ( isTileMountains || isTileOceans ) {
+    }
+    boolean notEnoughMoves = Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount()
+        || Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount();
+    if (notEnoughMoves) {
       return false;
-    } else if ( isRowMoveCountLargerThanAllowed || isColumnMoveCountLargerThanAllowed ) {
+    }
+    boolean isTileMountainsOrOceans =
+        tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) || tiles.get(to)
+            .getTypeString().equals(GameConstants.OCEANS);
+    if (isTileMountainsOrOceans) {
       return false;
     }
 
