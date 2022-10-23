@@ -20,7 +20,7 @@ public class UnitImpl implements Unit {
       attackingStrength = 0;
       defensiveStrength = 3;
     }
-    isFortified = false;
+    fortified = false;
   }
 
   String unitType;
@@ -29,7 +29,7 @@ public class UnitImpl implements Unit {
   int movement;
   int attackingStrength;
   int defensiveStrength;
-  boolean isFortified;
+  boolean fortified;
 
   @Override
   public String getTypeString() {
@@ -43,16 +43,18 @@ public class UnitImpl implements Unit {
 
   @Override
   public int getMoveCount() {
+    if (fortified) {
+      return 0;
+    }
     return movement;
   }
 
   @Override
   public int getDefensiveStrength() {
+    if (fortified) {
+      return defensiveStrength * 2;
+    }
     return defensiveStrength;
-  }
-
-  public void setDefensiveStrength(int strength) {
-    defensiveStrength = strength;
   }
 
   @Override
@@ -64,11 +66,11 @@ public class UnitImpl implements Unit {
     movement = count;
   }
 
-  public boolean fortified() {
-    return isFortified;
+  public boolean isFortified() {
+    return fortified;
   }
 
-  public void fortify(boolean fortify) {
-    isFortified = fortify;
+  public void toggleFortification() {
+    fortified = !fortified;
   }
 }

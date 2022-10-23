@@ -32,15 +32,14 @@ public class TestGammaCiv {
   public void performBuildCitySettlerActionOnR4C3() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(4, 3));
-
-    assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));  //no change
+    assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));
   }
 
   @Test
   public void performFortifyArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-
-    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).fortified(), is(true));  //no change
+    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).isFortified(),
+        is(true));
   }
 }

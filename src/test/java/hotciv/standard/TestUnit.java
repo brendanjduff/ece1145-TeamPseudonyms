@@ -89,4 +89,22 @@ public class TestUnit {
     unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
     assertThat(unit.getAttackingStrength(), is(0));
   }
+
+  @Test
+  public void shouldHaveMoveCount0WhenFortified() {
+    unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    assertThat(unit.isFortified(), is(false));
+    unit.toggleFortification();
+    assertThat(unit.isFortified(), is(true));
+    assertThat(unit.getMoveCount(), is(0));
+  }
+
+  @Test
+  public void archerShouldHaveDoubleDefenseOf6WhenFortified() {
+    unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    assertThat(unit.isFortified(), is(false));
+    unit.toggleFortification();
+    assertThat(unit.isFortified(), is(true));
+    assertThat(unit.getDefensiveStrength(), is(6));
+  }
 }
