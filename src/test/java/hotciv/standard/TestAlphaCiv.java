@@ -6,16 +6,13 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
+import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.NoArcherActionStrategy;
-import hotciv.variants.NoSettlerActionStrategy;
-import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
 import java.util.HashMap;
 import org.junit.Before;
@@ -58,11 +55,7 @@ public class TestAlphaCiv {
    */
   @Before
   public void setUp() {
-    game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
-        new LinearAgingStrategy(),
-        new NoArcherActionStrategy(),
-        new NoSettlerActionStrategy(),
-        new SparseWorldLayoutStrategy());
+    game = new GameImpl(new AlphaCivFactory());
   }
 
   @Test

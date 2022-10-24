@@ -5,14 +5,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import hotciv.factory.BetaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variants.ConquerAllCitiesVictoryStrategy;
-import hotciv.variants.NoArcherActionStrategy;
-import hotciv.variants.NoSettlerActionStrategy;
-import hotciv.variants.ProgressiveAgingStrategy;
-import hotciv.variants.SparseWorldLayoutStrategy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,11 +18,7 @@ public class TestBetaCiv {
 
   @Before
   public void setUp() {
-    game = new GameImpl(new ConquerAllCitiesVictoryStrategy(),
-        new ProgressiveAgingStrategy(),
-        new NoArcherActionStrategy(),
-        new NoSettlerActionStrategy(),
-        new SparseWorldLayoutStrategy());
+    game = new GameImpl(new BetaCivFactory());
   }
 
   @Test

@@ -4,14 +4,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import hotciv.factory.GammaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variants.BuildCitySettlerActionStrategy;
-import hotciv.variants.FortifyArcherActionStrategy;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
-import hotciv.variants.SparseWorldLayoutStrategy;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,11 +18,7 @@ public class TestGammaCiv {
 
   @Before
   public void setUp() {
-    game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
-        new LinearAgingStrategy(),
-        new FortifyArcherActionStrategy(),
-        new BuildCitySettlerActionStrategy(),
-        new SparseWorldLayoutStrategy());
+    game = new GameImpl(new GammaCivFactory());
   }
 
   @Test

@@ -6,14 +6,11 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
+import hotciv.factory.DeltaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.utility.Utility;
 import hotciv.variants.FullWorldLayoutStrategy;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.NoArcherActionStrategy;
-import hotciv.variants.NoSettlerActionStrategy;
-import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +21,7 @@ public class TestDeltaCiv {
 
   @Before
   public void setUp() {
-    game = new GameImpl(new RedWinsAt3000BCVictoryStrategy(),
-        new LinearAgingStrategy(),
-        new NoArcherActionStrategy(),
-        new NoSettlerActionStrategy(),
-        new FullWorldLayoutStrategy());
+    game = new GameImpl(new DeltaCivFactory());
   }
 
   @Test

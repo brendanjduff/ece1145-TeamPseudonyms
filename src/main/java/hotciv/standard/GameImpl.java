@@ -5,6 +5,7 @@ import hotciv.common.ArcherActionStrategy;
 import hotciv.common.SettlerActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
+import hotciv.factory.GameFactory;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
@@ -42,16 +43,13 @@ import java.util.Map;
 
 public class GameImpl implements Game {
 
-  public GameImpl(VictoryStrategy victory,
-      AgingStrategy aging,
-      ArcherActionStrategy archerAction,
-      SettlerActionStrategy settlerAction,
-      WorldLayoutStrategy worldLayout) {
-    victoryStrategy = victory;
-    agingStrategy = aging;
-    archerActionStrategy = archerAction;
-    settlerActionStrategy = settlerAction;
-    worldLayoutStrategy = worldLayout;
+  public GameImpl(GameFactory factory) {
+    gameFactory = factory;
+    victoryStrategy = factory.createVictoryStrategy();
+    agingStrategy = factory.createAgingStrategy();
+    archerActionStrategy = factory.createArcherActionStrategy();
+    settlerActionStrategy = factory.createSettlerActionStrategy();
+    worldLayoutStrategy = factory.createWorldLayoutStrategy();
 
     playerIndex = 0;
     players[0] = Player.RED;
@@ -70,7 +68,7 @@ public class GameImpl implements Game {
   Map<Position, CityImpl> cities;
   Map<Position, UnitImpl> units;
 
-  // Strategies
+  GameFactory gameFactory;
   VictoryStrategy victoryStrategy;
   AgingStrategy agingStrategy;
   ArcherActionStrategy archerActionStrategy;
