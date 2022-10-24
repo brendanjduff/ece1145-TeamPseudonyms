@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.common.AgingStrategy;
 import hotciv.common.ArcherActionStrategy;
+import hotciv.common.BattleStrategy;
 import hotciv.common.SettlerActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
@@ -50,6 +51,7 @@ public class GameImpl implements Game {
     archerActionStrategy = factory.createArcherActionStrategy();
     settlerActionStrategy = factory.createSettlerActionStrategy();
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
+    battleStrategy = factory.createBattleStrategy();
 
     playerIndex = 0;
     players[0] = Player.RED;
@@ -74,6 +76,7 @@ public class GameImpl implements Game {
   ArcherActionStrategy archerActionStrategy;
   SettlerActionStrategy settlerActionStrategy;
   WorldLayoutStrategy worldLayoutStrategy;
+  BattleStrategy battleStrategy;
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -122,7 +125,7 @@ public class GameImpl implements Game {
     // Check for battles and unit collision
     if (units.containsKey(to)) {
       if (units.get(to).getOwner() != getPlayerInTurn()) {
-        if (battle(unit, units.get(to))) {
+        if (battleStrategy.battle(unit, units.get(to))) {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
@@ -199,9 +202,5 @@ public class GameImpl implements Game {
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
       settlerActionStrategy.performAction(cities, units, p);
     }
-  }
-
-  public boolean battle(Unit attacker, Unit defender) {
-    return true;
   }
 }

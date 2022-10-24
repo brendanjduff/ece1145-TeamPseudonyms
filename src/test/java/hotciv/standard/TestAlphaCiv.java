@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
+import hotciv.common.BattleStrategy;
 import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
@@ -13,6 +14,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility;
+import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
 import java.util.HashMap;
 import org.junit.Before;
@@ -224,7 +226,8 @@ public class TestAlphaCiv {
     assertThat(game, is(notNullValue()));
     Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
     Unit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
-    assertThat(((GameImpl) game).battle(attacker, defender), is(true));
+    BattleStrategy battleStrategy = new AttackerWinsBattleStrategy();
+    assertThat(battleStrategy.battle(attacker, defender), is(true));
   }
 
   @Test

@@ -8,7 +8,6 @@ import hotciv.factory.GammaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-
 import org.junit.Before;
 import org.junit.Test;
 
