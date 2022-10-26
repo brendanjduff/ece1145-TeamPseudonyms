@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import hotciv.factory.GammaCivFactory;
 import hotciv.framework.Game;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import org.junit.Before;
@@ -31,7 +32,9 @@ public class TestGammaCiv {
   public void performFortifyArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).isFortified(),
-        is(true));
+    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMoveable(),
+        is(false));
+    assertThat((game.getUnitAt(new Position(2, 0))).getDefensiveStrength(),
+        is(6));
   }
 }

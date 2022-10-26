@@ -1,10 +1,10 @@
 package hotciv.standard;
 
 import hotciv.framework.GameConstants;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
-import hotciv.framework.Unit;
 
-public class UnitImpl implements Unit {
+public class UnitImpl implements MutableUnit {
 
   public UnitImpl(String type, Player player) {
     unitType = type;
@@ -20,7 +20,7 @@ public class UnitImpl implements Unit {
       attackingStrength = 0;
       defensiveStrength = 3;
     }
-    fortified = false;
+    moveable = true;
   }
 
   String unitType;
@@ -29,7 +29,7 @@ public class UnitImpl implements Unit {
   int movement;
   int attackingStrength;
   int defensiveStrength;
-  boolean fortified;
+  boolean moveable;
 
   @Override
   public String getTypeString() {
@@ -43,7 +43,7 @@ public class UnitImpl implements Unit {
 
   @Override
   public int getMoveCount() {
-    if (fortified) {
+    if (!moveable) {
       return 0;
     }
     return movement;
@@ -51,9 +51,6 @@ public class UnitImpl implements Unit {
 
   @Override
   public int getDefensiveStrength() {
-    if (fortified) {
-      return defensiveStrength * 2;
-    }
     return defensiveStrength;
   }
 
@@ -66,11 +63,18 @@ public class UnitImpl implements Unit {
     movement = count;
   }
 
-  public boolean isFortified() {
-    return fortified;
+  @Override
+  public boolean isMoveable() {
+    return moveable;
   }
 
-  public void toggleFortification() {
-    fortified = !fortified;
+  @Override
+  public void setMoveable(boolean value) {
+    moveable = value;
+  }
+
+  @Override
+  public void setDefensiveStrength(int value) {
+    defensiveStrength = value;
   }
 }

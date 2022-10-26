@@ -10,6 +10,7 @@ import hotciv.common.BattleStrategy;
 import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
@@ -333,7 +334,7 @@ public class TestAlphaCiv {
   public void performNoArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-    assertThat(((UnitImpl) game.getUnitAt(new Position(2, 0))).isFortified(),
-        is(false));  //no change
+    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMoveable(),
+        is(true));  //no change
   }
 }
