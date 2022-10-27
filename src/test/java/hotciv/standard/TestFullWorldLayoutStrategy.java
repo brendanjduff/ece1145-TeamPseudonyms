@@ -6,8 +6,11 @@ import static org.junit.Assert.assertThat;
 
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.GameConstants;
+import hotciv.framework.MutableCity;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.variants.FullWorldLayoutStrategy;
 import java.util.HashMap;
 import org.junit.Before;
@@ -16,9 +19,9 @@ import org.junit.Test;
 public class TestFullWorldLayoutStrategy {
 
   WorldLayoutStrategy worldLayoutStrategy;
-  HashMap<Position, TileImpl> tiles;
-  HashMap<Position, CityImpl> cities;
-  HashMap<Position, UnitImpl> units;
+  HashMap<Position, Tile> tiles;
+  HashMap<Position, MutableCity> cities;
+  HashMap<Position, MutableUnit> units;
 
   @Before
   public void setUp() {

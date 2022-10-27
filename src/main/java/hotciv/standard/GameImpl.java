@@ -1,20 +1,23 @@
 package hotciv.standard;
 
 import hotciv.common.AgingStrategy;
-import hotciv.common.ArcherActionStrategy;
 import hotciv.common.BattleStrategy;
-import hotciv.common.SettlerActionStrategy;
+import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.factory.GameFactory;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.MutableCity;
+import hotciv.framework.MutableGame;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility;
+import java.util.HashMap;
 import java.util.Map;
 
 /* Skeleton implementation of HotCiv.
@@ -42,14 +45,13 @@ import java.util.Map;
    limitations under the License.
 */
 
-public class GameImpl implements Game {
+public class GameImpl implements Game, MutableGame {
 
   public GameImpl(GameFactory factory) {
     gameFactory = factory;
     victoryStrategy = factory.createVictoryStrategy();
     agingStrategy = factory.createAgingStrategy();
-    archerActionStrategy = factory.createArcherActionStrategy();
-    settlerActionStrategy = factory.createSettlerActionStrategy();
+    unitActionStrategy = factory.createUnitActionStrategy();
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
 
@@ -66,15 +68,14 @@ public class GameImpl implements Game {
   Player[] players = new Player[2];
   int playerIndex;
   int age;
-  Map<Position, TileImpl> tiles;
-  Map<Position, CityImpl> cities;
-  Map<Position, UnitImpl> units;
+  HashMap<Position, Tile> tiles;
+  Map<Position, MutableCity> cities;
+  Map<Position, MutableUnit> units;
 
   GameFactory gameFactory;
   VictoryStrategy victoryStrategy;
   AgingStrategy agingStrategy;
-  ArcherActionStrategy archerActionStrategy;
-  SettlerActionStrategy settlerActionStrategy;
+  UnitActionStrategy unitActionStrategy;
   WorldLayoutStrategy worldLayoutStrategy;
   BattleStrategy battleStrategy;
 
@@ -95,7 +96,7 @@ public class GameImpl implements Game {
   }
 
   public Player getWinner() {
-    return victoryStrategy.getWinner(age, cities);
+    return victoryStrategy.getWinner(this);
   }
 
   public int getAge() {
@@ -103,7 +104,7 @@ public class GameImpl implements Game {
   }
 
   public boolean moveUnit(Position from, Position to) {
-    UnitImpl unit = units.get(from);
+    MutableUnit unit = units.get(from);
 
     // Check unit ownership, terrain type, and move distance
     boolean unitBelongsToOtherPlayer = unit.getOwner() != getPlayerInTurn();
@@ -125,7 +126,7 @@ public class GameImpl implements Game {
     // Check for battles and unit collision
     if (units.containsKey(to)) {
       if (units.get(to).getOwner() != getPlayerInTurn()) {
-        if (battleStrategy.battle(unit, units.get(to))) {
+        if (battleStrategy.battle(unit, units.get(to), this)) {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
@@ -196,11 +197,21 @@ public class GameImpl implements Game {
   }
 
   public void performUnitActionAt(Position p) {
-    UnitImpl unit = units.get(p);
-    if (unit.getTypeString().equals(GameConstants.ARCHER)) {
-      archerActionStrategy.performAction(unit);
-    } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
-      settlerActionStrategy.performAction(cities, units, p);
-    }
+    unitActionStrategy.performAction(p, this);
+  }
+
+  @Override
+  public Map<Position, Tile> getTiles() {
+    return (Map<Position, Tile>) tiles;
+  }
+
+  @Override
+  public Map<Position, MutableCity> getCities() {
+    return cities;
+  }
+
+  @Override
+  public Map<Position, MutableUnit> getUnits() {
+    return units;
   }
 }

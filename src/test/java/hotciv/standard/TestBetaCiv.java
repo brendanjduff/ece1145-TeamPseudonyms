@@ -6,7 +6,8 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import hotciv.factory.BetaCivFactory;
-import hotciv.framework.Game;
+import hotciv.framework.MutableCity;
+import hotciv.framework.MutableGame;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import org.junit.Before;
@@ -14,7 +15,7 @@ import org.junit.Test;
 
 public class TestBetaCiv {
 
-  private Game game;
+  private MutableGame game;
 
   @Before
   public void setUp() {
@@ -62,7 +63,7 @@ public class TestBetaCiv {
   public void conquerAllCitiesToWin() {
     assertThat(game, is(notNullValue()));
     assertThat(game.getWinner(), is(nullValue()));
-    ((CityImpl) game.getCityAt(new Position(4, 1))).setOwner(Player.RED);
+    ((MutableCity) game.getCityAt(new Position(4, 1))).setOwner(Player.RED);
     assertThat(game.getWinner(), is(Player.RED));
   }
 }

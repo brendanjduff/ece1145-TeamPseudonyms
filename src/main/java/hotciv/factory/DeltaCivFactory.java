@@ -1,16 +1,14 @@
 package hotciv.factory;
 
 import hotciv.common.AgingStrategy;
-import hotciv.common.ArcherActionStrategy;
 import hotciv.common.BattleStrategy;
-import hotciv.common.SettlerActionStrategy;
+import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.FullWorldLayoutStrategy;
 import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.NoArcherActionStrategy;
-import hotciv.variants.NoSettlerActionStrategy;
+import hotciv.variants.NoUnitActionStrategy;
 import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 
 public class DeltaCivFactory implements GameFactory {
@@ -26,13 +24,8 @@ public class DeltaCivFactory implements GameFactory {
   }
 
   @Override
-  public ArcherActionStrategy createArcherActionStrategy() {
-    return new NoArcherActionStrategy();
-  }
-
-  @Override
-  public SettlerActionStrategy createSettlerActionStrategy() {
-    return new NoSettlerActionStrategy();
+  public UnitActionStrategy createUnitActionStrategy() {
+    return new NoUnitActionStrategy();
   }
 
   @Override

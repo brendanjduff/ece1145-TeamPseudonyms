@@ -1,9 +1,8 @@
 package hotciv.factory;
 
 import hotciv.common.AgingStrategy;
-import hotciv.common.ArcherActionStrategy;
 import hotciv.common.BattleStrategy;
-import hotciv.common.SettlerActionStrategy;
+import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
 
@@ -13,9 +12,7 @@ public interface GameFactory {
 
   VictoryStrategy createVictoryStrategy();
 
-  ArcherActionStrategy createArcherActionStrategy();
-
-  SettlerActionStrategy createSettlerActionStrategy();
+  UnitActionStrategy createUnitActionStrategy();
 
   WorldLayoutStrategy createWorldLayoutStrategy();
 

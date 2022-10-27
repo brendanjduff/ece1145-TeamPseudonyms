@@ -1,14 +1,12 @@
 package hotciv.factory;
 
 import hotciv.common.AgingStrategy;
-import hotciv.common.ArcherActionStrategy;
 import hotciv.common.BattleStrategy;
-import hotciv.common.SettlerActionStrategy;
+import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.variants.AttackerWinsBattleStrategy;
-import hotciv.variants.BuildCitySettlerActionStrategy;
-import hotciv.variants.FortifyArcherActionStrategy;
+import hotciv.variants.FortifyAndBuildCityActionStrategy;
 import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
@@ -26,13 +24,8 @@ public class GammaCivFactory implements GameFactory {
   }
 
   @Override
-  public ArcherActionStrategy createArcherActionStrategy() {
-    return new FortifyArcherActionStrategy();
-  }
-
-  @Override
-  public SettlerActionStrategy createSettlerActionStrategy() {
-    return new BuildCitySettlerActionStrategy();
+  public UnitActionStrategy createUnitActionStrategy() {
+    return new FortifyAndBuildCityActionStrategy();
   }
 
   @Override

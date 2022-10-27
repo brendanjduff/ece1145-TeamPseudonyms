@@ -10,10 +10,12 @@ import hotciv.common.BattleStrategy;
 import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.MutableCity;
+import hotciv.framework.MutableGame;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import hotciv.framework.Tile;
 import hotciv.utility.Utility;
 import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
@@ -51,7 +53,7 @@ import org.junit.Test;
 
 public class TestAlphaCiv {
 
-  private Game game;
+  private MutableGame game;
 
   /**
    * Fixture for AlphaCiv testing.
@@ -113,7 +115,7 @@ public class TestAlphaCiv {
   @Test
   public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, TileImpl> tiles = new SparseWorldLayoutStrategy().placeTiles();
+    HashMap<Position, Tile> tiles = new SparseWorldLayoutStrategy().placeTiles();
     for (Position p : Utility.getWorldLayoutIterable()) {
       assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
     }
@@ -122,7 +124,7 @@ public class TestAlphaCiv {
   @Test
   public void citiesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, CityImpl> cities = new SparseWorldLayoutStrategy().placeCities();
+    HashMap<Position, MutableCity> cities = new SparseWorldLayoutStrategy().placeCities();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (cities.containsKey(p)) {
         assertThat(game.getCityAt(p), is(notNullValue()));
@@ -136,7 +138,7 @@ public class TestAlphaCiv {
   @Test
   public void unitsCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, UnitImpl> units = new SparseWorldLayoutStrategy().placeUnits();
+    HashMap<Position, MutableUnit> units = new SparseWorldLayoutStrategy().placeUnits();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (units.containsKey(p)) {
         assertThat(game.getUnitAt(p), is(notNullValue()));
@@ -225,16 +227,16 @@ public class TestAlphaCiv {
   @Test
   public void attackingUnitAlwaysWins() {
     assertThat(game, is(notNullValue()));
-    Unit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
-    Unit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
+    MutableUnit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    MutableUnit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     BattleStrategy battleStrategy = new AttackerWinsBattleStrategy();
-    assertThat(battleStrategy.battle(attacker, defender), is(true));
+    assertThat(battleStrategy.battle(attacker, defender, game), is(true));
   }
 
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
-    ((UnitImpl) game.getUnitAt(new Position(2, 0))).setMoveCount(0);
+    ((MutableUnit)game.getUnitAt(new Position(2, 0))).setMoveCount(0);
     assertThat(game.moveUnit(new Position(2, 0), new Position(2, 1)), is(false));
   }
 

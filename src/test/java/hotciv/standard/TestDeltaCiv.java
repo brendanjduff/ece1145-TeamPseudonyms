@@ -7,8 +7,11 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
 import hotciv.factory.DeltaCivFactory;
-import hotciv.framework.Game;
+import hotciv.framework.MutableCity;
+import hotciv.framework.MutableGame;
+import hotciv.framework.MutableUnit;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.utility.Utility;
 import hotciv.variants.FullWorldLayoutStrategy;
 import java.util.HashMap;
@@ -17,7 +20,7 @@ import org.junit.Test;
 
 public class TestDeltaCiv {
 
-  private Game game;
+  private MutableGame game;
 
   @Before
   public void setUp() {
@@ -27,7 +30,7 @@ public class TestDeltaCiv {
   @Test
   public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, TileImpl> tiles = new FullWorldLayoutStrategy().placeTiles();
+    HashMap<Position, Tile> tiles = new FullWorldLayoutStrategy().placeTiles();
     for (Position p : Utility.getWorldLayoutIterable()) {
       assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
     }
@@ -36,7 +39,7 @@ public class TestDeltaCiv {
   @Test
   public void citiesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, CityImpl> cities = new FullWorldLayoutStrategy().placeCities();
+    HashMap<Position, MutableCity> cities = new FullWorldLayoutStrategy().placeCities();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (cities.containsKey(p)) {
         assertThat(game.getCityAt(p), is(notNullValue()));
@@ -50,7 +53,7 @@ public class TestDeltaCiv {
   @Test
   public void unitsCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, UnitImpl> units = new FullWorldLayoutStrategy().placeUnits();
+    HashMap<Position, MutableUnit> units = new FullWorldLayoutStrategy().placeUnits();
     for (Position p : Utility.getWorldLayoutIterable()) {
       if (units.containsKey(p)) {
         assertThat(game.getUnitAt(p), is(notNullValue()));

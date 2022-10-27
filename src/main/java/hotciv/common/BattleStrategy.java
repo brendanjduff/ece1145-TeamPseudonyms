@@ -1,8 +1,9 @@
 package hotciv.common;
 
-import hotciv.framework.Unit;
+import hotciv.framework.MutableGame;
+import hotciv.framework.MutableUnit;
 
 public interface BattleStrategy {
 
-  boolean battle(Unit attacker, Unit defender);
+  boolean battle(MutableUnit attacker, MutableUnit defender, MutableGame game);
 }

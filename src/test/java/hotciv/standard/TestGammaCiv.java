@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import hotciv.factory.GammaCivFactory;
-import hotciv.framework.Game;
+import hotciv.framework.MutableGame;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class TestGammaCiv {
 
-  private Game game;
+  private MutableGame game;
 
   @Before
   public void setUp() {
