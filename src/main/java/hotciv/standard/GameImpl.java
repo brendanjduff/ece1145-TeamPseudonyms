@@ -60,6 +60,10 @@ public class GameImpl implements Game, MutableGame {
     players[1] = Player.BLUE;
     age = -4000;
 
+    //instantiation of successful attack counter
+    for(int i = 0; i < players.length; i++)
+      successfulAttacks.put(players[i], 0);
+
     tiles = worldLayoutStrategy.placeTiles();
     cities = worldLayoutStrategy.placeCities();
     units = worldLayoutStrategy.placeUnits();
@@ -132,6 +136,7 @@ public class GameImpl implements Game, MutableGame {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
+          successfulAttacks.put(getPlayerInTurn(), successfulAttacks.get(getPlayerInTurn()) + 1);
         } else {
           units.remove(from);
           return false;
