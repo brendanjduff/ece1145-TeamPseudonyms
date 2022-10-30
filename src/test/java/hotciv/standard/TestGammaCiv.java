@@ -32,7 +32,7 @@ public class TestGammaCiv {
   public void performFortifyArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMoveable(),
+    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMovable(),
         is(false));
     assertThat((game.getUnitAt(new Position(2, 0))).getDefensiveStrength(),
         is(6));

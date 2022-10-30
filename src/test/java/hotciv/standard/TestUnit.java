@@ -93,9 +93,9 @@ public class TestUnit {
   @Test
   public void shouldHaveMoveCount0WhenMoveable() {
     unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-    assertThat(unit.isMoveable(), is(true));
-    unit.setMoveable(false);
-    assertThat(unit.isMoveable(), is(false));
+    assertThat(unit.isMovable(), is(true));
+    unit.setMovable(false);
+    assertThat(unit.isMovable(), is(false));
     assertThat(unit.getMoveCount(), is(0));
   }
 }

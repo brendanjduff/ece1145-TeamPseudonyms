@@ -20,7 +20,7 @@ public class UnitImpl implements MutableUnit {
       attackingStrength = 0;
       defensiveStrength = 3;
     }
-    moveable = true;
+    movable = true;
   }
 
   String unitType;
@@ -29,7 +29,7 @@ public class UnitImpl implements MutableUnit {
   int movement;
   int attackingStrength;
   int defensiveStrength;
-  boolean moveable;
+  boolean movable;
 
   @Override
   public String getTypeString() {
@@ -43,7 +43,7 @@ public class UnitImpl implements MutableUnit {
 
   @Override
   public int getMoveCount() {
-    if (!moveable) {
+    if (!movable) {
       return 0;
     }
     return movement;
@@ -64,13 +64,13 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
-  public boolean isMoveable() {
-    return moveable;
+  public boolean isMovable() {
+    return movable;
   }
 
   @Override
-  public void setMoveable(boolean value) {
-    moveable = value;
+  public void setMovable(boolean value) {
+    movable = value;
   }
 
   @Override

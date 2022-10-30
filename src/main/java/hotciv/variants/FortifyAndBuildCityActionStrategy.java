@@ -13,11 +13,11 @@ public class FortifyAndBuildCityActionStrategy implements UnitActionStrategy {
   public void performAction(Position p, MutableGame game) {
     MutableUnit unit = game.getUnits().get(p);
     if (unit.getTypeString().equals(GameConstants.ARCHER)) {
-      if (unit.isMoveable()) {
-        unit.setMoveable(false);
+      if (unit.isMovable()) {
+        unit.setMovable(false);
         unit.setDefensiveStrength(unit.getDefensiveStrength() * 2);
       } else {
-        unit.setMoveable(true);
+        unit.setMovable(true);
         unit.setDefensiveStrength(unit.getDefensiveStrength() / 2);
       }
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
