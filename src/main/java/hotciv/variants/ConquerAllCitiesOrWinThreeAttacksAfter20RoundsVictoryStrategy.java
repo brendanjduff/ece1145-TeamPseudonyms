@@ -13,7 +13,9 @@ public class ConquerAllCitiesOrWinThreeAttacksAfter20RoundsVictoryStrategy imple
             ConquerAllCitiesVictoryStrategy conquerAllCitiesVictoryStrategy = new ConquerAllCitiesVictoryStrategy();
             return conquerAllCitiesVictoryStrategy.getWinner(game);
         }else{
-            //TODO: Put the wins 3 rounds here
+            FirstPlayerToThreeSucceasfulAttacksVictoryStrategy firstPlayerToThreeSucceasfulAttacksVictoryStrategy =
+                    new FirstPlayerToThreeSucceasfulAttacksVictoryStrategy();
+            return firstPlayerToThreeSucceasfulAttacksVictoryStrategy;
         }
         return null;
     }
