@@ -1,0 +1,2 @@
+package hotciv.variants;public class ConquerAllCitiesOrWinThreeAttacksAfter20RoundsVictoryStrategy {
+}
