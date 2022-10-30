@@ -72,6 +72,8 @@ public class GameImpl implements Game, MutableGame {
   Map<Position, MutableCity> cities;
   Map<Position, MutableUnit> units;
 
+  Map<Player, Integer> successfulAttacks;
+
   GameFactory gameFactory;
   VictoryStrategy victoryStrategy;
   AgingStrategy agingStrategy;
@@ -214,4 +216,7 @@ public class GameImpl implements Game, MutableGame {
   public Map<Position, MutableUnit> getUnits() {
     return units;
   }
+
+  @Override
+  public Map<Player, Integer> getBattleWins() {return successfulAttacks; }
 }
