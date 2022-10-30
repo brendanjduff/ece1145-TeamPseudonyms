@@ -336,7 +336,7 @@ public class TestAlphaCiv {
   public void performNoArcherActionOnR2C0() {
     assertThat(game, is(notNullValue()));
     game.performUnitActionAt(new Position(2, 0));
-    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMoveable(),
+    assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMovable(),
         is(true));  //no change
   }
 }
