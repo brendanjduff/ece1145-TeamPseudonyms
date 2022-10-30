@@ -126,7 +126,7 @@ public class GameImpl implements Game, MutableGame {
     // Check for battles and unit collision
     if (units.containsKey(to)) {
       if (units.get(to).getOwner() != getPlayerInTurn()) {
-        if (battleStrategy.battle(unit, units.get(to), this)) {
+        if (battleStrategy.battle(unit, from, units.get(to), to, this)) {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);

@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 
 import hotciv.common.BattleStrategy;
 import hotciv.factory.AlphaCivFactory;
-import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
@@ -230,13 +229,15 @@ public class TestAlphaCiv {
     MutableUnit attacker = new UnitImpl(GameConstants.ARCHER, Player.RED);
     MutableUnit defender = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     BattleStrategy battleStrategy = new AttackerWinsBattleStrategy();
-    assertThat(battleStrategy.battle(attacker, defender, game), is(true));
+    assertThat(
+        battleStrategy.battle(attacker, new Position(0, 0), defender, new Position(0, 0), game),
+        is(true));
   }
 
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
-    ((MutableUnit)game.getUnitAt(new Position(2, 0))).setMoveCount(0);
+    ((MutableUnit) game.getUnitAt(new Position(2, 0))).setMoveCount(0);
     assertThat(game.moveUnit(new Position(2, 0), new Position(2, 1)), is(false));
   }
 
