@@ -17,7 +17,7 @@ public class ZetaCivFactory implements GameFactory {
   @Override
   public VictoryStrategy createVictoryStrategy() {
     return new ConquerAllCitiesOrWinThreeAttacksAfter20RoundsVictoryStrategy();
-  } //TODO: implement new victory strategy and change here
+  }
 
   @Override
   public UnitActionStrategy createUnitActionStrategy() {
