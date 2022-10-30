@@ -4,7 +4,6 @@ import hotciv.common.BattleStrategy;
 import hotciv.framework.MutableGame;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Position;
-import hotciv.utility.RNG;
 import hotciv.utility.Utility2;
 
 public class RandomCombinedBattleStrategy implements BattleStrategy {
@@ -14,7 +13,7 @@ public class RandomCombinedBattleStrategy implements BattleStrategy {
       Position defenderPosition, MutableGame game) {
     int attackPower = getCombinedAttackingStrength(attacker, attackerPosition, game);
     int defensePower = getCombinedDefensiveStrength(defender, defenderPosition, game);
-    return attackPower * RNG.d6() > defensePower * RNG.d6();
+    return attackPower * game.getRNG().d6() > defensePower * game.getRNG().d6();
   }
 
   int getCombinedAttackingStrength(MutableUnit attacker, Position p, MutableGame game) {

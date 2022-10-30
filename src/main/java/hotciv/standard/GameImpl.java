@@ -16,6 +16,8 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.utility.NumberGenerator;
+import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +80,7 @@ public class GameImpl implements Game, MutableGame {
   UnitActionStrategy unitActionStrategy;
   WorldLayoutStrategy worldLayoutStrategy;
   BattleStrategy battleStrategy;
+  NumberGenerator rng = new RandomNumberGenerator();
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -213,5 +216,10 @@ public class GameImpl implements Game, MutableGame {
   @Override
   public Map<Position, MutableUnit> getUnits() {
     return units;
+  }
+
+  @Override
+  public NumberGenerator getRNG() {
+    return rng;
   }
 }
