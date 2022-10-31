@@ -5,11 +5,7 @@ import hotciv.common.BattleStrategy;
 import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
-import hotciv.variants.AttackerWinsBattleStrategy;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.NoUnitActionStrategy;
-import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
-import hotciv.variants.SparseWorldLayoutStrategy;
+import hotciv.variants.*;
 
 public class EpsilonCivFactory implements GameFactory {
 
@@ -20,7 +16,7 @@ public class EpsilonCivFactory implements GameFactory {
 
   @Override
   public VictoryStrategy createVictoryStrategy() {
-    return new RedWinsAt3000BCVictoryStrategy();
+    return new FirstPlayerToThreeSuccessfulAttacksVictoryStrategy();
   } //TODO: implement new victory strategy and change here
 
   @Override

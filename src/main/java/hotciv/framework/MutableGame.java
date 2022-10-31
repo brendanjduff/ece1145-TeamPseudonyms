@@ -9,4 +9,6 @@ public interface MutableGame extends Game {
   Map<Position, MutableCity> getCities();
 
   Map<Position, MutableUnit> getUnits();
+
+  Map<Player, Integer> getBattleWins();
 }
