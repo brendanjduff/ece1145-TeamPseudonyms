@@ -14,4 +14,6 @@ public interface MutableGame extends Game {
   Map<Player, Integer> getBattleWins();
 
   NumberGenerator getRNG();
+
+  int getRound();
 }

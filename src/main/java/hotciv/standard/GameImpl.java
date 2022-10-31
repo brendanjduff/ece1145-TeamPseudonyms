@@ -61,6 +61,7 @@ public class GameImpl implements Game, MutableGame {
     players[0] = Player.RED;
     players[1] = Player.BLUE;
     age = -4000;
+    round = 1;
 
     //instantiation of successful attack counter
     for (int i = 0; i < players.length; i++) {
@@ -75,11 +76,12 @@ public class GameImpl implements Game, MutableGame {
   Player[] players = new Player[2];
   int playerIndex;
   int age;
+  int round;
   HashMap<Position, Tile> tiles;
   Map<Position, MutableCity> cities;
   Map<Position, MutableUnit> units;
 
-  Map<Player, Integer> successfulAttacks;
+  Map<Player, Integer> successfulAttacks = new HashMap<>();
 
   GameFactory gameFactory;
   VictoryStrategy victoryStrategy;
@@ -197,6 +199,7 @@ public class GameImpl implements Game, MutableGame {
       });
       // E) increment the world age.
       age = agingStrategy.incrementAge(age);
+      round++;
     }
   }
 
@@ -234,5 +237,10 @@ public class GameImpl implements Game, MutableGame {
   @Override
   public NumberGenerator getRNG() {
     return rng;
+  }
+
+  @Override
+  public int getRound() {
+    return round;
   }
 }
