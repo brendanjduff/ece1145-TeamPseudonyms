@@ -16,6 +16,8 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.utility.NumberGenerator;
+import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,8 +63,9 @@ public class GameImpl implements Game, MutableGame {
     age = -4000;
 
     //instantiation of successful attack counter
-    for(int i = 0; i < players.length; i++)
+    for (int i = 0; i < players.length; i++) {
       successfulAttacks.put(players[i], 0);
+    }
 
     tiles = worldLayoutStrategy.placeTiles();
     cities = worldLayoutStrategy.placeCities();
@@ -84,6 +87,7 @@ public class GameImpl implements Game, MutableGame {
   UnitActionStrategy unitActionStrategy;
   WorldLayoutStrategy worldLayoutStrategy;
   BattleStrategy battleStrategy;
+  NumberGenerator rng = new RandomNumberGenerator();
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -132,7 +136,7 @@ public class GameImpl implements Game, MutableGame {
     // Check for battles and unit collision
     if (units.containsKey(to)) {
       if (units.get(to).getOwner() != getPlayerInTurn()) {
-        if (battleStrategy.battle(unit, units.get(to), this)) {
+        if (battleStrategy.battle(unit, from, units.get(to), to, this)) {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
@@ -223,5 +227,12 @@ public class GameImpl implements Game, MutableGame {
   }
 
   @Override
-  public Map<Player, Integer> getBattleWins() {return successfulAttacks; }
+  public Map<Player, Integer> getBattleWins() {
+    return successfulAttacks;
+  }
+
+  @Override
+  public NumberGenerator getRNG() {
+    return rng;
+  }
 }

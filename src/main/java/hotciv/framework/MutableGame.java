@@ -1,5 +1,6 @@
 package hotciv.framework;
 
+import hotciv.utility.NumberGenerator;
 import java.util.Map;
 
 public interface MutableGame extends Game {
@@ -11,4 +12,6 @@ public interface MutableGame extends Game {
   Map<Position, MutableUnit> getUnits();
 
   Map<Player, Integer> getBattleWins();
+
+  NumberGenerator getRNG();
 }
