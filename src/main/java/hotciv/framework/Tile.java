@@ -35,5 +35,5 @@ public interface Tile {
    *
    * @return the terrain type as string
    */
-  public String getTypeString();
+  String getTypeString();
 }

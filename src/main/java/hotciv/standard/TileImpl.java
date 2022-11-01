@@ -1,8 +1,8 @@
 package hotciv.standard;
 
-import hotciv.framework.Tile;
+import hotciv.framework.MutableTile;
 
-public class TileImpl implements Tile {
+public class TileImpl implements MutableTile {
 
   String landType;
 
@@ -13,5 +13,10 @@ public class TileImpl implements Tile {
   @Override
   public String getTypeString() {
     return landType;
+  }
+
+  @Override
+  public void setTypeString(String type) {
+    landType = type;
   }
 }

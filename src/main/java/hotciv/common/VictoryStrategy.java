@@ -7,5 +7,5 @@ import hotciv.framework.Player;
 
 public interface VictoryStrategy {
 
-  public Player getWinner(MutableGame game);
+  Player getWinner(MutableGame game);
 }

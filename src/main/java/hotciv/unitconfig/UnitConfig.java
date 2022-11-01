@@ -2,8 +2,6 @@ package hotciv.unitconfig;
 
 public interface UnitConfig {
 
-  String getTypeString();
-
   int getMaxMoveCount();
 
   int getAttackingStrength();

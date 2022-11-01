@@ -1,13 +1,6 @@
 package hotciv.unitconfig;
 
-import hotciv.framework.GameConstants;
-
 public class SettlerConfig implements UnitConfig {
-
-  @Override
-  public String getTypeString() {
-    return GameConstants.SETTLER;
-  }
 
   @Override
   public int getMaxMoveCount() {

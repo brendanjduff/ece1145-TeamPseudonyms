@@ -3,10 +3,10 @@ package hotciv.variants;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.standard.CityImpl;
 import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class FullWorldLayoutStrategy implements WorldLayoutStrategy {
 
   @Override
-  public HashMap<Position, Tile> placeTiles() {
+  public HashMap<Position, MutableTile> placeTiles() {
     String[] layout = new String[]{
         "...ooMooooo.....",
         "..ohhoooofffoo..",
@@ -34,7 +34,7 @@ public class FullWorldLayoutStrategy implements WorldLayoutStrategy {
         "....ooooooooo...",
         "..ooohhoo.......",
         ".....ooooooooo.."};
-    HashMap<Position, Tile> tiles = new HashMap<>();
+    HashMap<Position, MutableTile> tiles = new HashMap<>();
     for (Position p : Utility.getWorldLayoutIterable()) {
       char tileChar = layout[p.getRow()].charAt(p.getColumn());
       String type = "error";

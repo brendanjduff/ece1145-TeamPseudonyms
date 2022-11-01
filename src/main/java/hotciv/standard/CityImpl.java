@@ -9,11 +9,13 @@ public class CityImpl implements MutableCity {
   public CityImpl(Player owner) {
     this.owner = owner;
     treasury = 0;
+    population = 1;
     production = "";
   }
 
   Player owner;
   int treasury;
+  int population;
   String production;
 
   @Override
@@ -23,7 +25,7 @@ public class CityImpl implements MutableCity {
 
   @Override
   public int getSize() {
-    return 1;
+    return population;
   }
 
   @Override
@@ -64,5 +66,10 @@ public class CityImpl implements MutableCity {
     if (GameConstants.unitConfigs.containsKey(production)) {
       treasury -= GameConstants.unitConfigs.get(production).getProductionCost();
     }
+  }
+
+  @Override
+  public void setSize(int population) {
+    this.population = population;
   }
 }

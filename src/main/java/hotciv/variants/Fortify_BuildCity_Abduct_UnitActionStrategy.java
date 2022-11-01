@@ -6,10 +6,11 @@ import hotciv.framework.MutableGame;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Position;
 
-public class FortifyAndBuildCityActionStrategy implements UnitActionStrategy {
+public class Fortify_BuildCity_Abduct_UnitActionStrategy implements UnitActionStrategy {
 
-  UnitActionStrategy settler = new BuildCityUnitActionStrategy();
-  UnitActionStrategy archer = new FortifyUnitActionStrategy();
+  final UnitActionStrategy settler = new BuildCityUnitActionStrategy();
+  final UnitActionStrategy archer = new FortifyUnitActionStrategy();
+  final UnitActionStrategy ufo = new AbductUnitActionStrategy();
 
   @Override
   public void performAction(Position p, MutableGame game) {
@@ -18,6 +19,8 @@ public class FortifyAndBuildCityActionStrategy implements UnitActionStrategy {
       archer.performAction(p, game);
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
       settler.performAction(p, game);
+    } else if (unit.getTypeString().equals(GameConstants.UFO)) {
+      ufo.performAction(p, game);
     }
   }
 }

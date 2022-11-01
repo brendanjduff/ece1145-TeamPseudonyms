@@ -1,13 +1,6 @@
 package hotciv.unitconfig;
 
-import hotciv.framework.GameConstants;
-
 public class ArcherConfig implements UnitConfig {
-
-  @Override
-  public String getTypeString() {
-    return GameConstants.ARCHER;
-  }
 
   @Override
   public int getMaxMoveCount() {

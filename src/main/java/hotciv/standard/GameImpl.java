@@ -11,15 +11,12 @@ import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
-import hotciv.unitconfig.ArcherConfig;
-import hotciv.unitconfig.LegionConfig;
-import hotciv.unitconfig.SettlerConfig;
-import hotciv.unitconfig.UnitConfig;
 import hotciv.utility.NumberGenerator;
 import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
@@ -61,10 +58,6 @@ public class GameImpl implements Game, MutableGame {
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
 
-    unitConfigs.put(GameConstants.ARCHER, new ArcherConfig());
-    unitConfigs.put(GameConstants.LEGION, new LegionConfig());
-    unitConfigs.put(GameConstants.SETTLER, new SettlerConfig());
-
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
@@ -81,24 +74,23 @@ public class GameImpl implements Game, MutableGame {
     units = worldLayoutStrategy.placeUnits();
   }
 
-  Player[] players = new Player[2];
+  final Player[] players = new Player[2];
   int playerIndex;
   int age;
   int round;
-  HashMap<Position, Tile> tiles;
-  Map<Position, MutableCity> cities;
-  Map<Position, MutableUnit> units;
+  final HashMap<Position, MutableTile> tiles;
+  final Map<Position, MutableCity> cities;
+  final Map<Position, MutableUnit> units;
 
-  Map<Player, Integer> successfulAttacks = new HashMap<>();
+  final Map<Player, Integer> successfulAttacks = new HashMap<>();
 
-  GameFactory gameFactory;
-  VictoryStrategy victoryStrategy;
-  AgingStrategy agingStrategy;
-  UnitActionStrategy unitActionStrategy;
-  WorldLayoutStrategy worldLayoutStrategy;
-  BattleStrategy battleStrategy;
-  NumberGenerator rng = new RandomNumberGenerator();
-  Map<String, UnitConfig> unitConfigs = new HashMap<>();
+  final GameFactory gameFactory;
+  final VictoryStrategy victoryStrategy;
+  final AgingStrategy agingStrategy;
+  final UnitActionStrategy unitActionStrategy;
+  final WorldLayoutStrategy worldLayoutStrategy;
+  final BattleStrategy battleStrategy;
+  final NumberGenerator rng = new RandomNumberGenerator();
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -226,7 +218,7 @@ public class GameImpl implements Game, MutableGame {
   }
 
   @Override
-  public Map<Position, Tile> getTiles() {
+  public Map<Position, MutableTile> getTiles() {
     return tiles;
   }
 
@@ -256,9 +248,7 @@ public class GameImpl implements Game, MutableGame {
   }
 
   void createUnit(Position p, MutableCity city) {
-    if (unitConfigs.containsKey(city.getProduction())) {
-      city.produceUnit();
-      units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
-    }
+    city.produceUnit();
+    units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
   }
 }

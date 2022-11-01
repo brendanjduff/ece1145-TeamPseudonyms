@@ -7,8 +7,8 @@ import hotciv.framework.Player;
 public class ConquerAllCitiesOrWinThreeAttacksAfter20RoundsVictoryStrategy implements
     VictoryStrategy {
 
-  VictoryStrategy conquerAllCities = new ConquerAllCitiesVictoryStrategy();
-  VictoryStrategy successfulAttacks = new FirstPlayerToThreeSuccessfulAttacksVictoryStrategy();
+  final VictoryStrategy conquerAllCities = new ConquerAllCitiesVictoryStrategy();
+  final VictoryStrategy successfulAttacks = new FirstPlayerToThreeSuccessfulAttacksVictoryStrategy();
   boolean resetBattleWins = false;
 
   @Override

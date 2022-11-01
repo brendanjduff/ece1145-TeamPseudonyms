@@ -1,13 +1,6 @@
 package hotciv.unitconfig;
 
-import hotciv.framework.GameConstants;
-
 public class LegionConfig implements UnitConfig {
-
-  @Override
-  public String getTypeString() {
-    return GameConstants.LEGION;
-  }
 
   @Override
   public int getMaxMoveCount() {

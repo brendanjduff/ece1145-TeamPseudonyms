@@ -6,7 +6,7 @@ import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.variants.AttackerWinsBattleStrategy;
-import hotciv.variants.FortifyAndBuildCityActionStrategy;
+import hotciv.variants.Fortify_BuildCity_UnitActionStrategy;
 import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
@@ -25,7 +25,7 @@ public class GammaCivFactory implements GameFactory {
 
   @Override
   public UnitActionStrategy createUnitActionStrategy() {
-    return new FortifyAndBuildCityActionStrategy();
+    return new Fortify_BuildCity_UnitActionStrategy();
   }
 
   @Override

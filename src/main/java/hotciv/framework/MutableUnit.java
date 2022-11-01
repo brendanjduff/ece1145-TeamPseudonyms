@@ -10,7 +10,7 @@ public interface MutableUnit extends Unit {
 
   boolean isFlying();
 
-  void setMovable(boolean value);
+  void setMovable(boolean movable);
 
-  void setDefensiveStrength(int value);
+  void setDefensiveStrength(int defensiveStrength);
 }

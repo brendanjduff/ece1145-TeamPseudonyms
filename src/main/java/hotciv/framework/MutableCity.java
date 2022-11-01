@@ -11,4 +11,6 @@ public interface MutableCity extends City {
   boolean unitCostMet();
 
   void produceUnit();
+
+  void setSize(int population);
 }

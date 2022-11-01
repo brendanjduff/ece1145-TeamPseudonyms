@@ -5,6 +5,7 @@ import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.unitconfig.UnitConfig;
 
+@SuppressWarnings("CanBeFinal")
 public class UnitImpl implements MutableUnit {
 
   String unitType;
@@ -52,8 +53,8 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
-  public void setDefensiveStrength(int value) {
-    defensiveStrength = value;
+  public void setDefensiveStrength(int defensiveStrength) {
+    this.defensiveStrength = defensiveStrength;
   }
 
   @Override
@@ -82,7 +83,7 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
-  public void setMovable(boolean value) {
-    movable = value;
+  public void setMovable(boolean movable) {
+    this.movable = movable;
   }
 }

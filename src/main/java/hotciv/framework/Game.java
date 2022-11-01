@@ -36,7 +36,7 @@ public interface Game {
    * @param p the position in the world that must be returned.
    * @return the tile at position p.
    */
-  public Tile getTileAt(Position p);
+  Tile getTileAt(Position p);
 
   /**
    * return the uppermost unit in the stack of units at position 'p' in the world. Precondition:
@@ -46,7 +46,7 @@ public interface Game {
    * @return the unit that is at the top of the unit stack at position p, OR null if no unit is
    * present at position p.
    */
-  public Unit getUnitAt(Position p);
+  Unit getUnitAt(Position p);
 
   /**
    * return the city at position 'p' in the world. Precondition: Position p is a valid position in
@@ -55,21 +55,21 @@ public interface Game {
    * @param p the position in the world.
    * @return the city at this position or null if no city here.
    */
-  public City getCityAt(Position p);
+  City getCityAt(Position p);
 
   /**
    * return the player that is 'in turn', that is, is able to move units and manage cities.
    *
    * @return the player that is in turn
    */
-  public Player getPlayerInTurn();
+  Player getPlayerInTurn();
 
   /**
    * return the player that has won the game.
    *
    * @return the player that has won. If the game is still not finished then return null.
    */
-  public Player getWinner();
+  Player getWinner();
 
   /**
    * return the age of the world. Negative numbers represent a world age BC (-4000 equals 4000 BC)
@@ -77,7 +77,7 @@ public interface Game {
    *
    * @return world age.
    */
-  public int getAge();
+  int getAge();
 
   // === Mutator methods ======================================
 
@@ -96,7 +96,7 @@ public interface Game {
    * variant etc.), and false otherwise. If false is returned, the unit stays in the same position
    * and its "move" is intact (it can be moved to another position.)
    */
-  public boolean moveUnit(Position from, Position to);
+  boolean moveUnit(Position from, Position to);
 
   /**
    * Tell the game that the current player has finished his/her turn. The next player is then in
@@ -105,7 +105,7 @@ public interface Game {
    * (if enough production) D) increase population size in all cities (if enough food) E) increment
    * the world age.
    */
-  public void endOfTurn();
+  void endOfTurn();
 
   /**
    * change the work force's focus in a city, i.e. what kind of production there will be emphasis on
@@ -115,7 +115,7 @@ public interface Game {
    * @param balance a string defining the focus of the work force in a city. Valid values are at
    *                least GameConstants.productionFocus and GameConstants.foodFocus.
    */
-  public void changeWorkForceFocusInCityAt(Position p, String balance);
+  void changeWorkForceFocusInCityAt(Position p, String balance);
 
   /**
    * change the type of unit a city will produce next. Precondition: there is a city at location
@@ -124,7 +124,7 @@ public interface Game {
    * @param p        the position of the city whose production should be changed.
    * @param unitType a string defining the type of unit that the city should produce next.
    */
-  public void changeProductionInCityAt(Position p, String unitType);
+  void changeProductionInCityAt(Position p, String unitType);
 
   /**
    * perform the action associated with the unit at position p. Example: a settler unit may create a
@@ -133,5 +133,5 @@ public interface Game {
    * @param p the position of a unit that must perform its action. Nothing happens in case the unit
    *          has no associated action.
    */
-  public void performUnitActionAt(Position p);
+  void performUnitActionAt(Position p);
 }

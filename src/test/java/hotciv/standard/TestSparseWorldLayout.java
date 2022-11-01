@@ -7,10 +7,10 @@ import static org.junit.Assert.assertThat;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.variants.SparseWorldLayoutStrategy;
 import java.util.HashMap;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import org.junit.Test;
 public class TestSparseWorldLayout {
 
   WorldLayoutStrategy worldLayoutStrategy;
-  HashMap<Position, Tile> tiles;
+  HashMap<Position, MutableTile> tiles;
   HashMap<Position, MutableCity> cities;
   HashMap<Position, MutableUnit> units;
 

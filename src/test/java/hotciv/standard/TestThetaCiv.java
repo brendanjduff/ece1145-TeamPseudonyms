@@ -95,4 +95,23 @@ public class TestThetaCiv {
     game.moveUnit(new Position(5, 1), new Position(4, 1));
     assertThat(game.getCityAt(new Position(4, 1)).getOwner(), is(Player.RED));
   }
+
+  @Test
+  public void UFOShouldDestroyCityByAbduction() {
+    assertThat(game, is(notNullValue()));
+    game.getUnits().put(new Position(4, 1), new UnitImpl(GameConstants.UFO, Player.RED));
+    assertThat(game.getCities().containsKey(new Position(4,1)), is(true));
+    game.performUnitActionAt(new Position(4,1));
+    assertThat(game.getCities().containsKey(new Position(4,1)), is(false));
+  }
+
+  @Test
+  public void UFOShouldConvertForestToPlains() {
+    assertThat(game, is(notNullValue()));
+    game.getUnits().put(new Position(7, 7), new UnitImpl(GameConstants.UFO, Player.RED));
+    game.getTiles().get(new Position(7,7)).setTypeString(GameConstants.FOREST);
+    assertThat(game.getTileAt(new Position(7,7)).getTypeString(), is(GameConstants.FOREST));
+    game.performUnitActionAt(new Position(7,7));
+    assertThat(game.getTileAt(new Position(7,7)).getTypeString(), is(GameConstants.PLAINS));
+  }
 }

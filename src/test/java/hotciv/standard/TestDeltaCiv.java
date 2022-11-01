@@ -9,9 +9,9 @@ import static org.junit.Assert.assertThat;
 import hotciv.factory.DeltaCivFactory;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.utility.Utility;
 import hotciv.variants.FullWorldLayoutStrategy;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class TestDeltaCiv {
   @Test
   public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, Tile> tiles = new FullWorldLayoutStrategy().placeTiles();
+    HashMap<Position, MutableTile> tiles = new FullWorldLayoutStrategy().placeTiles();
     for (Position p : Utility.getWorldLayoutIterable()) {
       assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
     }

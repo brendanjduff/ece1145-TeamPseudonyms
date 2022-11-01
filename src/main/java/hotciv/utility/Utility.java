@@ -36,9 +36,7 @@ public class Utility {
     for (int index = 0; index < rowDelta.length; index++) {
       int row = center.getRow() + rowDelta[index];
       int col = center.getColumn() + columnDelta[index];
-      if (row >= 0 && col >= 0
-          && row < GameConstants.WORLDSIZE
-          && col < GameConstants.WORLDSIZE) {
+      if (row >= 0 && col >= 0 && row < GameConstants.WORLDSIZE && col < GameConstants.WORLDSIZE) {
         list.add(new Position(row, col));
       }
     }
@@ -47,13 +45,7 @@ public class Utility {
 
   public static Iterable<Position> get8neighborhoodOf(Position center) {
     final Iterator<Position> iterator = get8neighborhoodIterator(center);
-    Iterable<Position> iterable = new Iterable<Position>() {
-      @Override
-      public Iterator<Position> iterator() {
-        return iterator;
-      }
-    };
-    return iterable;
+    return () -> iterator;
   }
 
   public static Iterator<Position> getWorldLayoutIterator() {
@@ -68,12 +60,6 @@ public class Utility {
 
   public static Iterable<Position> getWorldLayoutIterable() {
     final Iterator<Position> iterator = getWorldLayoutIterator();
-    Iterable<Position> iterable = new Iterable<Position>() {
-      @Override
-      public Iterator<Position> iterator() {
-        return iterator;
-      }
-    };
-    return iterable;
+    return () -> iterator;
   }
 }
