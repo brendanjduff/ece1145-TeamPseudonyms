@@ -156,6 +156,10 @@ public class GameImpl implements Game, MutableGame {
           units.put(to, unit);
           units.remove(from);
           successfulAttacks.put(getPlayerInTurn(), successfulAttacks.get(getPlayerInTurn()) + 1);
+          // Actively conquer city
+          if (cities.containsKey(to)) {
+            cities.get(to).setOwner(getPlayerInTurn());
+          }
         } else {
           units.remove(from);
           return false;
@@ -169,11 +173,9 @@ public class GameImpl implements Game, MutableGame {
     }
     unit.decrementMoveCount();
 
-    // Check for city takeover
-    if (cities.containsKey(to)) {
-      if (cities.get(to).getOwner() != getPlayerInTurn()) {
-        cities.get(to).setOwner(getPlayerInTurn());
-      }
+    // Passively conquer city
+    if (cities.containsKey(to) && !unit.isFlying()) {
+      cities.get(to).setOwner(getPlayerInTurn());
     }
     return true;
   }

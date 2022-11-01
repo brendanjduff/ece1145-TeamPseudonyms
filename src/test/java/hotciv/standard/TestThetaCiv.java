@@ -78,4 +78,21 @@ public class TestThetaCiv {
     assertThat(game.moveUnit(new Position(0, 5), new Position(0, 7)), is(false));
     assertThat(game.getUnitAt(new Position(0, 5)).getMoveCount(), is(2));
   }
+
+  @Test
+  public void UFShouldNotConquerCityOutOfBattle() {
+    assertThat(game, is(notNullValue()));
+    game.getUnits().put(new Position(5, 1), new UnitImpl(GameConstants.UFO, Player.RED));
+    game.moveUnit(new Position(5, 1), new Position(4, 1));
+    assertThat(game.getCityAt(new Position(4, 1)).getOwner(), is(Player.BLUE));
+  }
+
+  @Test
+  public void UFShouldConquerCityInBattle() {
+    assertThat(game, is(notNullValue()));
+    game.getUnits().put(new Position(5, 1), new UnitImpl(GameConstants.UFO, Player.RED));
+    game.getUnits().put(new Position(4, 1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+    game.moveUnit(new Position(5, 1), new Position(4, 1));
+    assertThat(game.getCityAt(new Position(4, 1)).getOwner(), is(Player.RED));
+  }
 }
