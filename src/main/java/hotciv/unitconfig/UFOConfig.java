@@ -30,11 +30,13 @@ public class UFOConfig implements UnitConfig {
   }
 
   @Override
+  public boolean isFlying() {
+    return true;
+  }
+
+  @Override
   public int getProductionCost() {
     return 60;
   }
 
-  public boolean isFlying() {
-    return true;
-  }
 }

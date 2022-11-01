@@ -12,6 +12,8 @@ public interface UnitConfig {
 
   boolean isMovable();
 
+  boolean isFlying();
+
   int getProductionCost();
 
 }

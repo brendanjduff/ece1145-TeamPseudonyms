@@ -132,15 +132,19 @@ public class GameImpl implements Game, MutableGame {
     if (unitBelongsToOtherPlayer) {
       return false;
     }
-    boolean notEnoughMoves = Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount()
-        || Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount();
-    if (notEnoughMoves) {
+    boolean noMoves = unit.getMoveCount() <= 0;
+    if (noMoves) {
       return false;
     }
-    boolean isTileMountainsOrOceans =
-        tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) || tiles.get(to)
-            .getTypeString().equals(GameConstants.OCEANS);
-    if (isTileMountainsOrOceans) {
+    boolean moreThanOneTile = Math.abs(from.getRow() - to.getRow()) > 1
+        || Math.abs(from.getColumn() - to.getColumn()) > 1;
+    if (moreThanOneTile) {
+      return false;
+    }
+    boolean impassableTerrain =
+        (tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) || tiles.get(to)
+            .getTypeString().equals(GameConstants.OCEANS)) && !unit.isFlying();
+    if (impassableTerrain) {
       return false;
     }
 
@@ -163,7 +167,7 @@ public class GameImpl implements Game, MutableGame {
       units.put(to, unit);
       units.remove(from);
     }
-    unit.setMoveCount(0);
+    unit.decrementMoveCount();
 
     // Check for city takeover
     if (cities.containsKey(to)) {
@@ -180,7 +184,7 @@ public class GameImpl implements Game, MutableGame {
       playerIndex = 0;
       // Perform end of round functions
       // A) restore all units' move counts
-      units.forEach((position, unit) -> unit.setMoveCount(1));
+      units.forEach((position, unit) -> unit.resetMoveCount());
       /* B) produce food and production in all cities
          C) produce units in all cities (if enough production) */
       cities.forEach((position, city) -> {

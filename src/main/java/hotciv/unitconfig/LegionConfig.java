@@ -30,6 +30,11 @@ public class LegionConfig implements UnitConfig {
   }
 
   @Override
+  public boolean isFlying() {
+    return false;
+  }
+
+  @Override
   public int getProductionCost() {
     return 15;
   }

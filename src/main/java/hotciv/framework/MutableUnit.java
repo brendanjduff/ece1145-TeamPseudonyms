@@ -2,9 +2,13 @@ package hotciv.framework;
 
 public interface MutableUnit extends Unit {
 
-  void setMoveCount(int count);
+  void decrementMoveCount();
+
+  void resetMoveCount();
 
   boolean isMovable();
+
+  boolean isFlying();
 
   void setMovable(boolean value);
 

@@ -237,7 +237,7 @@ public class TestAlphaCiv {
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
-    ((MutableUnit) game.getUnitAt(new Position(2, 0))).setMoveCount(0);
+    ((MutableUnit) game.getUnitAt(new Position(2, 0))).decrementMoveCount();
     assertThat(game.moveUnit(new Position(2, 0), new Position(2, 1)), is(false));
   }
 

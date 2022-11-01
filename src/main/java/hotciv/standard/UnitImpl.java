@@ -7,6 +7,15 @@ import hotciv.unitconfig.UnitConfig;
 
 public class UnitImpl implements MutableUnit {
 
+  String unitType;
+  Player player;
+  int maxMoveCount;
+  int moveCount;
+  int attackingStrength;
+  int defensiveStrength;
+  boolean movable;
+  boolean flying;
+
   public UnitImpl(String unitType, Player player) {
     this.player = player;
     this.unitType = unitType;
@@ -16,16 +25,8 @@ public class UnitImpl implements MutableUnit {
     attackingStrength = config.getAttackingStrength();
     defensiveStrength = config.getDefensiveStrength();
     movable = config.isMovable();
+    flying = config.isFlying();
   }
-
-  String unitType;
-  Player player;
-
-  int maxMoveCount;
-  int moveCount;
-  int attackingStrength;
-  int defensiveStrength;
-  boolean movable;
 
   @Override
   public String getTypeString() {
@@ -51,12 +52,23 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
+  public void setDefensiveStrength(int value) {
+    defensiveStrength = value;
+  }
+
+  @Override
   public int getAttackingStrength() {
     return attackingStrength;
   }
 
-  public void setMoveCount(int count) {
-    moveCount = count;
+  @Override
+  public void decrementMoveCount() {
+    moveCount--;
+  }
+
+  @Override
+  public void resetMoveCount() {
+    moveCount = maxMoveCount;
   }
 
   @Override
@@ -65,12 +77,12 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
-  public void setMovable(boolean value) {
-    movable = value;
+  public boolean isFlying() {
+    return flying;
   }
 
   @Override
-  public void setDefensiveStrength(int value) {
-    defensiveStrength = value;
+  public void setMovable(boolean value) {
+    movable = value;
   }
 }

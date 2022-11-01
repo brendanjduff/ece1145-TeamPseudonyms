@@ -50,7 +50,7 @@ public class TestUnit {
   @Test
   public void canChangeMoveCountTo0() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
-    unit.setMoveCount(0);
+    unit.decrementMoveCount();
     assertThat(unit.getMoveCount(), is(0));
   }
 
