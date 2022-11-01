@@ -16,6 +16,10 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.unitconfig.ArcherConfig;
+import hotciv.unitconfig.LegionConfig;
+import hotciv.unitconfig.SettlerConfig;
+import hotciv.unitconfig.UnitConfig;
 import hotciv.utility.NumberGenerator;
 import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
@@ -57,6 +61,10 @@ public class GameImpl implements Game, MutableGame {
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
 
+    unitConfigs.put(GameConstants.ARCHER, new ArcherConfig());
+    unitConfigs.put(GameConstants.LEGION, new LegionConfig());
+    unitConfigs.put(GameConstants.SETTLER, new SettlerConfig());
+
     playerIndex = 0;
     players[0] = Player.RED;
     players[1] = Player.BLUE;
@@ -64,8 +72,8 @@ public class GameImpl implements Game, MutableGame {
     round = 1;
 
     //instantiation of successful attack counter
-    for (int i = 0; i < players.length; i++) {
-      successfulAttacks.put(players[i], 0);
+    for (Player p : players) {
+      successfulAttacks.put(p, 0);
     }
 
     tiles = worldLayoutStrategy.placeTiles();
@@ -90,6 +98,7 @@ public class GameImpl implements Game, MutableGame {
   WorldLayoutStrategy worldLayoutStrategy;
   BattleStrategy battleStrategy;
   NumberGenerator rng = new RandomNumberGenerator();
+  Map<String, UnitConfig> unitConfigs = new HashMap<>();
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -171,9 +180,7 @@ public class GameImpl implements Game, MutableGame {
       playerIndex = 0;
       // Perform end of round functions
       // A) restore all units' move counts
-      units.forEach((position, unit) -> {
-        unit.setMoveCount(1);
-      });
+      units.forEach((position, unit) -> unit.setMoveCount(1));
       /* B) produce food and production in all cities
          C) produce units in all cities (if enough production) */
       cities.forEach((position, city) -> {
@@ -181,16 +188,14 @@ public class GameImpl implements Game, MutableGame {
         if (city.unitCostMet()) {
           boolean noUnitOnCity = !units.containsKey(position);
           if (noUnitOnCity) {
-            city.produceUnit();
-            units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+            createUnit(position, city);
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
-              boolean canPlaceUnitHere = !units.containsKey(p) &&
-                  !tiles.get(p).getTypeString().equals(GameConstants.OCEANS) &&
-                  !tiles.get(p).getTypeString().equals(GameConstants.MOUNTAINS);
+              boolean canPlaceUnitHere = !units.containsKey(p) && !tiles.get(p).getTypeString()
+                  .equals(GameConstants.OCEANS) && !tiles.get(p).getTypeString()
+                  .equals(GameConstants.MOUNTAINS);
               if (canPlaceUnitHere) {
-                city.produceUnit();
-                units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+                createUnit(p, city);
                 break;
               }
             }
@@ -216,7 +221,7 @@ public class GameImpl implements Game, MutableGame {
 
   @Override
   public Map<Position, Tile> getTiles() {
-    return (Map<Position, Tile>) tiles;
+    return tiles;
   }
 
   @Override
@@ -242,5 +247,12 @@ public class GameImpl implements Game, MutableGame {
   @Override
   public int getRound() {
     return round;
+  }
+
+  void createUnit(Position p, MutableCity city) {
+    if (unitConfigs.containsKey(city.getProduction())) {
+      city.produceUnit();
+      units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+    }
   }
 }

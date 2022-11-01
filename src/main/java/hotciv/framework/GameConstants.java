@@ -24,6 +24,14 @@ package hotciv.framework;
    limitations under the License.
 */
 
+import hotciv.unitconfig.ArcherConfig;
+import hotciv.unitconfig.LegionConfig;
+import hotciv.unitconfig.SettlerConfig;
+import hotciv.unitconfig.UFOConfig;
+import hotciv.unitconfig.UnitConfig;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Collection of constants used in HotCiv Game. Note that strings are used instead of enumeration
  * types to keep the set of valid constants open to extensions by future HotCiv variants.  Enums can
@@ -37,6 +45,7 @@ public class GameConstants {
   public static final String ARCHER = "archer";
   public static final String LEGION = "legion";
   public static final String SETTLER = "settler";
+  public static final String UFO = "ufo";
   // Valid terrain types
   public static final String PLAINS = "plains";
   public static final String OCEANS = "ocean";
@@ -46,4 +55,13 @@ public class GameConstants {
   // Valid production balance types
   public static final String productionFocus = "hammer";
   public static final String foodFocus = "apple";
+  // unit configurations
+  public static final Map<String, UnitConfig> unitConfigs = new HashMap<>();
+
+  static {
+    unitConfigs.put(GameConstants.ARCHER, new ArcherConfig());
+    unitConfigs.put(GameConstants.LEGION, new LegionConfig());
+    unitConfigs.put(GameConstants.SETTLER, new SettlerConfig());
+    unitConfigs.put(GameConstants.UFO, new UFOConfig());
+  }
 }

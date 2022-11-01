@@ -54,24 +54,15 @@ public class CityImpl implements MutableCity {
   }
 
   public boolean unitCostMet() {
-    if (production.equals(GameConstants.ARCHER) && treasury >= 10) {
-      return true;
-    } else if (production.equals(GameConstants.LEGION) && treasury >= 15) {
-      return true;
-    } else if (production.equals(GameConstants.SETTLER) && treasury >= 30) {
-      return true;
-    } else {
-      return false;
+    if (GameConstants.unitConfigs.containsKey(production)) {
+      return treasury >= GameConstants.unitConfigs.get(production).getProductionCost();
     }
+    return false;
   }
 
   public void produceUnit() {
-    if (production.equals(GameConstants.ARCHER)) {
-      treasury -= 10;
-    } else if (production.equals(GameConstants.LEGION)) {
-      treasury -= 15;
-    } else if (production.equals(GameConstants.SETTLER)) {
-      treasury -= 30;
+    if (GameConstants.unitConfigs.containsKey(production)) {
+      treasury -= GameConstants.unitConfigs.get(production).getProductionCost();
     }
   }
 }

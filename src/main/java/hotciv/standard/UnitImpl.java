@@ -3,30 +3,26 @@ package hotciv.standard;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
+import hotciv.unitconfig.UnitConfig;
 
 public class UnitImpl implements MutableUnit {
 
-  public UnitImpl(String type, Player player) {
-    unitType = type;
+  public UnitImpl(String unitType, Player player) {
     this.player = player;
-    movement = 1;
-    if (unitType.equals(GameConstants.ARCHER)) {
-      attackingStrength = 2;
-      defensiveStrength = 3;
-    } else if (unitType.equals(GameConstants.LEGION)) {
-      attackingStrength = 4;
-      defensiveStrength = 2;
-    } else if (unitType.equals(GameConstants.SETTLER)) {
-      attackingStrength = 0;
-      defensiveStrength = 3;
-    }
-    movable = true;
+    this.unitType = unitType;
+    UnitConfig config = GameConstants.unitConfigs.get(unitType);
+    maxMoveCount = config.getMaxMoveCount();
+    moveCount = maxMoveCount;
+    attackingStrength = config.getAttackingStrength();
+    defensiveStrength = config.getDefensiveStrength();
+    movable = config.isMovable();
   }
 
   String unitType;
   Player player;
 
-  int movement;
+  int maxMoveCount;
+  int moveCount;
   int attackingStrength;
   int defensiveStrength;
   boolean movable;
@@ -46,7 +42,7 @@ public class UnitImpl implements MutableUnit {
     if (!movable) {
       return 0;
     }
-    return movement;
+    return moveCount;
   }
 
   @Override
@@ -60,7 +56,7 @@ public class UnitImpl implements MutableUnit {
   }
 
   public void setMoveCount(int count) {
-    movement = count;
+    moveCount = count;
   }
 
   @Override
