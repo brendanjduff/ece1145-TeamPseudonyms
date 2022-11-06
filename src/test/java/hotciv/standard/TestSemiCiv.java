@@ -62,13 +62,16 @@ public class TestSemiCiv {
         assertThat(game.getAge(), is(1971));
     }
 
-//    //test unit action - Gamma
-//    @Test
-//    public void performBuildCitySettlerActionOnR4C3() {
-//        assertThat(game, is(notNullValue()));
-//        game.performUnitActionAt(new Position(4, 3));
-//        assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));
-//    }
+    //test unit action - Gamma
+    @Test
+    public void performFortifyArcherActionOnR2C0() {
+        assertThat(game, is(notNullValue()));
+        game.performUnitActionAt(new Position(3, 8));
+        assertThat(((MutableUnit) game.getUnitAt(new Position(3, 8))).isMovable(),
+                is(false));
+        assertThat((game.getUnitAt(new Position(3, 8))).getDefensiveStrength(),
+                is(6));
+    }
 
 
     //test world layout - Delta
@@ -109,10 +112,5 @@ public class TestSemiCiv {
         }
     }
 
-
-    //TODO: test winner - Epsilon
-
-
-    //TODO: test attacking strategy - Epsilon
 
 }
