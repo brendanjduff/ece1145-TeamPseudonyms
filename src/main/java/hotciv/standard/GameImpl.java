@@ -11,6 +11,7 @@ import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
@@ -64,8 +65,8 @@ public class GameImpl implements Game, MutableGame {
     round = 1;
 
     //instantiation of successful attack counter
-    for (int i = 0; i < players.length; i++) {
-      successfulAttacks.put(players[i], 0);
+    for (Player p : players) {
+      successfulAttacks.put(p, 0);
     }
 
     tiles = worldLayoutStrategy.placeTiles();
@@ -73,23 +74,23 @@ public class GameImpl implements Game, MutableGame {
     units = worldLayoutStrategy.placeUnits();
   }
 
-  Player[] players = new Player[2];
+  final Player[] players = new Player[2];
   int playerIndex;
   int age;
   int round;
-  HashMap<Position, Tile> tiles;
-  Map<Position, MutableCity> cities;
-  Map<Position, MutableUnit> units;
+  final HashMap<Position, MutableTile> tiles;
+  final Map<Position, MutableCity> cities;
+  final Map<Position, MutableUnit> units;
 
-  Map<Player, Integer> successfulAttacks = new HashMap<>();
+  final Map<Player, Integer> successfulAttacks = new HashMap<>();
 
-  GameFactory gameFactory;
-  VictoryStrategy victoryStrategy;
-  AgingStrategy agingStrategy;
-  UnitActionStrategy unitActionStrategy;
-  WorldLayoutStrategy worldLayoutStrategy;
-  BattleStrategy battleStrategy;
-  NumberGenerator rng = new RandomNumberGenerator();
+  final GameFactory gameFactory;
+  final VictoryStrategy victoryStrategy;
+  final AgingStrategy agingStrategy;
+  final UnitActionStrategy unitActionStrategy;
+  final WorldLayoutStrategy worldLayoutStrategy;
+  final BattleStrategy battleStrategy;
+  final NumberGenerator rng = new RandomNumberGenerator();
 
   public Tile getTileAt(Position p) {
     return tiles.get(p);
@@ -123,15 +124,19 @@ public class GameImpl implements Game, MutableGame {
     if (unitBelongsToOtherPlayer) {
       return false;
     }
-    boolean notEnoughMoves = Math.abs(from.getRow() - to.getRow()) > unit.getMoveCount()
-        || Math.abs(from.getColumn() - to.getColumn()) > unit.getMoveCount();
-    if (notEnoughMoves) {
+    boolean noMoves = unit.getMoveCount() <= 0;
+    if (noMoves) {
       return false;
     }
-    boolean isTileMountainsOrOceans =
-        tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) || tiles.get(to)
-            .getTypeString().equals(GameConstants.OCEANS);
-    if (isTileMountainsOrOceans) {
+    boolean moreThanOneTile = Math.abs(from.getRow() - to.getRow()) > 1
+        || Math.abs(from.getColumn() - to.getColumn()) > 1;
+    if (moreThanOneTile) {
+      return false;
+    }
+    boolean impassableTerrain =
+        (tiles.get(to).getTypeString().equals(GameConstants.MOUNTAINS) || tiles.get(to)
+            .getTypeString().equals(GameConstants.OCEANS)) && !unit.isFlying();
+    if (impassableTerrain) {
       return false;
     }
 
@@ -143,6 +148,10 @@ public class GameImpl implements Game, MutableGame {
           units.put(to, unit);
           units.remove(from);
           successfulAttacks.put(getPlayerInTurn(), successfulAttacks.get(getPlayerInTurn()) + 1);
+          // Actively conquer city
+          if (cities.containsKey(to)) {
+            cities.get(to).setOwner(getPlayerInTurn());
+          }
         } else {
           units.remove(from);
           return false;
@@ -154,13 +163,11 @@ public class GameImpl implements Game, MutableGame {
       units.put(to, unit);
       units.remove(from);
     }
-    unit.setMoveCount(0);
+    unit.decrementMoveCount();
 
-    // Check for city takeover
-    if (cities.containsKey(to)) {
-      if (cities.get(to).getOwner() != getPlayerInTurn()) {
-        cities.get(to).setOwner(getPlayerInTurn());
-      }
+    // Passively conquer city
+    if (cities.containsKey(to) && !unit.isFlying()) {
+      cities.get(to).setOwner(getPlayerInTurn());
     }
     return true;
   }
@@ -171,9 +178,7 @@ public class GameImpl implements Game, MutableGame {
       playerIndex = 0;
       // Perform end of round functions
       // A) restore all units' move counts
-      units.forEach((position, unit) -> {
-        unit.setMoveCount(1);
-      });
+      units.forEach((position, unit) -> unit.resetMoveCount());
       /* B) produce food and production in all cities
          C) produce units in all cities (if enough production) */
       cities.forEach((position, city) -> {
@@ -181,16 +186,14 @@ public class GameImpl implements Game, MutableGame {
         if (city.unitCostMet()) {
           boolean noUnitOnCity = !units.containsKey(position);
           if (noUnitOnCity) {
-            city.produceUnit();
-            units.put(position, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+            createUnit(position, city);
           } else {
             for (Position p : Utility.get8neighborhoodOf(position)) {
-              boolean canPlaceUnitHere = !units.containsKey(p) &&
-                  !tiles.get(p).getTypeString().equals(GameConstants.OCEANS) &&
-                  !tiles.get(p).getTypeString().equals(GameConstants.MOUNTAINS);
+              boolean canPlaceUnitHere = !units.containsKey(p) && !tiles.get(p).getTypeString()
+                  .equals(GameConstants.OCEANS) && !tiles.get(p).getTypeString()
+                  .equals(GameConstants.MOUNTAINS);
               if (canPlaceUnitHere) {
-                city.produceUnit();
-                units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+                createUnit(p, city);
                 break;
               }
             }
@@ -215,8 +218,8 @@ public class GameImpl implements Game, MutableGame {
   }
 
   @Override
-  public Map<Position, Tile> getTiles() {
-    return (Map<Position, Tile>) tiles;
+  public Map<Position, MutableTile> getTiles() {
+    return tiles;
   }
 
   @Override
@@ -242,5 +245,10 @@ public class GameImpl implements Game, MutableGame {
   @Override
   public int getRound() {
     return round;
+  }
+
+  void createUnit(Position p, MutableCity city) {
+    city.produceUnit();
+    units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
   }
 }

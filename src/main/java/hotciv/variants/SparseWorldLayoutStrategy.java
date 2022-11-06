@@ -3,10 +3,10 @@ package hotciv.variants;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.standard.CityImpl;
 import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
@@ -16,8 +16,8 @@ import java.util.HashMap;
 public class SparseWorldLayoutStrategy implements WorldLayoutStrategy {
 
   @Override
-  public HashMap<Position, Tile> placeTiles() {
-    HashMap<Position, Tile> tiles = new HashMap<>();
+  public HashMap<Position, MutableTile> placeTiles() {
+    HashMap<Position, MutableTile> tiles = new HashMap<>();
     for (Position p : Utility.getWorldLayoutIterable()) {
       String type = GameConstants.PLAINS;
       if (p.equals(new Position(1, 0))) {

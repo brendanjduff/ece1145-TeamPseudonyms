@@ -40,8 +40,8 @@ public class Position {
     this.c = c;
   }
 
-  protected int r;
-  protected int c;
+  protected final int r;
+  protected final int c;
 
   /**
    * get the row represented by this position.

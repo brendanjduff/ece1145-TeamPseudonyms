@@ -30,13 +30,13 @@ public class TestUnit {
   }
 
   @Test
-  public void unitTypeShouldBelongToRed() {
+  public void unitShouldBelongToRed() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
     assertThat(unit.getOwner(), is(Player.RED));
   }
 
   @Test
-  public void unitTypeShouldBelongToBlue() {
+  public void unitShouldBelongToBlue() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     assertThat(unit.getOwner(), is(Player.BLUE));
   }
@@ -50,50 +50,56 @@ public class TestUnit {
   @Test
   public void canChangeMoveCountTo0() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
-    unit.setMoveCount(0);
+    unit.decrementMoveCount();
     assertThat(unit.getMoveCount(), is(0));
   }
 
   @Test
-  public void archerShouldHave3Defense() {
+  public void testArcherConfig() {
     unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-    assertThat(unit.getDefensiveStrength(), is(3));
-  }
-
-  @Test
-  public void legionShouldHave2Defense() {
-    unit = new UnitImpl(GameConstants.LEGION, Player.RED);
-    assertThat(unit.getDefensiveStrength(), is(2));
-  }
-
-  @Test
-  public void settlerShouldHave3Defense() {
-    unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
-    assertThat(unit.getDefensiveStrength(), is(3));
-  }
-
-  @Test
-  public void archerShouldHave2Attack() {
-    unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    assertThat(unit.getMoveCount(), is(1));
     assertThat(unit.getAttackingStrength(), is(2));
+    assertThat(unit.getDefensiveStrength(), is(3));
+    assertThat(unit.isMovable(), is(true));
+    assertThat(unit.isFlying(), is(false));
   }
 
   @Test
-  public void legionShouldHave4Attack() {
+  public void testLegionConfig() {
     unit = new UnitImpl(GameConstants.LEGION, Player.RED);
+    assertThat(unit.getMoveCount(), is(1));
     assertThat(unit.getAttackingStrength(), is(4));
+    assertThat(unit.getDefensiveStrength(), is(2));
+    assertThat(unit.isMovable(), is(true));
+    assertThat(unit.isFlying(), is(false));
   }
 
   @Test
-  public void settlerShouldHave0Attack() {
+  public void testSettlerConfig() {
     unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+    assertThat(unit.getMoveCount(), is(1));
     assertThat(unit.getAttackingStrength(), is(0));
+    assertThat(unit.getDefensiveStrength(), is(3));
+    assertThat(unit.isMovable(), is(true));
+    assertThat(unit.isFlying(), is(false));
   }
 
   @Test
-  public void shouldHaveMoveCount0WhenMoveable() {
+  public void testUFOConfigs() {
+    unit = new UnitImpl(GameConstants.UFO, Player.RED);
+    assertThat(unit.getMoveCount(), is(2));
+    assertThat(unit.getAttackingStrength(), is(1));
+    assertThat(unit.getDefensiveStrength(), is(8));
+    assertThat(unit.isMovable(), is(true));
+    assertThat(unit.isFlying(), is(true));
+  }
+
+
+  @Test
+  public void shouldHaveMoveCount0WhenNotMovable() {
     unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
     assertThat(unit.isMovable(), is(true));
+    assertThat(unit.getMoveCount(), is(1));
     unit.setMovable(false);
     assertThat(unit.isMovable(), is(false));
     assertThat(unit.getMoveCount(), is(0));

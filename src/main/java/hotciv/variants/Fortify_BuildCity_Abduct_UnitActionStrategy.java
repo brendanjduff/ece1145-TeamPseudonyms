@@ -5,24 +5,22 @@ import hotciv.framework.GameConstants;
 import hotciv.framework.MutableGame;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Position;
-import hotciv.standard.CityImpl;
 
-public class FortifyAndBuildCityActionStrategy implements UnitActionStrategy {
+public class Fortify_BuildCity_Abduct_UnitActionStrategy implements UnitActionStrategy {
+
+  final UnitActionStrategy settler = new BuildCityUnitActionStrategy();
+  final UnitActionStrategy archer = new FortifyUnitActionStrategy();
+  final UnitActionStrategy ufo = new AbductUnitActionStrategy();
 
   @Override
   public void performAction(Position p, MutableGame game) {
     MutableUnit unit = game.getUnits().get(p);
     if (unit.getTypeString().equals(GameConstants.ARCHER)) {
-      if (unit.isMovable()) {
-        unit.setMovable(false);
-        unit.setDefensiveStrength(unit.getDefensiveStrength() * 2);
-      } else {
-        unit.setMovable(true);
-        unit.setDefensiveStrength(unit.getDefensiveStrength() / 2);
-      }
+      archer.performAction(p, game);
     } else if (unit.getTypeString().equals(GameConstants.SETTLER)) {
-      game.getCities().put(p, new CityImpl(unit.getOwner()));
-      game.getUnits().remove(p);
+      settler.performAction(p, game);
+    } else if (unit.getTypeString().equals(GameConstants.UFO)) {
+      ufo.performAction(p, game);
     }
   }
 }

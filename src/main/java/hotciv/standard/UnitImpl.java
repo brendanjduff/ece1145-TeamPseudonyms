@@ -3,33 +3,31 @@ package hotciv.standard;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
+import hotciv.unitconfig.UnitConfig;
 
+@SuppressWarnings("CanBeFinal")
 public class UnitImpl implements MutableUnit {
-
-  public UnitImpl(String type, Player player) {
-    unitType = type;
-    this.player = player;
-    movement = 1;
-    if (unitType.equals(GameConstants.ARCHER)) {
-      attackingStrength = 2;
-      defensiveStrength = 3;
-    } else if (unitType.equals(GameConstants.LEGION)) {
-      attackingStrength = 4;
-      defensiveStrength = 2;
-    } else if (unitType.equals(GameConstants.SETTLER)) {
-      attackingStrength = 0;
-      defensiveStrength = 3;
-    }
-    movable = true;
-  }
 
   String unitType;
   Player player;
-
-  int movement;
+  int maxMoveCount;
+  int moveCount;
   int attackingStrength;
   int defensiveStrength;
   boolean movable;
+  boolean flying;
+
+  public UnitImpl(String unitType, Player player) {
+    this.player = player;
+    this.unitType = unitType;
+    UnitConfig config = GameConstants.unitConfigs.get(unitType);
+    maxMoveCount = config.getMaxMoveCount();
+    moveCount = maxMoveCount;
+    attackingStrength = config.getAttackingStrength();
+    defensiveStrength = config.getDefensiveStrength();
+    movable = config.isMovable();
+    flying = config.isFlying();
+  }
 
   @Override
   public String getTypeString() {
@@ -46,7 +44,7 @@ public class UnitImpl implements MutableUnit {
     if (!movable) {
       return 0;
     }
-    return movement;
+    return moveCount;
   }
 
   @Override
@@ -55,12 +53,23 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
+  public void setDefensiveStrength(int defensiveStrength) {
+    this.defensiveStrength = defensiveStrength;
+  }
+
+  @Override
   public int getAttackingStrength() {
     return attackingStrength;
   }
 
-  public void setMoveCount(int count) {
-    movement = count;
+  @Override
+  public void decrementMoveCount() {
+    moveCount--;
+  }
+
+  @Override
+  public void resetMoveCount() {
+    moveCount = maxMoveCount;
   }
 
   @Override
@@ -69,12 +78,12 @@ public class UnitImpl implements MutableUnit {
   }
 
   @Override
-  public void setMovable(boolean value) {
-    movable = value;
+  public boolean isFlying() {
+    return flying;
   }
 
   @Override
-  public void setDefensiveStrength(int value) {
-    defensiveStrength = value;
+  public void setMovable(boolean movable) {
+    this.movable = movable;
   }
 }

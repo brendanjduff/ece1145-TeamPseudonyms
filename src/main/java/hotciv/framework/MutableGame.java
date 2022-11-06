@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface MutableGame extends Game {
 
-  Map<Position, Tile> getTiles();
+  Map<Position, MutableTile> getTiles();
 
   Map<Position, MutableCity> getCities();
 

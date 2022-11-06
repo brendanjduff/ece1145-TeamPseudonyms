@@ -11,10 +11,10 @@ import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
+import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.utility.Utility;
 import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
@@ -114,7 +114,7 @@ public class TestAlphaCiv {
   @Test
   public void tilesCorrectlyPlaced() {
     assertThat(game, is(notNullValue()));
-    HashMap<Position, Tile> tiles = new SparseWorldLayoutStrategy().placeTiles();
+    HashMap<Position, MutableTile> tiles = new SparseWorldLayoutStrategy().placeTiles();
     for (Position p : Utility.getWorldLayoutIterable()) {
       assertThat(game.getTileAt(p), samePropertyValuesAs(tiles.get(p)));
     }
@@ -237,7 +237,7 @@ public class TestAlphaCiv {
   @Test
   public void unitMustHaveMovementToMove() {
     assertThat(game, is(notNullValue()));
-    ((MutableUnit) game.getUnitAt(new Position(2, 0))).setMoveCount(0);
+    ((MutableUnit) game.getUnitAt(new Position(2, 0))).decrementMoveCount();
     assertThat(game.moveUnit(new Position(2, 0), new Position(2, 1)), is(false));
   }
 

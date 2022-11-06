@@ -72,7 +72,7 @@ public class TestUtility2 {
 // ================================== TEST STUBS ===
 class StubTile implements Tile {
 
-  private String type;
+  private final String type;
 
   public StubTile(String type, int r, int c) {
     this.type = type;
@@ -85,8 +85,8 @@ class StubTile implements Tile {
 
 class StubUnit implements Unit {
 
-  private String type;
-  private Player owner;
+  private final String type;
+  private final Player owner;
 
   public StubUnit(String type, Player owner) {
     this.type = type;

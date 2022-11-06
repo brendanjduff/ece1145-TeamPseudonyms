@@ -28,8 +28,8 @@ public class Utility2 {
       return 3;
     }
     Tile t = game.getTileAt(position);
-    if (t.getTypeString() == GameConstants.FOREST ||
-        t.getTypeString() == GameConstants.HILLS) {
+    if (t.getTypeString().equals(GameConstants.FOREST) ||
+        t.getTypeString().equals(GameConstants.HILLS)) {
       return 2;
     }
     return 1;
