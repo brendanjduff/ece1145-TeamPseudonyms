@@ -28,4 +28,6 @@ public class SemiCivFactory implements GameFactory{
     public BattleStrategy createBattleStrategy() {
         return new RandomCombinedBattleStrategy();
     }
+
+    //TODO: Add EtaCiv CityWorkforceFocus and PopulationIncrease strategy
 }
