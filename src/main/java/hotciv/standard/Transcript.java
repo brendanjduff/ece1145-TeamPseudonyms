@@ -55,20 +55,21 @@ public class Transcript implements Game {
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-        System.out.println(game.getPlayerInTurn().toString() + " changes work force focus in city at"
+        System.out.println(game.getPlayerInTurn().toString() + " changes work force focus in city at "
             + game.getCityAt(p).toString() + " to " + balance);
         game.changeWorkForceFocusInCityAt(p, balance);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-        System.out.println(game.getPlayerInTurn().toString() + " changes production in city at"
+        System.out.println(game.getPlayerInTurn().toString() + " changes production in city at "
                 + game.getCityAt(p).toString() + " to " + unitType);
         game.changeProductionInCityAt(p, unitType);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
+        System.out.println(game.getPlayerInTurn().toString() + " performs unit action at " + p.toString());
         game.performUnitActionAt(p);
     }
 }
