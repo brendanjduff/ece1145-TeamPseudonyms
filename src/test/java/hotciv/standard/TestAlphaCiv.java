@@ -340,4 +340,10 @@ public class TestAlphaCiv {
     assertThat(((MutableUnit) game.getUnitAt(new Position(2, 0))).isMovable(),
         is(true));  //no change
   }
+
+  @Test
+  public void noMoveIfFromEqualsTo() {
+    assertThat(game, is(notNullValue()));
+    assertThat(game.moveUnit(new Position(2,0), new Position(2,0)), is(false));
+  }
 }

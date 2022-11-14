@@ -114,4 +114,15 @@ public class TestThetaCiv {
     game.performUnitActionAt(new Position(7,7));
     assertThat(game.getTileAt(new Position(7,7)).getTypeString(), is(GameConstants.PLAINS));
   }
+
+  @Test
+  public void UFOShouldMoveOnHills() {
+    assertThat(game, is(notNullValue()));
+    game.getUnits().put(new Position(0, 0), new UnitImpl(GameConstants.UFO, Player.RED));
+    game.getTiles().get(new Position(1,0)).setTypeString(GameConstants.HILLS);
+    assertThat(game.getPlayerInTurn(), is(Player.RED));
+    assertThat(game.moveUnit(new Position(0, 0), new Position(1, 0)), is(true));
+    assertThat(game.getUnitAt(new Position(1, 0)).getTypeString(), is(GameConstants.UFO));
+    assertThat(game.getUnitAt(new Position(1, 0)).getMoveCount(), is(1));
+  }
 }
