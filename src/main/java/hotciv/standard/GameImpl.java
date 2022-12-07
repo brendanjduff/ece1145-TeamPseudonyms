@@ -20,6 +20,7 @@ import hotciv.framework.Unit;
 import hotciv.utility.NumberGenerator;
 import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
+import hotciv.view.CivDrawing;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -215,6 +216,16 @@ public class GameImpl implements Game, MutableGame {
 
   public void performUnitActionAt(Position p) {
     unitActionStrategy.performAction(p, this);
+  }
+
+  @Override
+  public void addObserver(CivDrawing civDrawing) {
+
+  }
+
+  @Override
+  public void setTileFocus(Position position) {
+
   }
 
   @Override

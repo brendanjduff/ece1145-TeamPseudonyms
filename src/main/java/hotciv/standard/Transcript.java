@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+import hotciv.view.CivDrawing;
 
 
 public class Transcript implements Game {
@@ -71,5 +72,15 @@ public class Transcript implements Game {
     public void performUnitActionAt(Position p) {
         System.out.println(game.getPlayerInTurn().toString() + " performs unit action at " + p.toString());
         game.performUnitActionAt(p);
+    }
+
+    @Override
+    public void addObserver(CivDrawing civDrawing) {
+
+    }
+
+    @Override
+    public void setTileFocus(Position position) {
+
     }
 }

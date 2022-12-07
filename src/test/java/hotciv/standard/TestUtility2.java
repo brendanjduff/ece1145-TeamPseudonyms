@@ -11,6 +11,7 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility2;
+import hotciv.view.CivDrawing;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Before;
@@ -199,5 +200,15 @@ class GameStubForBattleTesting implements Game {
   }
 
   public void performUnitActionAt(Position p) {
+  }
+
+  @Override
+  public void addObserver(CivDrawing civDrawing) {
+
+  }
+
+  @Override
+  public void setTileFocus(Position position) {
+
   }
 }
