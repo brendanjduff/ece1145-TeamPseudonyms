@@ -97,7 +97,6 @@ public class GameImpl implements Game, MutableGame {
   final BattleStrategy battleStrategy;
   final WorkforceStrategy workforceStrategy;
   final NumberGenerator rng = new RandomNumberGenerator();
-
   GameObserver gameObserver;
 
   public Tile getTileAt(Position p) {
