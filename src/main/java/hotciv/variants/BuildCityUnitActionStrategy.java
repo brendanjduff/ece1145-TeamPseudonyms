@@ -11,5 +11,6 @@ public class BuildCityUnitActionStrategy implements UnitActionStrategy {
   public void performAction(Position p, MutableGame game) {
     game.getCities().put(p, new CityImpl(game.getUnits().get(p).getOwner()));
     game.getUnits().remove(p);
+    game.getObserver().worldChangedAt(p);
   }
 }
