@@ -232,19 +232,27 @@ public class GameImpl implements Game, MutableGame {
   }
 
   public void changeWorkForceFocusInCityAt(Position p, String balance) {
-    if (getCityAt(p).getOwner() == getPlayerInTurn()) {
-      cities.get(p).setWorkforceFocus(balance);
+    if (cities.containsKey(p)) {
+      if (getCityAt(p).getOwner() == getPlayerInTurn()) {
+        cities.get(p).setWorkforceFocus(balance);
+      }
     }
   }
 
   public void changeProductionInCityAt(Position p, String unitType) {
-    if (getCityAt(p).getOwner() == getPlayerInTurn()) {
-      cities.get(p).setProduction((unitType));
+    if (cities.containsKey(p)) {
+      if (getCityAt(p).getOwner() == getPlayerInTurn()) {
+        cities.get(p).setProduction((unitType));
+      }
     }
   }
 
   public void performUnitActionAt(Position p) {
-    unitActionStrategy.performAction(p, this);
+    if (units.containsKey(p)) {
+      if (getUnitAt(p).getOwner() == getPlayerInTurn()) {
+        unitActionStrategy.performAction(p, this);
+      }
+    }
   }
 
   @Override
@@ -300,7 +308,7 @@ public class GameImpl implements Game, MutableGame {
 
   void createUnit(Position p, MutableCity city) {
     city.produceUnit();
-    units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+    units.put(p, new UnitImpl(city.getProduction(), city.getOwner()));
     gameObserver.worldChangedAt(p);
   }
 }
