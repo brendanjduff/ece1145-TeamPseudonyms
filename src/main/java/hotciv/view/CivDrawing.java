@@ -1,5 +1,6 @@
 package hotciv.view;
 
+import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.GameObserver;
@@ -19,7 +20,7 @@ import minidraw.standard.*;
  * to render the Unit and other information objects that are visible
  * in the Game instance.
  *
- * TODO: This is a TEMPLATE for the SWEA Exercise! This means
+ * This is a TEMPLATE for the SWEA Exercise! This means
  * that it is INCOMPLETE and that there are several options
  * for CLEANING UP THE CODE when you add features to it!
 
@@ -53,6 +54,7 @@ public class CivDrawing
   protected Drawing delegate;
   /** store all moveable figures visible in this drawing = units */
   protected Map<Unit,UnitFigure> unitFigureMap;
+  protected Map<City,CityFigure> cityFigureMap;
 
   /** the Game instance that this CivDrawing is going to render units
    * from */
@@ -63,6 +65,7 @@ public class CivDrawing
     this.delegate = new StandardDrawing();
     this.game = game;
     this.unitFigureMap = new HashMap<>();
+    this.cityFigureMap = new HashMap<>();
 
     // register this unit drawing as listener to any game state
     // changes...
@@ -70,6 +73,7 @@ public class CivDrawing
     // ... and build up the set of figures associated with
     // units in the game.
     defineUnitMap();
+    defineCityMap();
     // and the set of 'icons' in the status panel
     defineIcons();
   }
@@ -139,44 +143,120 @@ public class CivDrawing
     unitFigureMap.clear();
   }
 
-  protected ImageFigure turnShieldIcon;
+  /** erase the old list of cities, and build a completely new
+   * one from scratch by iterating over the game world and add
+   * Figure instances for each city in the world.
+   */
+  protected void defineCityMap() {
+
+    clearSelection();
+
+    removeAllCityFigures();
+
+    Position p;
+    for ( int r = 0; r < GameConstants.WORLDSIZE; r++ ) {
+      for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
+        p = new Position(r,c);
+        City city = game.getCityAt(p);
+        if ( city != null ) {
+          Point point = new Point( GfxConstants.getXFromColumn(p.getColumn()),
+              GfxConstants.getYFromRow(p.getRow()) );
+          CityFigure cityFigure =
+              new CityFigure( city, point );
+          cityFigure.addFigureChangeListener(this);
+          cityFigureMap.put(city, cityFigure);
+
+          delegate.add(cityFigure);
+        }
+      }
+    }
+  }
+
+  /** remove all city figures in this
+   * drawing, and reset the map (city->cityfigure).
+   * It is important to actually remove the figures
+   * as it forces a graphical redraw of the screen
+   * where the city figure was.
+   */
+  protected void removeAllCityFigures() {
+    for (City c : cityFigureMap.keySet()) {
+      CityFigure cf = cityFigureMap.get(c);
+      delegate.remove(cf);
+    }
+    cityFigureMap.clear();
+  }
+
+  protected ImageFigure turnShieldIcon, unitShieldIcon, cityShieldIcon, cityWorkforceFocusIcon, cityProductionIcon, refreshButton;
+  protected TextFigure ageText, unitMoveCountText;
+
   protected void defineIcons() {
-    // TODO: Further development to include rest of figures needed
-    turnShieldIcon = 
-      new ImageFigure( "redshield",
-                       new Point( GfxConstants.TURN_SHIELD_X,
-                                  GfxConstants.TURN_SHIELD_Y ) ); 
-    // insert in delegate figure list to ensure graphical
-    // rendering.
+    turnShieldIcon =  new ImageFigure( GfxConstants.RED_SHIELD, new Point( GfxConstants.TURN_SHIELD_X, GfxConstants.TURN_SHIELD_Y ) );
     delegate.add(turnShieldIcon);
+
+    ageText = new TextFigure("4000 BC", new Point(GfxConstants.AGE_TEXT_X, GfxConstants.AGE_TEXT_Y));
+    delegate.add(ageText);
+
+    unitShieldIcon =  new ImageFigure( GfxConstants.NOTHING, new Point( GfxConstants.UNIT_SHIELD_X, GfxConstants.UNIT_SHIELD_Y ) );
+    delegate.add(unitShieldIcon);
+
+    unitMoveCountText = new TextFigure("", new Point(GfxConstants.UNIT_COUNT_X, GfxConstants.UNIT_COUNT_Y));
+    delegate.add(unitMoveCountText);
+
+    cityShieldIcon =  new ImageFigure( GfxConstants.NOTHING, new Point( GfxConstants.CITY_SHIELD_X, GfxConstants.CITY_SHIELD_Y ) );
+    delegate.add(cityShieldIcon);
+
+    cityWorkforceFocusIcon =  new ImageFigure( GfxConstants.NOTHING, new Point( GfxConstants.WORKFORCEFOCUS_X, GfxConstants.WORKFORCEFOCUS_Y ) );
+    delegate.add(cityWorkforceFocusIcon);
+
+    cityProductionIcon =  new ImageFigure( GfxConstants.NOTHING, new Point( GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y ) );
+    delegate.add(cityProductionIcon);
+
+    refreshButton =  new ImageFigure( GfxConstants.REFRESH_BUTTON, new Point( GfxConstants.REFRESH_BUTTON_X, GfxConstants.REFRESH_BUTTON_Y ) );
+    delegate.add(refreshButton);
   }
  
   // === Observer Methods ===
 
   public void worldChangedAt(Position pos) {
-    // TODO: Remove system.out debugging output
-    System.out.println( "CivDrawing: world changes at "+pos);
     // this is a really brute-force algorithm: destroy
     // all known units and build up the entire set again
     defineUnitMap();
-
-    // TODO: Cities may change on position as well
+    defineCityMap();
   }
 
   public void turnEnds(Player nextPlayer, int age) {
-    // TODO: Remove system.out debugging output
-    System.out.println( "CivDrawing: turnEnds at "+age+", next is "+nextPlayer );
-    String playername = "red";
-    if ( nextPlayer == Player.BLUE ) { playername = "blue"; }
-    turnShieldIcon.set( playername+"shield",
-                        new Point( GfxConstants.TURN_SHIELD_X,
-                                   GfxConstants.TURN_SHIELD_Y ) );
-    // TODO: Age output pending
+    String playerShield = GfxConstants.RED_SHIELD;
+    if ( nextPlayer == Player.BLUE ) { playerShield = GfxConstants.BLUE_SHIELD; }
+    turnShieldIcon.set( playerShield, new Point( GfxConstants.TURN_SHIELD_X, GfxConstants.TURN_SHIELD_Y ) );
+    if(age > 0) { ageText.setText(""+age+"AD");  }
+    else { ageText.setText(""+Math.abs(age)+" BC"); }
   }
 
   public void tileFocusChangedAt(Position position) {
-    // TODO: Implementation pending
-    System.out.println( "Fake it: tileFocusChangedAt "+position );
+    // If unit is at position, display unit information
+    Unit unit = game.getUnitAt(position);
+    if(unit != null) {
+      String shield = GfxConstants.RED_SHIELD;
+      if ( unit.getOwner() == Player.BLUE ) { shield = GfxConstants.BLUE_SHIELD; }
+      unitShieldIcon.set(shield, new Point(GfxConstants.UNIT_SHIELD_X, GfxConstants.UNIT_SHIELD_Y));
+      unitMoveCountText.setText(""+unit.getMoveCount());
+    } else {
+      unitShieldIcon.set(GfxConstants.NOTHING, new Point(GfxConstants.UNIT_SHIELD_X, GfxConstants.UNIT_SHIELD_Y));
+      unitMoveCountText.setText("");
+    }
+    // if city is at position, display city information
+    City city = game.getCityAt(position);
+    if(city != null) {
+      String shield = GfxConstants.RED_SHIELD;
+      if ( city.getOwner() == Player.BLUE ) { shield = GfxConstants.BLUE_SHIELD; }
+      cityShieldIcon.set(shield, new Point(GfxConstants.CITY_SHIELD_X, GfxConstants.CITY_SHIELD_Y));
+      cityWorkforceFocusIcon.set(city.getWorkforceFocus(), new Point(GfxConstants.WORKFORCEFOCUS_X, GfxConstants.WORKFORCEFOCUS_Y));
+      cityProductionIcon.set(city.getProduction(), new Point(GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y));
+    } else {
+      cityShieldIcon.set(GfxConstants.NOTHING, new Point(GfxConstants.CITY_SHIELD_X, GfxConstants.CITY_SHIELD_Y));
+      cityWorkforceFocusIcon.set(GfxConstants.NOTHING, new Point(GfxConstants.WORKFORCEFOCUS_X, GfxConstants.WORKFORCEFOCUS_Y));
+      cityProductionIcon.set(GfxConstants.NOTHING, new Point(GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y));
+    }
   }
 
   @Override
@@ -185,8 +265,8 @@ public class CivDrawing
     // everything. We simply rebuild the
     // entire Drawing.
     defineUnitMap();
+    defineCityMap();
     defineIcons();
-    // TODO: Cities pending
   }
 
   @Override

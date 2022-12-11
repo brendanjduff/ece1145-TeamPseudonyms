@@ -57,11 +57,6 @@ public class StubGame1 implements Game {
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
 
-  @Override
-  public void addObserver(CivDrawing civDrawing) {
-
-  }
-
   public void addObserver(GameObserver observer) {} 
   public void setTileFocus(Position position) {}
 
