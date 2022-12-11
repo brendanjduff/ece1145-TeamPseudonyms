@@ -16,4 +16,6 @@ public interface MutableGame extends Game {
   NumberGenerator getRNG();
 
   int getRound();
+
+  GameObserver getObserver();
 }

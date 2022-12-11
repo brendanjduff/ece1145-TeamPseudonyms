@@ -78,11 +78,20 @@ class UpdateTool extends NullTool {
       break;
     }
     case 4: {
-      editor.showStatus( "State change: Inspect Unit at (4,3)" );
+      editor.showStatus( "State change: Inspect (4,3)" );
       game.setTileFocus(new Position(4,3));
       break;
     }
-      // TODO: Add more state changes for other things to test
+    case 5: {
+      editor.showStatus("State change: Inspect (10,10)");
+      game.setTileFocus(new Position(10,10));
+      break;
+    }
+    case 6: {
+      editor.showStatus("State change: Inspect (4,3) again");
+      game.setTileFocus(new Position(4,3));
+      break;
+    }
     default: {
       editor.showStatus("No more changes in my list...");
     }

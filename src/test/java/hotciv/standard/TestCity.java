@@ -148,4 +148,18 @@ public class TestCity {
     city.setOwner(Player.BLUE);
     assertThat(city.getOwner(), is(Player.BLUE));
   }
+
+  @Test
+  public void shouldSetWorkforceFocusToProduction() {
+    city = new CityImpl(Player.RED);
+    city.setWorkforceFocus(GameConstants.productionFocus);
+    assertThat(city.getWorkforceFocus(), is(GameConstants.productionFocus));
+  }
+
+  @Test
+  public void shouldSetWorkforceFocusToFood() {
+    city = new CityImpl(Player.RED);
+    city.setWorkforceFocus(GameConstants.foodFocus);
+    assertThat(city.getWorkforceFocus(), is(GameConstants.foodFocus));
+  }
 }

@@ -4,10 +4,12 @@ import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.GameObserver;
+import hotciv.framework.MutableCity;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.standard.CityImpl;
 import hotciv.view.CivDrawing;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,6 +113,7 @@ public class StubGame2 implements Game {
     red_archer = new StubUnit( GameConstants.ARCHER, Player.RED );   
 
     inTurn = Player.RED;
+    city.setProduction(GameConstants.ARCHER);
   }
 
   // A simple implementation to draw the map of DeltaCiv
@@ -133,22 +136,25 @@ public class StubGame2 implements Game {
   }
 
   // TODO: Add more stub behaviour to test MiniDraw updating
-  public City getCityAt( Position p ) { return null; }
+  MutableCity city = new CityImpl(Player.BLUE);
+  Position cityPosition = new Position(10,10);
+  public City getCityAt( Position p ) {
+    if(p.getRow() == 10 && p.getColumn() == 10) {
+      return city;
+    }
+    return null;
+  }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
 
-  @Override
-  public void addObserver(CivDrawing civDrawing) {
-
-  }
-
   public void setTileFocus(Position position) {
     // TODO: setTileFocus implementation pending.
     System.out.println("-- StubGame2 / setTileFocus called.");
     System.out.println(" *** IMPLEMENTATION PENDING ***");
+    gameObserver.tileFocusChangedAt(position);
   }
 
 }

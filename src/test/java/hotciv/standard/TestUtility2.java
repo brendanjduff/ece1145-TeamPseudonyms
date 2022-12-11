@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -203,7 +204,7 @@ class GameStubForBattleTesting implements Game {
   }
 
   @Override
-  public void addObserver(CivDrawing civDrawing) {
+  public void addObserver(GameObserver gameObserver) {
 
   }
 

@@ -9,6 +9,7 @@ import hotciv.factory.GameFactory;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.GameObserver;
 import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
 import hotciv.framework.MutableTile;
@@ -20,7 +21,6 @@ import hotciv.framework.Unit;
 import hotciv.utility.NumberGenerator;
 import hotciv.utility.RandomNumberGenerator;
 import hotciv.utility.Utility;
-import hotciv.view.CivDrawing;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +58,7 @@ public class GameImpl implements Game, MutableGame {
     unitActionStrategy = factory.createUnitActionStrategy();
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
+    gameObserver = new GameObserverNULL();
 
     playerIndex = 0;
     players[0] = Player.RED;
@@ -93,16 +94,21 @@ public class GameImpl implements Game, MutableGame {
   final BattleStrategy battleStrategy;
   final NumberGenerator rng = new RandomNumberGenerator();
 
+  GameObserver gameObserver;
+
   public Tile getTileAt(Position p) {
-    return tiles.get(p);
+    if(tiles.containsKey(p)) { return tiles.get(p); }
+    return null;
   }
 
   public Unit getUnitAt(Position p) {
-    return units.get(p);
+    if(units.containsKey(p)) { return units.get(p); }
+    return null;
   }
 
   public City getCityAt(Position p) {
-    return cities.get(p);
+    if(cities.containsKey(p)) { return cities.get(p); }
+    return null;
   }
 
   public Player getPlayerInTurn() {
@@ -148,13 +154,17 @@ public class GameImpl implements Game, MutableGame {
           units.remove(to);
           units.put(to, unit);
           units.remove(from);
+          gameObserver.worldChangedAt(from);
+          gameObserver.worldChangedAt(to);
           successfulAttacks.put(getPlayerInTurn(), successfulAttacks.get(getPlayerInTurn()) + 1);
           // Actively conquer city
           if (cities.containsKey(to)) {
             cities.get(to).setOwner(getPlayerInTurn());
+            gameObserver.worldChangedAt(to);
           }
         } else {
           units.remove(from);
+          gameObserver.worldChangedAt(from);
           return false;
         }
       } else {
@@ -163,12 +173,15 @@ public class GameImpl implements Game, MutableGame {
     } else {
       units.put(to, unit);
       units.remove(from);
+      gameObserver.worldChangedAt(from);
+      gameObserver.worldChangedAt(to);
     }
     unit.decrementMoveCount();
 
     // Passively conquer city
     if (cities.containsKey(to) && !unit.isFlying()) {
       cities.get(to).setOwner(getPlayerInTurn());
+      gameObserver.worldChangedAt(to);
     }
     return true;
   }
@@ -205,6 +218,7 @@ public class GameImpl implements Game, MutableGame {
       age = agingStrategy.incrementAge(age);
       round++;
     }
+    gameObserver.turnEnds(getPlayerInTurn(), getAge());
   }
 
   public void changeWorkForceFocusInCityAt(Position p, String balance) {
@@ -219,13 +233,14 @@ public class GameImpl implements Game, MutableGame {
   }
 
   @Override
-  public void addObserver(CivDrawing civDrawing) {
-
+  public void addObserver(GameObserver gameObserver) {
+    this.gameObserver = gameObserver;
   }
 
   @Override
   public void setTileFocus(Position position) {
 
+    gameObserver.tileFocusChangedAt(position);
   }
 
   @Override
@@ -258,8 +273,14 @@ public class GameImpl implements Game, MutableGame {
     return round;
   }
 
+  @Override
+  public GameObserver getObserver() {
+    return gameObserver;
+  }
+
   void createUnit(Position p, MutableCity city) {
     city.produceUnit();
     units.put(p, new UnitImpl(city.getProduction(), getPlayerInTurn()));
+    gameObserver.worldChangedAt(p);
   }
 }

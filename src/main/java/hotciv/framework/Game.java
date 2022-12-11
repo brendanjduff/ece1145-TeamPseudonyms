@@ -137,7 +137,7 @@ public interface Game {
    */
   void performUnitActionAt(Position p);
 
-  void addObserver(CivDrawing civDrawing);
+  void addObserver(GameObserver gameObserver);
 
   void setTileFocus(Position position);
 }

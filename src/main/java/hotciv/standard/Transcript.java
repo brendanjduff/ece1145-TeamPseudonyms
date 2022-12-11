@@ -75,12 +75,12 @@ public class Transcript implements Game {
     }
 
     @Override
-    public void addObserver(CivDrawing civDrawing) {
-
+    public void addObserver(GameObserver gameObserver) {
+        game.addObserver(gameObserver);
     }
 
     @Override
     public void setTileFocus(Position position) {
-
+        game.setTileFocus(position);
     }
 }
