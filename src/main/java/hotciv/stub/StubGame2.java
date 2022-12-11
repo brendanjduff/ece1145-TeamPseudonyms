@@ -135,7 +135,6 @@ public class StubGame2 implements Game {
     }
   }
 
-  // TODO: Add more stub behaviour to test MiniDraw updating
   MutableCity city = new CityImpl(Player.BLUE);
   Position cityPosition = new Position(10,10);
   public City getCityAt( Position p ) {
@@ -155,6 +154,11 @@ public class StubGame2 implements Game {
   public void setTileFocus(Position position) {
     System.out.println("-- StubGame2 / setTileFocus called: "+position);
     gameObserver.tileFocusChangedAt(position);
+  }
+
+  @Override
+  public Position getTileFocus() {
+    return null;
   }
 
 }

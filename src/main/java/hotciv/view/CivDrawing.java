@@ -72,8 +72,8 @@ public class CivDrawing
     game.addObserver(this);
     // ... and build up the set of figures associated with
     // units in the game.
-    defineUnitMap();
     defineCityMap();
+    defineUnitMap();
     // and the set of 'icons' in the status panel
     defineIcons();
   }
@@ -211,8 +211,8 @@ public class CivDrawing
     cityProductionIcon =  new ImageFigure( GfxConstants.NOTHING, new Point( GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y ) );
     delegate.add(cityProductionIcon);
 
-    refreshButton =  new ImageFigure( GfxConstants.REFRESH_BUTTON, new Point( GfxConstants.REFRESH_BUTTON_X, GfxConstants.REFRESH_BUTTON_Y ) );
-    delegate.add(refreshButton);
+//    refreshButton =  new ImageFigure( GfxConstants.REFRESH_BUTTON, new Point( GfxConstants.REFRESH_BUTTON_X, GfxConstants.REFRESH_BUTTON_Y ) );
+//    delegate.add(refreshButton);
   }
  
   // === Observer Methods ===
@@ -220,8 +220,8 @@ public class CivDrawing
   public void worldChangedAt(Position pos) {
     // this is a really brute-force algorithm: destroy
     // all known units and build up the entire set again
-    defineUnitMap();
     defineCityMap();
+    defineUnitMap();
   }
 
   public void turnEnds(Player nextPlayer, int age) {

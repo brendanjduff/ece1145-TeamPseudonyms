@@ -121,6 +121,6 @@ task semi(type: JavaExec) {
     group 'Project'
     description ' Play SemiCiv using the GUI :-)'
 
-    main = 'hotciv.visual.NotDefinedYet'
+    main = 'hotciv.visual.PlaySemiCiv'
     classpath = sourceSets.main.runtimeClasspath
 }

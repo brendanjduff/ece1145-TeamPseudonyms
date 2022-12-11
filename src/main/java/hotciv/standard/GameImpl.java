@@ -52,6 +52,25 @@ import java.util.Map;
 
 public class GameImpl implements Game, MutableGame {
 
+  final Player[] players = new Player[2];
+  final HashMap<Position, MutableTile> tiles;
+  final Map<Position, MutableCity> cities;
+  final Map<Position, MutableUnit> units;
+  final Map<Player, Integer> successfulAttacks = new HashMap<>();
+  final GameFactory gameFactory;
+  final VictoryStrategy victoryStrategy;
+  final AgingStrategy agingStrategy;
+  final UnitActionStrategy unitActionStrategy;
+  final WorldLayoutStrategy worldLayoutStrategy;
+  final BattleStrategy battleStrategy;
+  final WorkforceStrategy workforceStrategy;
+  final NumberGenerator rng = new RandomNumberGenerator();
+  int playerIndex;
+  int age;
+  int round;
+  GameObserver gameObserver;
+  Position lastFocus = null;
+
   public GameImpl(GameFactory factory) {
     gameFactory = factory;
     victoryStrategy = factory.createVictoryStrategy();
@@ -78,38 +97,24 @@ public class GameImpl implements Game, MutableGame {
     units = worldLayoutStrategy.placeUnits();
   }
 
-  final Player[] players = new Player[2];
-  int playerIndex;
-  int age;
-  int round;
-  final HashMap<Position, MutableTile> tiles;
-  final Map<Position, MutableCity> cities;
-  final Map<Position, MutableUnit> units;
-
-  final Map<Player, Integer> successfulAttacks = new HashMap<>();
-
-  final GameFactory gameFactory;
-  final VictoryStrategy victoryStrategy;
-  final AgingStrategy agingStrategy;
-  final UnitActionStrategy unitActionStrategy;
-  final WorldLayoutStrategy worldLayoutStrategy;
-  final BattleStrategy battleStrategy;
-  final WorkforceStrategy workforceStrategy;
-  final NumberGenerator rng = new RandomNumberGenerator();
-  GameObserver gameObserver;
-
   public Tile getTileAt(Position p) {
-    if(tiles.containsKey(p)) { return tiles.get(p); }
+    if (tiles.containsKey(p)) {
+      return tiles.get(p);
+    }
     return null;
   }
 
   public Unit getUnitAt(Position p) {
-    if(units.containsKey(p)) { return units.get(p); }
+    if (units.containsKey(p)) {
+      return units.get(p);
+    }
     return null;
   }
 
   public City getCityAt(Position p) {
-    if(cities.containsKey(p)) { return cities.get(p); }
+    if (cities.containsKey(p)) {
+      return cities.get(p);
+    }
     return null;
   }
 
@@ -223,14 +228,19 @@ public class GameImpl implements Game, MutableGame {
       round++;
     }
     gameObserver.turnEnds(getPlayerInTurn(), getAge());
+    lastFocus = null;
   }
 
   public void changeWorkForceFocusInCityAt(Position p, String balance) {
-    cities.get(p).setWorkforceFocus(balance);
+    if (getCityAt(p).getOwner() == getPlayerInTurn()) {
+      cities.get(p).setWorkforceFocus(balance);
+    }
   }
 
   public void changeProductionInCityAt(Position p, String unitType) {
-    cities.get(p).setProduction((unitType));
+    if (getCityAt(p).getOwner() == getPlayerInTurn()) {
+      cities.get(p).setProduction((unitType));
+    }
   }
 
   public void performUnitActionAt(Position p) {
@@ -243,8 +253,13 @@ public class GameImpl implements Game, MutableGame {
   }
 
   @Override
-  public void setTileFocus(Position position) {
+  public Position getTileFocus() {
+    return lastFocus;
+  }
 
+  @Override
+  public void setTileFocus(Position position) {
+    lastFocus = position;
     gameObserver.tileFocusChangedAt(position);
   }
 

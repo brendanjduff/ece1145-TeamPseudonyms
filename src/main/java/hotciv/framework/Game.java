@@ -24,8 +24,6 @@ package hotciv.framework;
    limitations under the License.
 */
 
-import hotciv.view.CivDrawing;
-
 /**
  * Game is the central interface allowing a client to access and modify the state of a HotCiv game.
  */
@@ -138,6 +136,8 @@ public interface Game {
   void performUnitActionAt(Position p);
 
   void addObserver(GameObserver gameObserver);
+
+  Position getTileFocus();
 
   void setTileFocus(Position position);
 }

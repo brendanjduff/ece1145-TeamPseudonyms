@@ -83,4 +83,9 @@ public class Transcript implements Game {
     public void setTileFocus(Position position) {
         game.setTileFocus(position);
     }
+
+    @Override
+    public Position getTileFocus() {
+        return null;
+    }
 }
