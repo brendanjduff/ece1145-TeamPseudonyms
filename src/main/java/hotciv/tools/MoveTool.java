@@ -2,23 +2,20 @@ package hotciv.tools;
 
 import hotciv.framework.Game;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
 import hotciv.view.GfxConstants;
 import hotciv.view.UnitFigure;
-import minidraw.framework.Drawing;
 import minidraw.framework.DrawingEditor;
-import minidraw.framework.RubberBandSelectionStrategy;
 import minidraw.framework.Tool;
 import minidraw.standard.NullTool;
 import minidraw.standard.SelectionTool;
 
 import java.awt.event.MouseEvent;
 
-public class moveTool extends SelectionTool {
+public class MoveTool extends SelectionTool {
     private Game game;
     private Position from;
 
-    public moveTool(Game game, DrawingEditor editor) {
+    public MoveTool(Game game, DrawingEditor editor) {
         super(editor);
         this.game = game;
     }
@@ -27,18 +24,20 @@ public class moveTool extends SelectionTool {
     public void mouseDown(MouseEvent e, int x, int y) {
         super.mouseDown(e, x, y);
 
-        if (!(draggedFigure instanceof UnitFigure)) {
+        if(draggedFigure instanceof UnitFigure) {
+            from = GfxConstants.getPositionFromXY(x, y);
+        } else {
             fChild = new NullTool();
-            return;
+            from = null;
         }
-
-        from = GfxConstants.getPositionFromXY(x, y);
     }
 
     @Override
     public void mouseUp(MouseEvent e, int x, int y) {
         super.mouseUp(e, x, y);
-        game.moveUnit(from, GfxConstants.getPositionFromXY(x, y));
+        if(from != null) {
+            game.moveUnit(from, GfxConstants.getPositionFromXY(x, y));
+        }
     }
 
     @Override

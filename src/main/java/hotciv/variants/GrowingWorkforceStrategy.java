@@ -28,11 +28,11 @@ public class GrowingWorkforceStrategy implements WorkforceStrategy {
       for (Position p : Utility.get8neighborhoodOf(pos)) {
         String type = game.getTiles().get(p).getTypeString();
         switch (type) {
-          case GameConstants.PLAINS -> plains++;
-          case GameConstants.OCEANS -> oceans++;
-          case GameConstants.FOREST -> forests++;
-          case GameConstants.MOUNTAINS -> mountains++;
-          case GameConstants.HILLS -> hills++;
+          case GameConstants.PLAINS: plains++; break;
+          case GameConstants.OCEANS: oceans++; break;
+          case GameConstants.FOREST: forests++; break;
+          case GameConstants.MOUNTAINS: mountains++; break;
+          case GameConstants.HILLS: hills++; break;
         }
       }
       // population works tiles in priority order
