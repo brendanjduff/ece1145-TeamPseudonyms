@@ -4,8 +4,10 @@ import hotciv.common.AgingStrategy;
 import hotciv.common.BattleStrategy;
 import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
+import hotciv.common.WorkforceStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.variants.AttackerWinsBattleStrategy;
+import hotciv.variants.ConstantWorkforceStrategy;
 import hotciv.variants.FullWorldLayoutStrategy;
 import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.NoUnitActionStrategy;
@@ -36,5 +38,10 @@ public class DeltaCivFactory implements GameFactory {
   @Override
   public BattleStrategy createBattleStrategy() {
     return new AttackerWinsBattleStrategy();
+  }
+
+  @Override
+  public WorkforceStrategy createWorkforceStrategy() {
+    return new ConstantWorkforceStrategy();
   }
 }

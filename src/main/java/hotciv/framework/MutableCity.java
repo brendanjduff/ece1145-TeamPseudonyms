@@ -6,11 +6,17 @@ public interface MutableCity extends City {
 
   void setProduction(String unitType);
 
-  void fillTreasury();
+  void setWorkforceFocus(String workforceFocus);
 
   boolean unitCostMet();
 
   void produceUnit();
 
   void setSize(int population);
+
+  void setTreasury(int treasury);
+
+  int getFood();
+
+  void setFood(int food);
 }

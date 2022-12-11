@@ -33,7 +33,7 @@ public class TestCity {
   public void cityProductionIsSixEachTurn() {
     city = new CityImpl(Player.RED);
     assertThat(city.getTreasury(), is(0));
-    city.fillTreasury();
+    city.setTreasury(city.getTreasury() + 6);
     assertThat(city.getTreasury(), is(6));
   }
 
@@ -69,43 +69,32 @@ public class TestCity {
   public void cityShouldProduceArcherAt10Production() {
     city = new CityImpl(Player.RED);
     city.setProduction(GameConstants.ARCHER);
-    city.fillTreasury();
     assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
+    city.setTreasury(10);
     assertThat(city.unitCostMet(), is(true));
     city.produceUnit();
     assertThat(city.getProduction(), is(GameConstants.ARCHER));
-    assertThat(city.getTreasury(), is(2));
+    assertThat(city.getTreasury(), is(0));
   }
 
   @Test
   public void cityShouldProduceLegionAt15Production() {
     city = new CityImpl(Player.RED);
     city.setProduction(GameConstants.LEGION);
-    city.fillTreasury();
     assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
+    city.setTreasury(15);
     assertThat(city.unitCostMet(), is(true));
     city.produceUnit();
     assertThat(city.getProduction(), is(GameConstants.LEGION));
-    assertThat(city.getTreasury(), is(3));
+    assertThat(city.getTreasury(), is(0));
   }
 
   @Test
   public void cityShouldProduceSettlerAt30Production() {
     city = new CityImpl(Player.RED);
     city.setProduction(GameConstants.SETTLER);
-    city.fillTreasury();
     assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
+    city.setTreasury(30);
     assertThat(city.unitCostMet(), is(true));
     city.produceUnit();
     assertThat(city.getProduction(), is(GameConstants.SETTLER));
@@ -116,25 +105,8 @@ public class TestCity {
   public void cityShouldProduceUFOAt60Production() {
     city = new CityImpl(Player.RED);
     city.setProduction(GameConstants.UFO);
-    city.fillTreasury();
     assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
-    assertThat(city.unitCostMet(), is(false));
-    city.fillTreasury();
+    city.setTreasury(60);
     assertThat(city.unitCostMet(), is(true));
     city.produceUnit();
     assertThat(city.getProduction(), is(GameConstants.UFO));
@@ -161,5 +133,12 @@ public class TestCity {
     city = new CityImpl(Player.RED);
     city.setWorkforceFocus(GameConstants.foodFocus);
     assertThat(city.getWorkforceFocus(), is(GameConstants.foodFocus));
+  }
+
+  @Test
+  public void shouldSetFoodTo1() {
+    city = new CityImpl(Player.RED);
+    city.setFood(1);
+    assertThat(city.getFood(), is(1));
   }
 }

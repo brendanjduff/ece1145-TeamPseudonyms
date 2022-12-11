@@ -6,23 +6,28 @@ import hotciv.framework.Player;
 
 public class CityImpl implements MutableCity {
 
+  Player owner;
+  int treasury;
+  int population;
+  int food;
+  String production;
+  String focus;
   public CityImpl(Player owner) {
     this.owner = owner;
     treasury = 0;
+    food = 0;
     population = 1;
     production = "black";
     focus = GameConstants.productionFocus;
   }
 
-  Player owner;
-  int treasury;
-  int population;
-  String production;
-  String focus;
-
   @Override
   public Player getOwner() {
     return owner;
+  }
+
+  public void setOwner(Player player) {
+    owner = player;
   }
 
   @Override
@@ -31,8 +36,18 @@ public class CityImpl implements MutableCity {
   }
 
   @Override
+  public void setSize(int population) {
+    this.population = population;
+  }
+
+  @Override
   public int getTreasury() {
     return treasury;
+  }
+
+  @Override
+  public void setTreasury(int treasury) {
+    this.treasury = treasury;
   }
 
   @Override
@@ -40,25 +55,21 @@ public class CityImpl implements MutableCity {
     return production;
   }
 
+  public void setProduction(String unitType) {
+    production = unitType;
+  }
+
   @Override
   public String getWorkforceFocus() {
     return focus;
   }
 
-  public void setOwner(Player player) {
-    owner = player;
+  @Override
+  public void setWorkforceFocus(String workforceFocus) {
+    focus = workforceFocus;
   }
 
-  public void setProduction(String unitType) {
-    production = unitType;
-  }
-
-  public void setWorkforceFocus(String workforceFocus) { focus = workforceFocus; }
-
-  public void fillTreasury() {
-    treasury += 6;
-  }
-
+  @Override
   public boolean unitCostMet() {
     if (GameConstants.unitConfigs.containsKey(production)) {
       return treasury >= GameConstants.unitConfigs.get(production).getProductionCost();
@@ -66,6 +77,7 @@ public class CityImpl implements MutableCity {
     return false;
   }
 
+  @Override
   public void produceUnit() {
     if (GameConstants.unitConfigs.containsKey(production)) {
       treasury -= GameConstants.unitConfigs.get(production).getProductionCost();
@@ -73,7 +85,12 @@ public class CityImpl implements MutableCity {
   }
 
   @Override
-  public void setSize(int population) {
-    this.population = population;
+  public int getFood() {
+    return food;
+  }
+
+  @Override
+  public void setFood(int food) {
+    this.food = food;
   }
 }

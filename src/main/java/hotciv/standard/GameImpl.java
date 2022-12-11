@@ -4,6 +4,7 @@ import hotciv.common.AgingStrategy;
 import hotciv.common.BattleStrategy;
 import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
+import hotciv.common.WorkforceStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.factory.GameFactory;
 import hotciv.framework.City;
@@ -58,6 +59,7 @@ public class GameImpl implements Game, MutableGame {
     unitActionStrategy = factory.createUnitActionStrategy();
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
+    workforceStrategy = factory.createWorkforceStrategy();
     gameObserver = new NullGameObserver();
 
     playerIndex = 0;
@@ -92,8 +94,8 @@ public class GameImpl implements Game, MutableGame {
   final UnitActionStrategy unitActionStrategy;
   final WorldLayoutStrategy worldLayoutStrategy;
   final BattleStrategy battleStrategy;
+  final WorkforceStrategy workforceStrategy;
   final NumberGenerator rng = new RandomNumberGenerator();
-
   GameObserver gameObserver;
 
   public Tile getTileAt(Position p) {
@@ -196,7 +198,7 @@ public class GameImpl implements Game, MutableGame {
       /* B) produce food and production in all cities
          C) produce units in all cities (if enough production) */
       cities.forEach((position, city) -> {
-        city.fillTreasury();
+        workforceStrategy.FillTreasury(position, city, this);
         if (city.unitCostMet()) {
           boolean noUnitOnCity = !units.containsKey(position);
           if (noUnitOnCity) {
@@ -213,6 +215,8 @@ public class GameImpl implements Game, MutableGame {
             }
           }
         }
+        // D) Update population in city
+        workforceStrategy.UpdatePopulation(position, city, this);
       });
       // E) increment the world age.
       age = agingStrategy.incrementAge(age);
@@ -222,6 +226,7 @@ public class GameImpl implements Game, MutableGame {
   }
 
   public void changeWorkForceFocusInCityAt(Position p, String balance) {
+    cities.get(p).setWorkforceFocus(balance);
   }
 
   public void changeProductionInCityAt(Position p, String unitType) {
