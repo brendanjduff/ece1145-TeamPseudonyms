@@ -227,6 +227,7 @@ public class GameImpl implements Game, MutableGame {
   }
 
   public void changeWorkForceFocusInCityAt(Position p, String balance) {
+    cities.get(p).setWorkforceFocus(balance);
   }
 
   public void changeProductionInCityAt(Position p, String unitType) {

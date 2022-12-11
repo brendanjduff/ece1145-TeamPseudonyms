@@ -6,6 +6,8 @@ public interface MutableCity extends City {
 
   void setProduction(String unitType);
 
+  void setWorkforceFocus(String workforceFocus);
+
   boolean unitCostMet();
 
   void produceUnit();
