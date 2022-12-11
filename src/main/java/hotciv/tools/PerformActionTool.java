@@ -6,6 +6,8 @@ import minidraw.standard.NullTool;
 
 import java.awt.event.MouseEvent;
 
+import static hotciv.view.GfxConstants.getPositionFromXY;
+
 public class PerformActionTool extends NullTool {
     private final Game game;
 
@@ -21,7 +23,8 @@ public class PerformActionTool extends NullTool {
     @Override
     public void mouseUp(MouseEvent e, int x, int y) {
         //we execute on mouse up
-        game.performUnitActionAt(new Position(x, y));
-
+        if(e.isShiftDown()) {
+            game.performUnitActionAt(getPositionFromXY(x, y));
+        }
     }
 }
