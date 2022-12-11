@@ -216,6 +216,8 @@ public class GameImpl implements Game, MutableGame {
             }
           }
         }
+        // D) Update population in city
+        workforceStrategy.UpdatePopulation(position, city, this);
       });
       // E) increment the world age.
       age = agingStrategy.incrementAge(age);

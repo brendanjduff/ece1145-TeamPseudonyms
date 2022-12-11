@@ -8,6 +8,7 @@ import hotciv.common.WorkforceStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.ConstantWorkforceStrategy;
+import hotciv.variants.GrowingWorkforceStrategy;
 import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.NoUnitActionStrategy;
 import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
@@ -42,6 +43,6 @@ public class EtaCivFactory implements GameFactory {
 
   @Override
   public WorkforceStrategy createWorkforceStrategy() {
-    return null;
+    return new GrowingWorkforceStrategy();
   }
 }

@@ -13,4 +13,8 @@ public interface MutableCity extends City {
   void setSize(int population);
 
   void setTreasury(int treasury);
+
+  int getFood();
+
+  void setFood(int food);
 }

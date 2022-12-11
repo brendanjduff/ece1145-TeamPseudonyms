@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class TestSpy implements GameObserver {
 
-  Stack<String> log = new Stack<>();
+  final Stack<String> log = new Stack<>();
 
   public String pop() {
     return log.pop();

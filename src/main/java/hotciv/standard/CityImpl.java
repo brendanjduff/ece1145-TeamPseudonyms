@@ -9,6 +9,7 @@ public class CityImpl implements MutableCity {
   public CityImpl(Player owner) {
     this.owner = owner;
     treasury = 0;
+    food = 0;
     population = 1;
     production = "black";
     focus = GameConstants.productionFocus;
@@ -17,6 +18,7 @@ public class CityImpl implements MutableCity {
   Player owner;
   int treasury;
   int population;
+  int food;
   String production;
   String focus;
 
@@ -78,5 +80,15 @@ public class CityImpl implements MutableCity {
   @Override
   public void setTreasury(int treasury) {
     this.treasury = treasury;
+  }
+
+  @Override
+  public int getFood() {
+    return food;
+  }
+
+  @Override
+  public void setFood(int food) {
+    this.food = food;
   }
 }

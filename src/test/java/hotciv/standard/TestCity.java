@@ -134,4 +134,11 @@ public class TestCity {
     city.setWorkforceFocus(GameConstants.foodFocus);
     assertThat(city.getWorkforceFocus(), is(GameConstants.foodFocus));
   }
+
+  @Test
+  public void shouldSetFoodTo1() {
+    city = new CityImpl(Player.RED);
+    city.setFood(1);
+    assertThat(city.getFood(), is(1));
+  }
 }

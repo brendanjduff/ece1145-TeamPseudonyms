@@ -28,10 +28,9 @@ public class SemiCivFactory implements GameFactory{
     public BattleStrategy createBattleStrategy() {
         return new RandomCombinedBattleStrategy();
     }
-
-    // TODO change to match EtaCiv
+    
     @Override
     public WorkforceStrategy createWorkforceStrategy() {
-        return new ConstantWorkforceStrategy();
+        return new GrowingWorkforceStrategy();
     }
 }
