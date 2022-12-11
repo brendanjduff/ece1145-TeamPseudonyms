@@ -10,13 +10,15 @@ public class CityImpl implements MutableCity {
     this.owner = owner;
     treasury = 0;
     population = 1;
-    production = "";
+    production = "black";
+    focus = GameConstants.productionFocus;
   }
 
   Player owner;
   int treasury;
   int population;
   String production;
+  String focus;
 
   @Override
   public Player getOwner() {
@@ -40,7 +42,7 @@ public class CityImpl implements MutableCity {
 
   @Override
   public String getWorkforceFocus() {
-    return null;
+    return focus;
   }
 
   public void setOwner(Player player) {
@@ -50,6 +52,8 @@ public class CityImpl implements MutableCity {
   public void setProduction(String unitType) {
     production = unitType;
   }
+
+  public void setWorkforceFocus(String workforceFocus) { focus = workforceFocus; }
 
   public void fillTreasury() {
     treasury += 6;
