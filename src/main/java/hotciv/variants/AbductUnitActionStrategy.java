@@ -15,6 +15,7 @@ public class AbductUnitActionStrategy implements UnitActionStrategy {
       city.setSize(city.getSize() - 1);
       if (city.getSize() <= 0) {
         game.getCities().remove(p);
+        game.getObserver().worldChangedAt(p);
       }
     } else if (game.getTiles().get(p).getTypeString().equals(GameConstants.FOREST)) {
       game.getTiles().get(p).setTypeString(GameConstants.PLAINS);

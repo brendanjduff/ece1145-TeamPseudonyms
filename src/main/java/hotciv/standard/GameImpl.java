@@ -58,7 +58,7 @@ public class GameImpl implements Game, MutableGame {
     unitActionStrategy = factory.createUnitActionStrategy();
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
-    gameObserver = new GameObserverNULL();
+    gameObserver = new NullGameObserver();
 
     playerIndex = 0;
     players[0] = Player.RED;

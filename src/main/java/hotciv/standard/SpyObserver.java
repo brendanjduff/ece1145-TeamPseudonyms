@@ -5,7 +5,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import java.util.Stack;
 
-public class TestSpy implements GameObserver {
+public class SpyObserver implements GameObserver {
 
   Stack<String> log = new Stack<>();
 

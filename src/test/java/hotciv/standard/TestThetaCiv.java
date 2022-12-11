@@ -125,4 +125,26 @@ public class TestThetaCiv {
     assertThat(game.getUnitAt(new Position(1, 0)).getTypeString(), is(GameConstants.UFO));
     assertThat(game.getUnitAt(new Position(1, 0)).getMoveCount(), is(1));
   }
+
+  @Test
+  public void shouldObserveBuildCitySettlerAction() {
+    assertThat(game, is(notNullValue()));
+    SpyObserver observer = new SpyObserver();
+    game.addObserver(observer);
+    game.performUnitActionAt(new Position(4, 3));
+    assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));
+    assertThat(observer.pop(), is("worldChangedAt(4,3)"));
+  }
+
+  @Test
+  public void shouldObserveUFOAbductionAction() {
+    assertThat(game, is(notNullValue()));
+    SpyObserver observer = new SpyObserver();
+    game.addObserver(observer);
+    game.getUnits().put(new Position(4, 1), new UnitImpl(GameConstants.UFO, Player.RED));
+    assertThat(game.getCities().containsKey(new Position(4,1)), is(true));
+    game.performUnitActionAt(new Position(4,1));
+    assertThat(game.getCities().containsKey(new Position(4,1)), is(false));
+    assertThat(observer.pop(), is("worldChangedAt(4,1)"));
+  }
 }
