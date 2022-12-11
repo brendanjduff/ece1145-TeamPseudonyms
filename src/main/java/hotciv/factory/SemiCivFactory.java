@@ -29,5 +29,9 @@ public class SemiCivFactory implements GameFactory{
         return new RandomCombinedBattleStrategy();
     }
 
-    //TODO: Add EtaCiv CityWorkforceFocus and PopulationIncrease strategy
+    // TODO change to match EtaCiv
+    @Override
+    public WorkforceStrategy createWorkforceStrategy() {
+        return new ConstantWorkforceStrategy();
+    }
 }

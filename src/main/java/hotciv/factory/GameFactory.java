@@ -4,6 +4,7 @@ import hotciv.common.AgingStrategy;
 import hotciv.common.BattleStrategy;
 import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
+import hotciv.common.WorkforceStrategy;
 import hotciv.common.WorldLayoutStrategy;
 
 public interface GameFactory {
@@ -17,4 +18,6 @@ public interface GameFactory {
   WorldLayoutStrategy createWorldLayoutStrategy();
 
   BattleStrategy createBattleStrategy();
+
+  WorkforceStrategy createWorkforceStrategy();
 }

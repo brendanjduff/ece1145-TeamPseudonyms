@@ -6,15 +6,14 @@ import hotciv.common.UnitActionStrategy;
 import hotciv.common.VictoryStrategy;
 import hotciv.common.WorkforceStrategy;
 import hotciv.common.WorldLayoutStrategy;
+import hotciv.variants.AttackerWinsBattleStrategy;
 import hotciv.variants.ConstantWorkforceStrategy;
-import hotciv.variants.FirstPlayerToThreeSuccessfulAttacksVictoryStrategy;
 import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.NoUnitActionStrategy;
-import hotciv.variants.RandomCombinedBattleStrategy;
+import hotciv.variants.RedWinsAt3000BCVictoryStrategy;
 import hotciv.variants.SparseWorldLayoutStrategy;
 
-
-public class EpsilonCivFactory implements GameFactory {
+public class EtaCivFactory implements GameFactory {
 
   @Override
   public AgingStrategy createAgingStrategy() {
@@ -23,7 +22,7 @@ public class EpsilonCivFactory implements GameFactory {
 
   @Override
   public VictoryStrategy createVictoryStrategy() {
-    return new FirstPlayerToThreeSuccessfulAttacksVictoryStrategy();
+    return new RedWinsAt3000BCVictoryStrategy();
   }
 
   @Override
@@ -38,11 +37,11 @@ public class EpsilonCivFactory implements GameFactory {
 
   @Override
   public BattleStrategy createBattleStrategy() {
-    return new RandomCombinedBattleStrategy();
+    return new AttackerWinsBattleStrategy();
   }
 
   @Override
   public WorkforceStrategy createWorkforceStrategy() {
-    return new ConstantWorkforceStrategy();
+    return null;
   }
 }

@@ -53,10 +53,8 @@ public class CityImpl implements MutableCity {
     production = unitType;
   }
 
-  public void setWorkforceFocus(String workforceFocus) { focus = workforceFocus; }
-
-  public void fillTreasury() {
-    treasury += 6;
+  public void setWorkforceFocus(String workforceFocus) {
+    focus = workforceFocus;
   }
 
   public boolean unitCostMet() {
@@ -75,5 +73,10 @@ public class CityImpl implements MutableCity {
   @Override
   public void setSize(int population) {
     this.population = population;
+  }
+
+  @Override
+  public void setTreasury(int treasury) {
+    this.treasury = treasury;
   }
 }
