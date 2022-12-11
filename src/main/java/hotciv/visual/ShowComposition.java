@@ -2,6 +2,7 @@ package hotciv.visual;
 
 import hotciv.framework.Game;
 import hotciv.stub.*;
+import hotciv.tools.*;
 import hotciv.view.*;
 import minidraw.framework.*;
 import minidraw.standard.*;
@@ -33,7 +34,12 @@ public class ShowComposition {
     editor.open();
     editor.showStatus("Click and drag any item to see Game's proper response.");
 
-    // TODO: Replace the setting of the tool with your CompositionTool implementation.
-    editor.setTool( new NullTool() );
+    CompositionTool comp = new CompositionTool(game, editor);
+    editor.setTool( comp );
+    comp.addTool(new MoveTool(game,editor));
+    comp.addTool(new SetFocusTool(game, editor));
+    comp.addTool(new EndOfTurnTool(game));
+    comp.addTool(new PerformActionTool(game));
+
   }
 }
