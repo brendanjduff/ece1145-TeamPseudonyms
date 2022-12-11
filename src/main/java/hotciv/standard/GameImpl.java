@@ -60,7 +60,8 @@ public class GameImpl implements Game, MutableGame {
     worldLayoutStrategy = factory.createWorldLayoutStrategy();
     battleStrategy = factory.createBattleStrategy();
     workforceStrategy = factory.createWorkforceStrategy();
-    gameObserver = new GameObserverNULL();
+    gameObserver = new NullGameObserver();
+
 
     playerIndex = 0;
     players[0] = Player.RED;
