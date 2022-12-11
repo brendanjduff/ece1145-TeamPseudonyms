@@ -3,29 +3,23 @@ package hotciv.standard;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
 import hotciv.common.BattleStrategy;
 import hotciv.factory.AlphaCivFactory;
 import hotciv.framework.GameConstants;
-import hotciv.framework.MutableCity;
 import hotciv.framework.MutableGame;
-import hotciv.framework.MutableTile;
 import hotciv.framework.MutableUnit;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.utility.Utility;
 import hotciv.variants.AttackerWinsBattleStrategy;
-import hotciv.variants.SparseWorldLayoutStrategy;
-import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TestObserver {
 
     private MutableGame game;
-    private TestSpy observer;
+    private SpyObserver observer;
 
     /**
      * Fixture for AlphaCiv testing.
@@ -33,7 +27,7 @@ public class TestObserver {
     @Before
     public void setUp() {
       game = new GameImpl(new AlphaCivFactory());
-      observer = new TestSpy();
+      observer = new SpyObserver();
       game.addObserver(observer);
     }
 
